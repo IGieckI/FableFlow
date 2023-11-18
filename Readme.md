@@ -8,8 +8,16 @@ Mockup da  fare:
 - [x] Chat (lista contatti)
 - [x] Chat (messaggi)
 - [ ] Aggiunta contenuto del master
-- [ ] Post effettivo +  aggiunta proposta storia + commenti
+- [ ] Racconto (Guest view)
+    - [ ] Racconto scene
+    - [ ] Pool scene
+    - [ ] Proposal scene
 - [ ] Profilo utente
+- [ ] Racconto (Master view)
+    - [ ] Racconto scene 
+    - [ ] Pool scene
+    - [ ] Proposal scene
+          
 + altre se ci vengono in mente
 
 Poi bisognerebbe scegliere le palette
