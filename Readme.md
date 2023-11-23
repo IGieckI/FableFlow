@@ -15,6 +15,7 @@ Mockup da  fare:
 - [ ] Racconto (Master view)
     - [ ] Racconto scene 
     - [x] Pool scene
+- [ ] Creare frecce per tornare indietro e migliorare la navigazione.
 + altre se ci vengono in mente
 
 Poi bisognerebbe scegliere le palette
