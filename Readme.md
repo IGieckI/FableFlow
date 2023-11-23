@@ -4,20 +4,17 @@ FableFlow is a collaborative storytelling platform that serves as a dynamic soci
 Mockup da  fare:
 - [x] Home Page 
 - [x] Home Page con side bar
-- [ ] Notifiche
+- [x] Notifiche
 - [x] Chat (lista contatti)
 - [x] Chat (messaggi)
-- [ ] Aggiunta contenuto del master
-- [ ] Racconto (Guest view)
-    - [ ] Racconto scene
-    - [ ] Pool scene
-    - [ ] Proposal scene
-- [ ] Profilo utente
+- [x] Racconto (Guest view)
+    - [x] Racconto scene
+    - [x] Pool scene
+    - [x] Proposal scene
+- [x] Profilo utente
 - [ ] Racconto (Master view)
     - [ ] Racconto scene 
-    - [ ] Pool scene
-    - [ ] Proposal scene
-          
+    - [x] Pool scene
 + altre se ci vengono in mente
 
 Poi bisognerebbe scegliere le palette
