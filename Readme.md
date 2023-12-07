@@ -12,10 +12,10 @@ Mockup da  fare:
     - [x] Pool scene
     - [x] Proposal scene
 - [x] Profilo utente
-- [ ] Racconto (Master view)
-    - [ ] Racconto scene 
+- [X] Racconto (Master view)
+    - [X] Racconto scene 
     - [x] Pool scene
-- [ ] Creare frecce per tornare indietro e migliorare la navigazione.
+- [X] Creare frecce per tornare indietro e migliorare la navigazione.
 + altre se ci vengono in mente
 
 Poi bisognerebbe scegliere le palette
