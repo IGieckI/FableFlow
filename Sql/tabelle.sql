@@ -1,7 +1,7 @@
 CREATE TABLE followers (
     followed VARCHAR(255) REFERENCES users(username),
     follower VARCHAR(255) REFERENCES users(username),
-    CONSTRAINT follow PRIMARY KEY(followed, follower)
+    CONSTRAINT followers PRIMARY KEY(followed, follower)
 );
 
 CREATE TABLE messages (
@@ -10,18 +10,20 @@ CREATE TABLE messages (
     receiver VARCHAR(255) REFERENCES users(username),
     content VARCHAR(500),
     date_time DATE,
-    CONSTRAINT messaggio PRIMARY KEY(message_id, sender, receiver)
+    CONSTRAINT messages PRIMARY KEY(message_id, sender, receiver)
 );
 
-CREATE TABLE option_choice (
-    option_id INT PRIMARY KEY AUTO_INCREMENT
-    username VARCHAR(255) REFERENCES users(username)
+CREATE TABLE option_choices (
+    option_id INT AUTO_INCREMENT
+    username VARCHAR(255) REFERENCES users(username),
+    CONSTRAINT option_choices PRIMARY KEY (option_id, username)
 );
 
-CREATE TABLE option (
-    option_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE options (
+    option_id INT AUTO_INCREMENT,
     pool_id INT REFERENCES pools(pool_id),
-    content VARCHAR(200)
+    content VARCHAR(200),
+    CONSTRAINT options PRIMARY KEY(option_id, pool_id)
 );
 
 CREATE TABLE pools (
