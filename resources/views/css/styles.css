@@ -1,0 +1,46 @@
+html body {
+    margin: 0;
+}
+
+footer {
+    background-color: #d7d7d7;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.footer-btn {
+    background-color: grey;
+    width: 30px; /* Adjust the size as needed */
+    padding: 0;
+    border-width: 0;
+}
+
+.footer-btn:hover .footer-icon {
+    stroke: white;
+    fill: black;
+}
+
+.footer-btn:hover .footer-icon .footer-icon-part {
+    fill:black;
+    stroke: white;
+}
+
+.footer-icon-part {
+    transition-duration: 1s;
+}
+
+.footer-btn .footer-icon{
+    stroke: #0b0a0a;
+    height: 100%;
+    width: 100%;
+    fill: none;
+    background-color: #d7d7d7;
+    transition-duration: 1s;
+}
