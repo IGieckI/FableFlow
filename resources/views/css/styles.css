@@ -6,21 +6,22 @@ footer {
     background-color: #d7d7d7;
     color: white;
     text-align: center;
-    padding: 10px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
 
 }
 
 .footer-btn {
-    background-color: grey;
-    width: 30px; /* Adjust the size as needed */
+    background-color: transparent;
     padding: 0;
     border-width: 0;
+    display: flex;
+    justify-content: center;
 }
+
 
 .footer-btn:hover .footer-icon {
     stroke: white;
@@ -38,9 +39,14 @@ footer {
 
 .footer-btn .footer-icon{
     stroke: #0b0a0a;
-    height: 100%;
-    width: 100%;
+    height: 35px;
+    width: 35px;
     fill: none;
-    background-color: #d7d7d7;
+    background-color: transparent;
+    transition-duration: 1s;
+}
+
+.footer-btn:hover {
+    background-color: black;
     transition-duration: 1s;
 }
