@@ -1,0 +1,24 @@
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+#title {
+    align-self: center;
+    resize: none;
+
+}
+
+#pool_description {
+    align-self: center;
+    width: 50%;
+    height: 50%;
+    resize: none;
+}
+
+#options-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    align-self: center;
+}
