@@ -1,55 +1,69 @@
 <header>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
-    </div>
+  <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li>
-            <img src="$LENS_ICON">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search"> /* SOMEHOW THIS HAVE TO SUBMIR WITH "ENTER" OR REAL TIME */
-                </div>
-            </form>
-            <br>
-            <p> Trending </p>
-            <img src="$FIRE_ICON">
-            <br>
-            <?php
-                foreach ($_COOKIE["Trending"] as $value) {      /*THIS HAVE TO SHOW THE TOP 3 TRENDING PROFILES*/
-                    <li>
-                        <a href="!!! INSERIRE IL LINK DELLA PAGINA UTENTE !!!">$value</a>
-                    </li>
-                }
-            ?>
-        </li>
-        <li>            
-            <hr>
-        </li>
-        <li>
-            <?php
-                foreach ($_COOKIE["latest_research"] as $value) {
-                    <li>
-                        <a href="!!! INSERIRE IL LINK DELLA PAGINA UTENTE !!!">$value</a>
-                        <button type="button">X</button> /*FIX THE ICON OF THE BUTTON*/
-                    </li>
-                } /* Should be a for loop with the top 3 profile link */
-            ?>
-        </li>
-      </ul>      
-    </div>
+          <li>
+              <i id="lens_icon" class="bi bi-search"></i>
+              <form class="navbar-form navbar-left" onsubmit="return submitForm()">
+                  <div class="form-group">
+                      <input type="text" class="form-control" id="searchInput" placeholder="Search" onkeydown="if(event.keyCode==13) submitForm()">
+                  </div>
+              </form>
+              <br>
+              <p> Trending </p>
+              <i id="fire_icon" class="bi bi-fire"></i>
+              <br>
+              <?php
+              $_COOKIE["Trending"] = [];
+              foreach ($_COOKIE["Trending"] as $value) {
+                  echo '<li><a href="' . $value . '">' . $value . '</a></li>';
+              }
+              ?>
+          </li>
+          <li>
+              <hr>
+          </li>
+          <li>
+              <?php
+              $_COOKIE["latest_research"] = [];
+              foreach ($_COOKIE["latest_research"] as $value) {
+                  echo '<li><a href="' . $value . '">' . $value . '</a><button type="button">X</button></li>';
+              }
+              ?>
+          </li>
+      </ul>
   </div>
-</nav>
-    <img id="notification_icon" src="$NOTIFICATION_ICON">
-    <img id="chat_icon" src="$CHAT_ICON">
-    <h1>FableFlow</h1>
+
+  <!-- Top Navigation Menu -->
+  <div class="container">
+      <div class="row">
+          <div class="col-1">
+              <i id="notification_icon" class="bi bi-bell"></i>
+          </div>
+          <div class="col-1">
+              <i id="chat_icon" class="bi bi-chat-dots"></i>
+          </div>
+          <div class="col d-flex justify-content-center">
+              Fableflow
+          </div>
+          <div class="col-1">
+              <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+          </div>
+      </div>
+  </div>
+
+  <script>
+      function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+          document.getElementById("main").style.marginRight = "250px";
+          document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+      }
+
+      function closeNav() {
+          document.getElementById("mySidenav").style.width = "0";
+          document.getElementById("main").style.marginRight = "0";
+          document.body.style.backgroundColor = "white";
+      }
+  </script>
 </header>
