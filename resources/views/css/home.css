@@ -1,5 +1,5 @@
 body {
-    background-color: #f8f9fa; /* Bootstrap default background color */
+    background-color: #f8f9fa;
 }
 
 .main-container {
@@ -9,11 +9,17 @@ body {
 }
 
 .post-container {
-    border: 1px solid #dfe1e5; /* Bootstrap default border color */
+    border: 1px solid #dfe1e5;
     border-radius: 8px;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: #ffffff; /* Bootstrap default background color */
+    background-color: #ffffff;
+    transition: box-shadow 0.3s;
+}
+
+.post-container:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
 
 .user-info {
@@ -39,6 +45,6 @@ body {
 }
 
 .post-content {
-    max-height: 100px; /* Set a max height for the post content */
+    max-height: 100px;
     overflow: hidden;
 }
