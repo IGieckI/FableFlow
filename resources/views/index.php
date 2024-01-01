@@ -1,17 +1,24 @@
-<header>
-    <div class="container">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Offcanvas Example</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid mt-5">
         <div class="row">
-            <div class="col-1">
-                <i id="notification_icon" class="bi bi-bell"></i>
-            </div>
-            <div class="col-1">
-                <i id="chat_icon" class="bi bi-chat-dots"></i>
-            </div>
-            <div class="col d-flex justify-content-center">
-                Fableflow
-            </div>
-            <div class="col-1">
-                <button class="btn btn-primary btn-side-hamburgher" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">&#9776;</button>
+            <div class="col-md-6">
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">&#9776;</button>
             </div>
         </div>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -20,7 +27,7 @@
             </div>
             <div class="offcanvas-body">
                 <div class="input-group">
-                    <input type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
                     <button class="btn btn-outline-secondary" type="button" id="searchIcon">
                     <i id="search_icon" class="bi bi-search"></i>
                     </button>
@@ -51,4 +58,7 @@
             </div>
         </div>
     </div>
-</header>
+
+</body>
+
+</html>
