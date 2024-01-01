@@ -11,7 +11,7 @@
                 Fableflow
             </div>
             <div class="col-1">
-                <button class="btn btn-primary btn-side-hamburgher" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">&#9776;</button>
+                <button class="btn btn-side-hamburgher" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">&#9776;</button>
             </div>
         </div>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">

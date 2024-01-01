@@ -36,3 +36,12 @@ transition: 0.5s;
   transition: margin-right .5s;
   padding: 16px;
 }
+
+.btn-side-hamburgher {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0px;
+  margin: 0px;
+  outline: none;
+}
