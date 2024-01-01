@@ -1,0 +1,44 @@
+body {
+    background-color: #f8f9fa; /* Bootstrap default background color */
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.post-container {
+    border: 1px solid #dfe1e5; /* Bootstrap default border color */
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff; /* Bootstrap default background color */
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    padding: 0;
+}
+
+.post-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.post-content {
+    max-height: 100px; /* Set a max height for the post content */
+    overflow: hidden;
+}
