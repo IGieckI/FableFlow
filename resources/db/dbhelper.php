@@ -1,5 +1,22 @@
 <?php 
 
+enum Tables {
+    chapters,    
+    comments,
+    followers,
+    likes,
+    messages,
+    option_choices,
+    options,
+    pools,
+    proposals,
+    stories,
+    stories_tag,
+    tag,
+    user_tag,
+    users
+}
+
 class DbHelper {
 
     private $db;
@@ -33,7 +50,7 @@ class DbHelper {
 
     public function findBy(array $criteria, $limit = null, $offset = null, Tables $table) {
         $query = $this->db->createQuery();
-        $query->select('*')->from($this->$table);
+        $query->select('*')->from(strval($this->$table));
         
         foreach ($criteria as $col => $value) {
             $query->andWhere($col, $value);
