@@ -73,9 +73,9 @@
                     data: { page: page },
                     dataType: 'json',
                     success: function(data) {
+                        console.log(data);
                         if (data.length > 0) {
                             console.log("Nice");
-                            console.log(data);
                             // Append new posts to the container
                             var postsContainer = $('#posts-container');
                             data.forEach(function(post) {

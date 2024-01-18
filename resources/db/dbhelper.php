@@ -1,32 +1,33 @@
 <?php 
 
-enum Tables {
-    chapters,    
-    comments,
-    followers,
-    likes,
-    messages,
-    option_choices,
-    options,
-    pools,
-    proposals,
-    stories,
-    stories_tag,
-    tag,
-    user_tag,
-    users
+enum Tables: string {
+    case Chapters = 'chapters';    
+    case Comments = 'comments';
+    case Followers = 'followers';
+    case Likes = 'likes';
+    case Messages = 'messages';
+    case OptionChoices = 'option_choices';
+    case Options = 'options';
+    case Pools = 'pools';
+    case Proposals = 'proposals';
+    case Stories = 'stories';
+    case StoriesTag = 'stories_tag';
+    case Tag = 'tag';
+    case UserTag = 'user_tag';
+    case Users = 'users';
 }
+
 
 class DbHelper {
 
     private $db;
 
-    public function __construct($servername, $username, $password,
-                                $dbname, $port) {
+    public function __construct($host, $user, $password, $dbname, $port, $socket) {
         
         //ini_set('display_errors', 1);
         
-        $this->db = new mysqli($servername, $username, $password, $dbname, $port);
+        $this->db = new mysqli($host, $user, $password, $dbname, $port, $socket)
+        or die ('Could not connect to the database server' . mysqli_connect_error());
         
         if ($this->db->connect_error) {
             error_log('$this->db->connect_error');
@@ -49,23 +50,35 @@ class DbHelper {
     }
 
     public function findBy(array $criteria, $limit = null, $offset = null, Tables $table) {
-        $query = $this->db->createQuery();
-        $query->select('*')->from(strval($this->$table));
-        
-        foreach ($criteria as $col => $value) {
-            $query->andWhere($col, $value);
+        $query = "SELECT * FROM $table->value";
+    
+        if (!empty($criteria)) {
+            $conditions = [];
+            foreach ($criteria as $col => $value) {
+                $conditions[] = "$col = '$value'";
+            }
+            $query .= " WHERE " . implode(' AND ', $conditions);
         }
-
+    
         if (null !== $limit) {
-           $query->limit($limit);
+            $query .= " LIMIT $limit";
         }
-
+    
         if (null !== $offset) {
-           $query->offset($offset);
+            $query .= " OFFSET $offset";
         }
-
-        return $query->execute();
+    
+        $result = $this->db->query($query);
+    
+        // Handle errors if needed
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+    
+        return $data;
     }
+    
 }
 
 ?>

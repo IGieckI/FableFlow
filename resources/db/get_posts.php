@@ -2,7 +2,7 @@
 require('config.php');
 require('dbhelper.php');
 
-$db = new DbHelper(SERVER, USER, PASS, DB, PORT);
+$db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
 // Define the number of posts to load at a time
 $postsPerPage = 5;
@@ -16,7 +16,7 @@ $start = ($page - 1) * $postsPerPage;
 
 try {
     // Fetch posts from the database (replace with your actual database query)
-    $result = $db->findBy([], $postsPerPage, $start, strval(Tables::stories));
+    $result = $db->findBy([], $postsPerPage, $start, Tables::Stories);
 
     // Set the Content-Type header
     header('Content-Type: application/json');
