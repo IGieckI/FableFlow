@@ -2,6 +2,8 @@
 <html lang="it">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <title>Home</title>
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +30,7 @@
                     <div class="col-lg-8">
                         <div id="posts-container">
                             <div class="post" onclick="window.location.href='postPage.php';">
-                                <div class="container">
+                                <div class="container-fluid">
                                     <div class="row user-info">
                                         <div class="col-10">
                                             <img src="user-icon.png" alt="User Icon" width="30" height="30">
@@ -97,7 +99,7 @@
             function createPostHtml(post) {
                 return `
                     <div class="post" onclick="window.location.href='postPage.php';">
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="row user-info">
                                 <div class="col-10">
                                     <img src="${post.user_icon}" alt="User Icon" width="30" height="30">

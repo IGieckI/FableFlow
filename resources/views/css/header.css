@@ -1,20 +1,19 @@
-body {
-  font-family: "Lato", sans-serif;
-  transition: background-color .5s;
+icons-size {
+  font-size: 32px;
 }
 
 .sidenav {
-height: 100%;
-width: 0;
-position: fixed;
-z-index: 1;
-top: 0;
-right: 0;
-background-color: white;
-border: 1px solid black; /* Light, solid, black border */
-border-radius: 10px; /* Rounded corners */
-overflow-x: hidden;
-transition: 0.5s;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid black; /* Light, solid, black border */
+  border-radius: 10px; /* Rounded corners */
+  overflow-x: hidden;
+  transition: 0.5s;
 }
 
 .sidenav a:hover {
@@ -30,11 +29,6 @@ transition: 0.5s;
   color: #818181;
   display: block;
   transition: 0.3s;
-}
-
-#main {
-  transition: margin-right .5s;
-  padding: 16px;
 }
 
 .btn-side-hamburgher {
