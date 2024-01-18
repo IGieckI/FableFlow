@@ -124,6 +124,37 @@
                         </div>
                     </div>`;
             }
+            function getTimeAgo(mysqlDatetime) {
+                var mysqlDate = new Date(mysqlDatetime);
+                var currentDate = new Date();
+
+                // Calculate the time difference in milliseconds
+                var timeDifference = currentDate.getTime() - mysqlDate.getTime();
+
+                // Convert t-he time difference to seconds, minutes, hours, and days
+                var seconds = Math.floor(timeDifference / 1000);
+                var minutes = Math.floor(seconds / 60);
+                var hours = Math.floor(minutes / 60);
+                var days = Math.floor(hours / 24);
+
+                // Determine the appropriate unit and value
+                if (days > 0) {
+                    return days + ' days ago';
+                } else if (hours > 0) {
+                    return hours + ' hours ago';
+                } else if (minutes > 0) {
+                    return minutes + ' minutes ago';
+                } else {
+                    return seconds + ' seconds ago';
+                }
+            }
+
+            function limitString(inputString, maxLength) {
+                if (inputString.length > maxLength) {
+                    return inputString.substring(0, maxLength) + '...';
+                }
+                return inputString;
+            }
         });
     </script>
 </html>
