@@ -45,7 +45,7 @@ CREATE TABLE messages (
     sender VARCHAR(255) REFERENCES users(username),
     receiver VARCHAR(255) REFERENCES users(username),
     content VARCHAR(500),
-    date_time DATE,
+    message_datetime DATE,
     CONSTRAINT messages PRIMARY KEY(message_id, sender, receiver)
 );
 
@@ -67,49 +67,48 @@ CREATE TABLE pools (
     story_id INT REFERENCES stories(story_id),
     title VARCHAR (50), 
     content VARCHAR (500),
-    expire_date_time DATE
+    expire_datetime DATE
 );
 
 CREATE TABLE chapters(
-	chapterid INT AUTO_INCREMENT PRIMARY KEY,
-    storyid INT NOT NULL,
+	chapter_id INT AUTO_INCREMENT PRIMARY KEY,
+    story_id INT NOT NULL,
    	content TEXT,
-    publicationdatetime DATETIME NOT NULL
+    publication_datetime DATETIME NOT NULL
 );
 
 CREATE TABLE proposals(
-	proposalid INT AUTO_INCREMENT PRIMARY KEY,
-    chapterid INT NOT NULL,
-    usernameproposing VARCHAR(255) NOT NULL,
-    publicationdatetime DATETIME NOT NULL,
+	proposal_id INT AUTO_INCREMENT PRIMARY KEY,
+    chapter_id INT NOT NULL,
+    username_proposing VARCHAR(255) NOT NULL,
+    publication_datetime DATETIME NOT NULL,
     content TEXT NOT NULL,
-    FOREIGN KEY (chapterid) REFERENCES chapters(chapterid),
-    FOREIGN KEY (usernameproposing) REFERENCES users(username)
+    FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
+    FOREIGN KEY (username_proposing) REFERENCES users(username)
 );
 
 CREATE TABLE comments(
-	commentid INT AUTO_INCREMENT PRIMARY KEY,
+	comment_id INT AUTO_INCREMENT PRIMARY KEY,
     username_commenting VARCHAR(255) NOT NULL,
-    chapterid INT,
-    proposalid INT,
-    commentdatetime DATETIME NOT NULL,
+    chapter_id INT,
+    proposal_id INT,
+    comment_datetime DATETIME NOT NULL,
     content TEXT NOT NULL,
     FOREIGN KEY (username_commenting) REFERENCES users(username),
-    FOREIGN KEY (chapterid) REFERENCES chapters(chapterid),
-    FOREIGN KEY (proposalid) REFERENCES proposals(proposalid)
+    FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
+    FOREIGN KEY (proposal_id) REFERENCES proposals(proposal_id)
 );
 
 CREATE TABLE likes(
     likeid INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
-    chapterid INT NULL,
-    proposalid INT NULL,
-    commentid INT NULL,
+    chapter_id INT NULL,
+    proposal_id INT NULL,
+    comment_id INT NULL,
     FOREIGN KEY (username) REFERENCES users(username),
-    FOREIGN KEY (chapterid) REFERENCES chapters(chapterid),
-    FOREIGN KEY (proposalid) REFERENCES proposals(proposalid),
-    FOREIGN KEY (commentid) REFERENCES comments(
-        commentid)
+    FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
+    FOREIGN KEY (proposal_id) REFERENCES proposals(proposal_id),
+    FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
     );
     
 INSERT INTO tag (name) 
@@ -149,7 +148,7 @@ INSERT INTO user_tag (name, username) VALUES
     ('Mythology', 'jane_smith');
 
 -- Insert into chapters
-INSERT INTO chapters (storyid, content, publicationdatetime)
+INSERT INTO chapters (story_id, content, publication_datetime)
 VALUES
     (1, 'Chapter 1 content', '2023-01-01 12:00:00'),
     (1, 'Chapter 2 content', '2023-01-02 14:30:00'),
@@ -157,14 +156,14 @@ VALUES
     (3, 'Chapter 1 content', '2023-03-20 10:45:00');
 
 -- Insert into proposals
-INSERT INTO proposals (chapterid, usernameproposing, publicationdatetime, content)
+INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, content)
 VALUES
     (1, 'john_doe', '2023-01-01 12:00:00', 'This is a proposal content.'),
     (2, 'jane_smith', '2023-01-02 14:30:00', 'Another proposal for a chapter.'),
     (3, 'bob_jones', '2023-02-15 15:30:00', 'A third proposal for a chapter.');
 
 -- Insert into comments
-INSERT INTO comments (username_commenting, chapterid, proposalid, commentdatetime, content)
+INSERT INTO comments (username_commenting, chapter_id, proposal_id, comment_datetime, content)
 VALUES
     ('john_doe', 1, NULL, '2023-01-02 14:10:00', 'This is a comment on a chapter.'),
     ('jane_smith', NULL, 1, '2023-01-03 09:20:00', 'A comment on the first proposal.'),
@@ -172,7 +171,7 @@ VALUES
     ('john_doe', NULL, 3, '2023-03-21 11:30:00', 'Comment on the third proposal.');
 
 -- Insert into likes
-INSERT INTO likes (username, chapterid, proposalid, commentid)
+INSERT INTO likes (username, chapter_id, proposal_id, comment_id)
 VALUES
     ('john_doe', 1, NULL, NULL),
     ('jane_smith', NULL, 1, NULL),
@@ -185,13 +184,13 @@ INSERT INTO followers (followed, follower) VALUES
     ('bob_jones', 'john_doe'),
     ('alice_doe', 'john_doe');
 
-INSERT INTO messages (sender, receiver, content, date_time) VALUES
+INSERT INTO messages (sender, receiver, content, message_datetime) VALUES
     ('john_doe', 'jane_smith', 'Hello Jane!', '2023-01-01 08:00:00'),
     ('jane_smith', 'bob_jones', 'Hi Bob!', '2023-01-02 12:30:00'),
     ('bob_jones', 'john_doe', 'Hey John!', '2023-01-03 15:45:00'),
     ('alice_doe', 'john_doe', 'Hi John, how are you?', '2023-01-04 10:15:00');
 
-INSERT INTO pools (story_id, title, content, expire_date_time) VALUES
+INSERT INTO pools (story_id, title, content, expire_datetime) VALUES
     (1, 'Adventure Pool', 'Exciting adventures await!', '2023-02-28'),
     (2, 'Mystery Pool', 'Solve the mystery!', '2023-03-15'),
     (3, 'Fantasy Pool', 'Enter a world of magic!', '2023-04-10'),
