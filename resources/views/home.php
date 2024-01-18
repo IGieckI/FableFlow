@@ -19,7 +19,7 @@
     
         <!-- CSS files -->
         <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/home.css">
     </head>
     <body>
@@ -29,32 +29,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div id="posts-container">
-                            <div class="post" onclick="window.location.href='postPage.php';">
-                                <div class="container-fluid">
-                                    <div class="row user-info">
-                                        <div class="col-10">
-                                            <img src="user-icon.png" alt="User Icon" width="30" height="30">
-                                            <span>Username</span>
-                                        </div>
-                                        <div class="col-2">
-                                            <span>1 hour ago</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row post-title">
-                                        <div class="col-10">
-                                            Post Title 1
-                                        </div>        
-                                        <div class="col-2 post-details">
-                                            <span><i class="bi bi-chat-dots"></i> 10</span>
-                                            <span><i class="bi bi-fire"></i> 20</span>
-                                        </div>
-                                    </div>
-                                    <div class="row post-content">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis commodo odio aenean sed adipiscing diam donec. Egestas congue quisque egestas diam in arcu cursus euismod. Duis ut diam quam nulla porttitor massa. Maecenas pharetra convallis posuere morbi leo. Morbi tincidunt ornare massa eget egestas purus viverra accumsan. 
-                                    </div>
-                                </div>                
-                            </div>
+                            <!-- Posts will be loaded here -->
                         </div>                        
                     </div>
                 </div>
