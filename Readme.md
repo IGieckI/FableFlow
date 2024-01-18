@@ -18,6 +18,12 @@ Mockup da  fare:
 - [X] Creare frecce per tornare indietro e migliorare la navigazione.
 + altre se ci vengono in mente
 
+TO-DO:
+- [ ] Javascript variables have to be let and const not var
+- [ ] Desktop Mockup
+- [ ] Security sulle DB query
+- [ ] MVC pattern
+
 Poi bisognerebbe scegliere le palette
 
 Feature da aggiungere potrebbero essere:
