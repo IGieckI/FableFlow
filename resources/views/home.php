@@ -64,6 +64,8 @@
         $(document).ready(function() {
             var page = 0;
 
+            loadPosts(page++);
+
             function loadPosts(page) {
                 $.ajax({
                     url: '../db/get_posts.php',
@@ -88,6 +90,7 @@
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error('Error loading posts:', textStatus, errorThrown);
+                        console.log(jqXHR.responseText); // Log the full responseText
                     }
                 });
             }
