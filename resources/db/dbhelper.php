@@ -17,7 +17,6 @@ enum Tables: string {
     case Users = 'users';
 }
 
-
 class DbHelper {
 
     private $db;
@@ -66,6 +65,28 @@ class DbHelper {
     
         if (null !== $offset) {
             $query .= " OFFSET $offset";
+        }
+        
+        $result = $this->db->query($query);
+    
+        // Handle errors if needed
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+    
+        return $data;
+    }
+
+    public function count(array $criteria, Tables $table) {
+        $query = "SELECT COUNT(*) FROM $table->value";
+    
+        if (!empty($criteria)) {
+            $conditions = [];
+            foreach ($criteria as $col => $value) {
+                $conditions[] = "$col = '$value'";
+            }
+            $query .= " WHERE " . implode(' AND ', $conditions);
         }
     
         $result = $this->db->query($query);
