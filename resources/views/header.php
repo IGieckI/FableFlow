@@ -2,17 +2,20 @@
     <div class="container">
         <div class="row">
             <div class="col-1">
-                <i id="notification_icon" class="bi bi-bell"></i>
+                <i id="notification_icon" class="bi bi-bell icons"></i>
             </div>
             <div class="col-1">
-                <i id="chat_icon" class="bi bi-chat-dots"></i>
+                <i id="chat_icon" class="bi bi-chat-dots icons"></i>
             </div>
-            <div class="col d-flex justify-content-center">
+            <div class="col d-flex justify-content-center maintext">
                 Fableflow
             </div>
-            <div class="col-1">
-                <button class="btn btn-side-hamburgher" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">&#9776;</button>
+            <div class="col-2">
+                <button class="btn btn-side-hamburgher icons" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <i class="bi bi-list"></i>
+                </button>
             </div>
+
         </div>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">

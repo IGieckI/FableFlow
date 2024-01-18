@@ -1,41 +1,50 @@
-icons-size {
-  font-size: 32px;
+header > * {
+    padding: 10px;
+}
+
+.icons {
+    font-size: 32px;
+}
+
+.maintext {
+    font-size: 32px;
+    font-weight: bold;
 }
 
 .sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  background-color: white;
-  border: 1px solid black; /* Light, solid, black border */
-  border-radius: 10px; /* Rounded corners */
-  overflow-x: hidden;
-  transition: 0.5s;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid black; /* Light, solid, black border */
+    border-radius: 10px; /* Rounded corners */
+    overflow-x: hidden;
+    transition: 0.5s;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+    color: #f1f1f1;
 }
 
 .sidenav .closebtn {
-  font-size: 36px;
-  margin-right: 50px;
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
+    font-size: 36px;
+    margin-right: 50px;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
 }
 
 .btn-side-hamburgher {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0px;
-  margin: 0px;
-  outline: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+    outline: none;
 }
