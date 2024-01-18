@@ -73,13 +73,12 @@
                     data: { page: page },
                     dataType: 'json',
                     success: function(data) {
-                        console.log(data);
                         if (data.length > 0) {
                             console.log("Nice");
                             // Append new posts to the container
                             var postsContainer = $('#posts-container');
                             data.forEach(function(post) {
-                                // Create HTML for the new post and append it
+                                // Create HTML for the new post and append it;
                                 var newPostHtml = createPostHtml(post);
                                 postsContainer.append(newPostHtml);
                             });
@@ -101,29 +100,30 @@
                         <div class="container">
                             <div class="row user-info">
                                 <div class="col-10">
-                                    <img src="user-icon.png" alt="User Icon" width="30" height="30">
-                                    <span>Username</span>
+                                    <img src="${post.user_icon}" alt="User Icon" width="30" height="30">
+                                    <span>${post.username}</span>
                                 </div>
                                 <div class="col-2">
-                                    <span>1 hour ago</span>
+                                    <span>${getTimeAgo(post.time)}</span>
                                 </div>
                             </div>
 
                             <div class="row post-title">
                                 <div class="col-10">
-                                    Post Title 1
+                                    ${post.post_title}
                                 </div>        
                                 <div class="col-2 post-details">
-                                    <span><i class="bi bi-chat-dots"></i> 10</span>
-                                    <span><i class="bi bi-fire"></i> 20</span>
+                                    <span><i class="bi bi-chat-dots"></i>${post.num_likes}</span>
+                                    <span><i class="bi bi-fire"></i>${post.num_comments}</span>
                                 </div>
                             </div>
                             <div class="row post-content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis commodo odio aenean sed adipiscing diam donec. Egestas congue quisque egestas diam in arcu cursus euismod. Duis ut diam quam nulla porttitor massa. Maecenas pharetra convallis posuere morbi leo. Morbi tincidunt ornare massa eget egestas purus viverra accumsan. 
+                                ${limitString(post.post_content, 200)}
                             </div>
                         </div>
                     </div>`;
             }
+
             function getTimeAgo(mysqlDatetime) {
                 var mysqlDate = new Date(mysqlDatetime);
                 var currentDate = new Date();
