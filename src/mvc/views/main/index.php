@@ -7,3 +7,5 @@
         </div>
     </div>
 </div>
+
+<script src="./views/main/js/main.js"></script>

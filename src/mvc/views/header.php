@@ -18,13 +18,9 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     
         <!-- CSS files -->
-        <link rel="stylesheet" href="./main/css/home.css">
-        <link rel="stylesheet" href="./css/footer.css">
-        <link rel="stylesheet" href="./css/header.css">
-        <?php
-            $cssPath = __DIR__ . '/path/to/your/style.css';
-            print($cssPath . '<br>');
-        ?>
+        <link rel="stylesheet" href="./views/main/css/home.css">
+        <link rel="stylesheet" href="./views/css/footer.css">
+        <link rel="stylesheet" href="./views/css/header.css">
     </head>
 
 
