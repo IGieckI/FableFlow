@@ -23,8 +23,6 @@ class DbHelper {
 
     public function __construct($host, $user, $password, $dbname, $port, $socket) {
         
-        //ini_set('display_errors', 1);
-        
         $this->db = new mysqli($host, $user, $password, $dbname, $port, $socket)
         or die ('Could not connect to the database server' . mysqli_connect_error());
         
@@ -69,7 +67,6 @@ class DbHelper {
         
         $result = $this->db->query($query);
     
-        // Handle errors if needed
         $data = [];
         while ($row = $result->fetch_assoc()) {
             $data[] = $row;
@@ -91,7 +88,17 @@ class DbHelper {
     
         $result = $this->db->query($query);
     
-        // Handle errors if needed
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+    
+        return $data;
+    }
+
+    public function complexQuery($query) {
+        $result = $this->db->query($query);
+    
         $data = [];
         while ($row = $result->fetch_assoc()) {
             $data[] = $row;
