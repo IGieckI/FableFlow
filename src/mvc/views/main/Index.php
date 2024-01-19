@@ -8,4 +8,4 @@
     </div>
 </div>
 
-<script src="./views/main/js/main.js"></script>
+<script src="./views/main/js/Main.js"></script>

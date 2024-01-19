@@ -1,7 +1,5 @@
 <?php
     namespace mvc;
-    //include 'router.php';
-    //include 'controllers\main.php';
     
     use mvc\Router;
     use mvc\controllers\MainController;
