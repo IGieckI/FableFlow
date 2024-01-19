@@ -1,4 +1,6 @@
 <?php
+    namespace mvc\models;
+    
     class Post {
 
         public $user_icon, $username, $time;
