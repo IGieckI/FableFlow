@@ -18,9 +18,9 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     
         <!-- CSS files -->
-        <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/header.css">
     </head>
     <body>
         <?php include 'header.php'; ?>
@@ -76,11 +76,11 @@
                     <div class="post" onclick="window.location.href='postPage.php';">
                         <div class="container-fluid">
                             <div class="row user-info">
-                                <div class="col-10">
+                                <div class="col-8">
                                     <img src="${post.user_icon}" alt="User Icon" width="30" height="30">
                                     <span>${post.username}</span>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-4 time-text">
                                     <span>${getTimeAgo(post.time)}</span>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="row post-content">
-                                ${limitString(post.post_content, 200)}
+                                ${post.post_content}
                             </div>
                         </div>
                     </div>`;
@@ -124,13 +124,6 @@
                 } else {
                     return seconds + ' seconds ago';
                 }
-            }
-
-            function limitString(inputString, maxLength) {
-                if (inputString.length > maxLength) {
-                    return inputString.substring(0, maxLength) + '...';
-                }
-                return inputString;
             }
         });
     </script>

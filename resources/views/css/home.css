@@ -3,6 +3,10 @@ body {
 }
 
 /* Post CSS */
+.time-text {
+    text-align: right;
+}
+
 .main-container {
     max-width: 1200px;
     margin: auto;
