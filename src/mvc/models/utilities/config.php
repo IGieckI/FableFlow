@@ -1,4 +1,6 @@
 <?php
+    namespace mvc\models\utilities;
+
     define('HOST', 'localhost');
     define('PORT', 3306);
     define('SOCKET', '');

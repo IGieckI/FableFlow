@@ -5,13 +5,13 @@ $(document).ready(function() {
 
     function loadPosts(page) {
         $.ajax({
-            url: '../db/get_posts.php',
+            url: './models/utilities/GetPosts.php',
             type: 'GET',
             data: { page: page },
             dataType: 'json',
             success: function(data) {
+                console.log("Nice");
                 if (data.length > 0) {
-                    console.log("Nice");
                     // Append new posts to the container
                     var postsContainer = $('#posts-container');
                     data.forEach(function(post) {
