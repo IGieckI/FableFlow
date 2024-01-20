@@ -2,8 +2,12 @@
     namespace mvc\models\utilities;
 
     use mvc\models\utilities\DbHelper;
-    use mvc\models\utilities\Config;
     use mvc\models\Post;
+
+    require_once './config.php';
+    require './DbHelper.php';
+    require '../Post.php';
+
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
@@ -20,8 +24,7 @@
     try {
         // Fetch posts from the database (replace with your actual database query)
         $chapters = $db->findBy([], $postsPerPage, $start, Tables::Chapters);
-        print_r($chapters);
-        print_r($chapters);
+        //print_r($chapters);
         foreach ($chapters as $chapter) {
             $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories);
             $story = $story[0];
@@ -33,13 +36,11 @@
             $comments = $comments[0]['COUNT(*)'];
 
             $result[] = new Post($user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $likes, $chapter['content']);
-            print_r($result);
         }
 
         // Set the Content-Type header
         header('Content-Type: application/json');
 
-        print_r($result);
         // Send the posts as JSON to the client
         echo json_encode($result);
     } catch (Exception $e) {
