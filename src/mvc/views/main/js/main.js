@@ -15,9 +15,15 @@ $(document).ready(function() {
                     // Append new posts to the container
                     var postsContainer = $('#posts-container');
                     data.forEach(function(post) {
-                        // Create HTML for the new post and append it;
+                        // Create HTML for the new post and append it
                         var newPostHtml = createPostHtml(post);
                         postsContainer.append(newPostHtml);
+
+                        // Attach the click event handler to the newly created post
+                        $('#posts-container').on('click', '.post', function () {
+                            var chapterId = $(this).data('chapter-id');
+                            redirectToPostPage(chapterId);
+                        });
                     });
                 } else {
                     // No more posts to load
@@ -33,7 +39,7 @@ $(document).ready(function() {
 
     function createPostHtml(post) {
         return `
-            <div class="post" onclick="window.location.href='postPage.php';">
+            <div class="post" chapter-id="${post.chapter_id}">
                 <div class="container-fluid">
                     <div class="row user-info">
                         <div class="col-8">
@@ -50,8 +56,8 @@ $(document).ready(function() {
                             ${post.post_title}
                         </div>        
                         <div class="col-2 post-details">
-                            <span><i class="bi bi-chat-dots"></i>${post.num_likes}</span>
-                            <span><i class="bi bi-fire"></i>${post.num_comments}</span>
+                            <span><i class="bi bi-chat-dots"></i>${post.num_comments}</span>
+                            <span><i class="bi bi-fire"></i>${post.num_likes}</span>
                         </div>
                     </div>
                     <div class="row post-content">
@@ -84,5 +90,9 @@ $(document).ready(function() {
         } else {
             return seconds + ' seconds ago';
         }
+    }
+
+    function redirectToPostPage(postId) {
+        window.location.href = `postPage.php?id=${postId}`;
     }
 });
