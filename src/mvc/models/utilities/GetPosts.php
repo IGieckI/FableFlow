@@ -35,7 +35,7 @@
             $comments = $db->count(['comment_id' => $chapter['chapter_id']], Tables::Comments);
             $comments = $comments[0]['COUNT(*)'];
 
-            $result[] = new Post($user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $likes, $chapter['content']);
+            $result[] = new Post($chapter['chapter_id'], $user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $likes, $chapter['content']);
         }
 
         // Set the Content-Type header
