@@ -17,12 +17,6 @@ $(document).ready(function() {
                     data.forEach(function(post) {
                         var newPostHtml = createPostHtml(post);
                         postsContainer.append(newPostHtml);
-                        
-                        // Attach the click event handler to the newly created post
-                        $('#posts-container').on('click', '.post', function () {
-                            var chapterId = post.chapter_id;
-                            redirectToPostPage(chapterId);
-                        });
                     });
                 } else {
                     console.log('No more posts');
@@ -37,7 +31,7 @@ $(document).ready(function() {
 
     function createPostHtml(post) {
         return `
-            <div class="post" onclick="redirectToPostPage(${post.post_id});">
+            <div class="post" onclick="redirectToPostPage(${post.chapter_id});">
                 <div class="container-fluid">
                     <div class="row user-info">
                         <div class="col-8">
@@ -86,8 +80,8 @@ $(document).ready(function() {
             return seconds + ' seconds ago';
         }
     }
-
-    function redirectToPostPage(chapterId) {
-        window.location.href = `views/post/PostPage.php?id=${chapterId}`;
-    }
 });
+
+function redirectToPostPage(chapterId) {
+    window.location.href = `views/post/PostPage.php?id=${chapterId}`;
+}
