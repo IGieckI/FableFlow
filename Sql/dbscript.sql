@@ -13,8 +13,11 @@ CREATE TABLE users (
 
 CREATE TABLE stories (
     story_id INT PRIMARY KEY,
-    title VARCHAR(30)
+    title VARCHAR(30),
+    username VARCHAR(255),
+    FOREIGN KEY (username) REFERENCES users(username)
 );
+
 
 CREATE TABLE tag (
     name VARCHAR(255) PRIMARY KEY
@@ -73,6 +76,7 @@ CREATE TABLE pools (
 CREATE TABLE chapters(
 	chapter_id INT AUTO_INCREMENT PRIMARY KEY,
     story_id INT NOT NULL,
+    chapter_title VARCHAR(255) NOT NULL,
    	content TEXT,
     publication_datetime DATETIME NOT NULL
 );
@@ -127,12 +131,14 @@ INSERT INTO users (username, password, icon, description) VALUES
     ('jane_smith', 'pass456', '8A2B1C0D-3E4F-5A6B-9C8D-76543210FEDC',NULL),
     ('bob_jones', 'secretPass', '1B2C3D4E-5F6A-7B8C-9D0E-123456789ABC', 'User account for Bob Jones');
 
-INSERT INTO stories (story_id, title) VALUES
-    (1, 'The Adventure Begins'),
-    (2, 'Mystery of the Lost City'),
-    (3, 'A Tale of Two Worlds'),
-    (4, 'Echoes from the Past'),
-    (5, 'Legends of the Hidden Realm');
+INSERT INTO stories (story_id, title, username)
+VALUES
+    (1, 'The Adventure Begins', 'john_doe'),
+    (2, 'Mystery of the Lost City', 'jane_smith'),
+    (3, 'A Tale of Two Worlds', 'bob_jones'),
+    (4, 'Echoes from the Past', 'john_doe'),
+    (5, 'Legends of the Hidden Realm', 'jane_smith');
+
 
 INSERT INTO stories_tag (name, story_id) VALUES
     ('Adventure', 1),
@@ -148,12 +154,12 @@ INSERT INTO user_tag (name, username) VALUES
     ('Mythology', 'jane_smith');
 
 -- Insert into chapters
-INSERT INTO chapters (story_id, content, publication_datetime)
+INSERT INTO chapters (story_id, chapter_title, content, publication_datetime)
 VALUES
-    (1, 'Chapter 1 content', '2023-01-01 12:00:00'),
-    (1, 'Chapter 2 content', '2023-01-02 14:30:00'),
-    (2, 'Chapter 1 content', '2023-02-15 15:30:00'),
-    (3, 'Chapter 1 content', '2023-03-20 10:45:00');
+    (1, 'Something Happened', 'Chapter 1 content', '2023-01-01 12:00:00'),
+    (1, 'Something Happened 2', 'Chapter 2 content', '2023-01-02 14:30:00'),
+    (2, 'Something Happened 3', 'Chapter 1 content', '2023-02-15 15:30:00'),
+    (3, 'Something Happened 4', 'Chapter 1 content', '2023-03-20 10:45:00');
 
 -- Insert into proposals
 INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, content)

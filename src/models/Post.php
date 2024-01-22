@@ -1,6 +1,4 @@
 <?php
-    namespace mvc\models;
-    
     class Post {
         public $chapter_id;
         public $user_icon, $username, $time;

@@ -1,5 +1,6 @@
-<?php 
-    namespace mvc\models\utilities;
+<?php
+
+    require 'Config.php';
 
     enum Tables: string {
         case Chapters = 'chapters';    
@@ -106,6 +107,18 @@
             }
         
             return $data;
-        }        
+        }
+
+        public function getStory($story_id) {
+            return $this->findBy(['story_id' => $story_id], 1, 0, Tables::Stories);
+        }
+
+        public function getChapter($chapter_id) {
+            return $this->findBy(['chapter_id' => $chapter_id], 1, 0, Tables::Chapters);
+        }
+        
+        public function getUser($username) {
+            return $this->findBy(['username' => $username], 1, 0, Tables::Users);
+        }
     }
 ?>

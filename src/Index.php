@@ -1,3 +1,10 @@
+<?php
+    $_SESSION['cssFiles'] = ['views/css/Main.css'];
+    $_SESSION['jsFiles'] = ['views/js/Main.js'];
+
+    include 'views/Header.php';
+?>
+
 <div class="main-container">
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -8,4 +15,6 @@
     </div>
 </div>
 
-<script src="./views/main/js/Main.js"></script>
+<?php
+    include 'views/Footer.php';
+?>
