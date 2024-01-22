@@ -1,5 +1,4 @@
 <?php
-    require './config.php';
     require './DbHelper.php';
     require '../Post.php';
 
