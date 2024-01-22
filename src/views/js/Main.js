@@ -17,12 +17,6 @@ $(document).ready(function() {
                     data.forEach(function(post) {
                         var newPostHtml = createPostHtml(post);
                         postsContainer.append(newPostHtml);
-
-                        // Attach the click event handler to the newly created post
-                        $('#posts-container').on('click', '.post', function () {
-                            var chapterId = $(this).data('chapter-id');
-                            redirectToPostPage(chapterId);
-                        });
                     });
                 } else {
                     console.log('No more posts');
