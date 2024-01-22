@@ -1,10 +1,5 @@
 <?php
-    namespace mvc\models\utilities;
-
-    use mvc\models\utilities\DbHelper;
-    use mvc\models\Post;
-
-    require_once './config.php';
+    require './config.php';
     require './DbHelper.php';
     require '../Post.php';
 
@@ -35,17 +30,13 @@
             $comments = $db->count(['comment_id' => $chapter['chapter_id']], Tables::Comments);
             $comments = $comments[0]['COUNT(*)'];
 
-            $result[] = new Post($user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $likes, $chapter['content']);
+            $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $likes, $chapter['content']);
         }
-
-        // Set the Content-Type header
         header('Content-Type: application/json');
 
-        // Send the posts as JSON to the client
         echo json_encode($result);
     } catch (Exception $e) {
-        // Handle errors appropriately
-        http_response_code(500); // Internal Server Error
+        http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
     }
 ?>

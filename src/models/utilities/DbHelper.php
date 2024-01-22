@@ -1,6 +1,4 @@
-<?php 
-    namespace mvc\models\utilities;
-
+<?php
     enum Tables: string {
         case Chapters = 'chapters';    
         case Comments = 'comments';

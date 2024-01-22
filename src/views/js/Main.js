@@ -15,25 +15,29 @@ $(document).ready(function() {
                     // Append new posts to the container
                     var postsContainer = $('#posts-container');
                     data.forEach(function(post) {
-                        // Create HTML for the new post and append it;
                         var newPostHtml = createPostHtml(post);
                         postsContainer.append(newPostHtml);
+                        
+                        // Attach the click event handler to the newly created post
+                        $('#posts-container').on('click', '.post', function () {
+                            var chapterId = post.chapter_id;
+                            redirectToPostPage(chapterId);
+                        });
                     });
                 } else {
-                    // No more posts to load
                     console.log('No more posts');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error loading posts:', textStatus, errorThrown);
-                console.log(jqXHR.responseText); // Log the full responseText
+                console.log(jqXHR.responseText);
             }
         });
     }
 
     function createPostHtml(post) {
         return `
-            <div class="post" onclick="window.location.href='postPage.php';">
+            <div class="post" onclick="redirectToPostPage(${post.post_id});">
                 <div class="container-fluid">
                     <div class="row user-info">
                         <div class="col-8">
@@ -65,16 +69,13 @@ $(document).ready(function() {
         var mysqlDate = new Date(mysqlDatetime);
         var currentDate = new Date();
 
-        // Calculate the time difference in milliseconds
         var timeDifference = currentDate.getTime() - mysqlDate.getTime();
 
-        // Convert t-he time difference to seconds, minutes, hours, and days
         var seconds = Math.floor(timeDifference / 1000);
         var minutes = Math.floor(seconds / 60);
         var hours = Math.floor(minutes / 60);
         var days = Math.floor(hours / 24);
 
-        // Determine the appropriate unit and value
         if (days > 0) {
             return days + ' days ago';
         } else if (hours > 0) {
@@ -84,5 +85,9 @@ $(document).ready(function() {
         } else {
             return seconds + ' seconds ago';
         }
+    }
+
+    function redirectToPostPage(chapterId) {
+        window.location.href = `views/post/PostPage.php?id=${chapterId}`;
     }
 });
