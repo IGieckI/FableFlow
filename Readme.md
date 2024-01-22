@@ -22,7 +22,8 @@ TO-DO:
 - [ ] Javascript variables have to be let and const not var
 - [ ] Desktop Mockup
 - [ ] Security sulle DB query
-- [ ] MVC pattern
+- [X] MVC pattern (si farà solo in parte per questioni di tempo)
+- [ ] Check the difference between SQL tables and SQL diagram
 
 Poi bisognerebbe scegliere le palette
 
