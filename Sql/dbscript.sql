@@ -93,12 +93,12 @@ CREATE TABLE proposals(
 
 CREATE TABLE comments(
 	comment_id INT AUTO_INCREMENT PRIMARY KEY,
-    username_commenting VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
     chapter_id INT,
     proposal_id INT,
     comment_datetime DATETIME NOT NULL,
     content TEXT NOT NULL,
-    FOREIGN KEY (username_commenting) REFERENCES users(username),
+    FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
     FOREIGN KEY (proposal_id) REFERENCES proposals(proposal_id)
 );
@@ -106,6 +106,7 @@ CREATE TABLE comments(
 CREATE TABLE likes(
     likeid INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
+    is_dislike BOOLEAN,
     chapter_id INT NULL,
     proposal_id INT NULL,
     comment_id INT NULL,
@@ -169,20 +170,24 @@ VALUES
     (3, 'bob_jones', '2023-02-15 15:30:00', 'A third proposal for a chapter.');
 
 -- Insert into comments
-INSERT INTO comments (username_commenting, chapter_id, proposal_id, comment_datetime, content)
+INSERT INTO comments (username, chapter_id, proposal_id, comment_datetime, content)
 VALUES
     ('john_doe', 1, NULL, '2023-01-02 14:10:00', 'This is a comment on a chapter.'),
     ('jane_smith', NULL, 1, '2023-01-03 09:20:00', 'A comment on the first proposal.'),
     ('bob_jones', 2, NULL, '2023-02-16 18:05:00', 'Commenting on a different chapter.'),
     ('john_doe', NULL, 3, '2023-03-21 11:30:00', 'Comment on the third proposal.');
 
--- Insert into likes
-INSERT INTO likes (username, chapter_id, proposal_id, comment_id)
+INSERT INTO likes (username, chapter_id, proposal_id, comment_id, is_dislike)
 VALUES
-    ('john_doe', 1, NULL, NULL),
-    ('jane_smith', NULL, 1, NULL),
-    ('bob_jones', 2, NULL, NULL),
-    ('john_doe', NULL, NULL, 1);
+    ('jane_smith', 1, NULL, NULL, 0),
+    ('bob_jones', NULL, 2, NULL, 1),
+    ('john_doe', NULL, NULL, 2, 0),
+    ('jane_smith', 2, NULL, NULL, 1),
+    ('bob_jones', NULL, 3, NULL, 0),
+    ('john_doe', NULL, NULL, 3, 0),
+    ('jane_smith', 3, NULL, NULL, 0),
+    ('bob_jones', NULL, NULL, 4, 1);
+
 
 INSERT INTO followers (followed, follower) VALUES
     ('john_doe', 'jane_smith'),
