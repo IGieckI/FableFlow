@@ -2,22 +2,20 @@
     require './DbHelper.php';
     require '../Post.php';
 
-
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
     // Define the number of posts to load at a time
-    $postsPerPage = 5;
+    define('POSTS_PER_LOAD', 10);
 
     // Number of page to retrieve
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $page = max(1, $page); // Ensure page is not less than 1
+    $page = max(1, $page);
 
     // Calculate the starting point for retrieving posts
-    $start = ($page - 1) * $postsPerPage;
+    $start = ($page - 1) * POSTS_PER_LOAD;
 
     try {
-        // Fetch posts from the database (replace with your actual database query)
-        $chapters = $db->findBy([], $postsPerPage, $start, Tables::Chapters);
+        $chapters = $db->findBy([], POSTS_PER_LOAD, $start, Tables::Chapters);
         //print_r($chapters);
         foreach ($chapters as $chapter) {
             $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories);
@@ -31,6 +29,7 @@
 
             $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $likes, $chapter['content']);
         }
+        $dbHelper->disconnect();
         header('Content-Type: application/json');
 
         echo json_encode($result);
