@@ -19,11 +19,18 @@ header > * {
     top: 0;
     right: 0;
     background-color: white;
-    border: 1px solid black; /* Light, solid, black border */
-    border-radius: 10px; /* Rounded corners */
+    border: 1px solid black;
+    border-radius: 10px;
     overflow-x: hidden;
     transition: 0.5s;
 }
+
+@media (max-width: 767px) {
+    .offcanvas {
+        max-width: 70%;
+    }
+}
+
 
 .sidenav a:hover {
     color: #f1f1f1;
