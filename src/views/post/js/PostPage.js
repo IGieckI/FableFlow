@@ -1,10 +1,7 @@
 //Automatically load the content of the story
 document.addEventListener('DOMContentLoaded', function() {
-    var currentURL = window.location.href;
-    param = currentURL.split("?");
-    param = param[param.length - 1].split("=");
-    id = param[param.length - 1];
-    loadContent('story', id);
+    var currentURL = window.location.href;    
+    loadContent('story', getPostId(currentURL));
 });
 
 
@@ -21,4 +18,11 @@ function loadContent(subpage, chapter_id) {
             alert("Error loading content.");
         }
     });
+}
+
+// Get the id of the post from the URL
+function getPostId(currentURL) {
+    param = currentURL.split("?");
+    param = param[param.length - 1].split("=");
+    return param[param.length - 1];
 }
