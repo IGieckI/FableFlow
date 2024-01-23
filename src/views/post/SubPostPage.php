@@ -3,6 +3,8 @@
         $subpage = $_GET['subpage'];
         $chapter_id = $_GET['chapter_id'];
 
+        $comments_count = 0;
+
         // Define file paths based on the selected subpage
         $filePath = '';
 
@@ -11,13 +13,16 @@
                 $filePath = 'content/Story.php';
                 break;
             case 'pools':
-                $filePath = 'content/pools.php';
+                $filePath = 'content/Pools.php';
                 break;
             case 'proposals':
-                $filePath = 'content/proposals.php';
+                $filePath = 'content/Proposals.php';
                 break;
             case 'comments':
-                $filePath = 'content/comments.php';
+                $filePath = 'content/Comments.php';
+                echo '<script type="text/JavaScript">  
+                        loadComments();
+                    </script>';                
                 break;
             default:
                 echo "Invalid subpage";

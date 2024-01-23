@@ -1,6 +1,6 @@
 <?php
-    $_SESSION['cssFiles'] = [];
-    $_SESSION['jsFiles'] = ['js/PostPage.js'];
+    $_SESSION['cssFiles'] = ['css/Comments.css'];
+    $_SESSION['jsFiles'] = ['js/PostPage.js', 'js/Comments.js'];
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/views/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/models/utilities/DbHelper.php';
