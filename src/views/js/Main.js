@@ -10,7 +10,6 @@ $(document).ready(function() {
             data: { page: page },
             dataType: 'json',
             success: function(data) {
-                console.log("Nice");
                 if (data.length > 0) {
                     // Append new posts to the container
                     var postsContainer = $('#posts-container');

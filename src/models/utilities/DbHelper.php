@@ -73,7 +73,6 @@
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;
             }
-        
             return $data;
         }
 
@@ -120,5 +119,20 @@
         public function getUser($username) {
             return $this->findBy(['username' => $username], 1, 0, Tables::Users);
         }
+
+        public function updateLikesDislikes($username, $comment_id, $action) {
+            $query = "";
+        
+            if ($action === 'like') {
+                $query .= "INSERT INTO " . Tables::Comments . " (username, is_dislike, comment_id) VALUES ($username, 0, $comment_id);";
+            } elseif ($action === 'dislike') {
+                $query .= "INSERT INTO " . Tables::Comments . " (username, is_dislike, comment_id) VALUES ('$username', 1, '$comment_id');";
+            } elseif ($action === 'remove') {
+                $query .= "DELETE FROM " . Tables::Likes . " WHERE username = '$username' AND comment_id = '$comment_id';";
+            }
+
+            return $this->db->query($query);
+        }
+        
     }
 ?>
