@@ -1,4 +1,8 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     $_SESSION['cssFiles'] = ['views/css/Main.css'];
     $_SESSION['jsFiles'] = ['views/js/Main.js'];
 

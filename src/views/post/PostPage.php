@@ -1,4 +1,8 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     $_SESSION['cssFiles'] = ['css/Comments.css'];
     $_SESSION['jsFiles'] = ['js/PostPage.js', 'js/Comments.js'];
 
@@ -35,7 +39,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <button class="btn btn-block" onclick="loadContent('story', <?php echo $_GET["id"]; ?>)">Story</button>
+            <button class="btn btn-block" onclick="loadContent('story', <?php echo $_GET["id"]; ?>); loadSendButton();">Story</button>
         </div>
         <div class="col">
             <button class="btn btn-block" onclick="loadContent('pools', <?php echo $_GET["id"]; ?>)">Pools</button>
