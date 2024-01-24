@@ -14,7 +14,7 @@
             $likes = $likes[0]['COUNT(*)'];
             $dislikes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 1], Tables::Likes);
             $dislikes = $dislikes[0]['COUNT(*)'];            
-            $result[] = new Comment($user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes);
+            $result[] = new Comment($comment['comment_id'], $user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes);
         }
         $db->disconnect();
         header('Content-Type: application/json');
