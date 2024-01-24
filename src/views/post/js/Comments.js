@@ -8,7 +8,6 @@ function loadComments() {
             if (data.length > 0) {
                 var commentsContainer = $('#comments-container');
                 data.forEach(function(comment) {
-                    console.log(comment);
                     var newCommentHtml = createCommentHtml(comment);
                     commentsContainer.append(newCommentHtml);
                 });
