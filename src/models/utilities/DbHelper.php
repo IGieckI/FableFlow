@@ -133,6 +133,11 @@
 
             return $this->db->query($query);
         }
+
+        public function postComment($username, $chapter_id, $content, $datetime) {
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content, comment_datetime) VALUES ('$username', '$chapter_id', '$content', '$datetime');";
+            return $this->db->query($query);
+        }
         
     }
 ?>
