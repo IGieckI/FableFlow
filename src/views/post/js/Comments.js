@@ -23,6 +23,9 @@ function loadComments() {
 }
 
 function createCommentHtml(comment) {
+    const likeButtonId = `thumb-up-${comment.comment_id}`;
+    const dislikeButtonId = `thumb-down-${comment.comment_id}`;
+
     return `
         <div class="container">
             <div class="container-fluid comment-box">
@@ -43,15 +46,15 @@ function createCommentHtml(comment) {
                 <div class="row action-buttons">
                     <div class="col-6"></div>
                     <div class="col-3">
-                        <span class="like-dislike-btn" onclick="toggleLike(this)">
+                        <span class="like-dislike-btn" onclick="toggleLike('${comment.comment_id}')">
                             <span>${comment.nlikes}</span>
-                            <i id="thumb-up" class="bi bi-hand-thumbs-up"></i> Like
+                            <i id="${likeButtonId}" class="bi bi-hand-thumbs-up"></i> Like
                         </span>
                     </div>
                     <div class="col-3">
-                        <span class="like-dislike-btn" onclick="toggleDislike(this)">
+                        <span class="like-dislike-btn" onclick="toggleDislike('${comment.comment_id}')">
                             <span>${comment.ndislikes}</span>
-                            <i id="thumb-down" class="bi bi-hand-thumbs-down"></i> Dislike
+                            <i id="${dislikeButtonId}" class="bi bi-hand-thumbs-down"></i> Dislike
                         </span>
                     </div>
                 </div>
@@ -83,9 +86,9 @@ function getTimeAgo(mysqlDatetime) {
 
 // !!! CHANGE NAME TO TOGGLE LIKE/DISLIKE, MUST BE LINKED TO ACCOUNT, ALSO WHEN LOGIN AND PAGE RELOAD SHOULD STILL SEE THE LIKED BUTTON !!!
 
-function toggleLike() {
-    const likeIcon = document.getElementById('thumb-up');
-    const dislikeIcon = document.getElementById('thumb-down');
+function toggleLike(comment_id) {
+    const likeIcon = document.getElementById("thumb-up-" + comment_id);
+    const dislikeIcon = document.getElementById("thumb-down-" + comment_id);
 
     const likeCounter = likeIcon.parentElement.querySelector('span');
     const dislikeCounter = dislikeIcon.parentElement.querySelector('span');
@@ -94,8 +97,8 @@ function toggleLike() {
         likeIcon.classList.remove('bi-hand-thumbs-up-fill');
         likeIcon.classList.add('bi-hand-thumbs-up');
 
-        likeCounter.textContent = parseInt(likeCounter.textContent) - 1;        
-        updateLikeDislike('john_doe', getPostId(window.location.href), 'remove');
+        likeCounter.textContent = parseInt(likeCounter.textContent) - 1;
+        updateLikeDislike('john_doe', comment_id, 'remove');
     } else {
         likeIcon.classList.add('bi-hand-thumbs-up-fill');
         likeIcon.classList.remove('bi-hand-thumbs-up');
@@ -104,18 +107,17 @@ function toggleLike() {
             dislikeIcon.classList.remove('bi-hand-thumbs-down-fill');
             dislikeIcon.classList.add('bi-hand-thumbs-down');
             dislikeCounter.textContent = parseInt(dislikeCounter.textContent) - 1;
-            updateLikeDislike('john_doe', getPostId(window.location.href), 'remove');
-            return;
+            updateLikeDislike('john_doe', comment_id, 'remove');
         }
 
         likeCounter.textContent = parseInt(likeCounter.textContent) + 1;
-        updateLikeDislike('john_doe', getPostId(window.location.href), 'like');
+        updateLikeDislike('john_doe', comment_id, 'like');
     }
 }
 
-function toggleDislike() {
-    const likeIcon = document.getElementById('thumb-up');
-    const dislikeIcon = document.getElementById('thumb-down');
+function toggleDislike(comment_id) {
+    const likeIcon = document.getElementById("thumb-up-" + comment_id);
+    const dislikeIcon = document.getElementById("thumb-down-" + comment_id);
 
     const likeCounter = likeIcon.parentElement.querySelector('span');
     const dislikeCounter = dislikeIcon.parentElement.querySelector('span');
@@ -125,7 +127,7 @@ function toggleDislike() {
         dislikeIcon.classList.add('bi-hand-thumbs-down');
 
         dislikeCounter.textContent = parseInt(dislikeCounter.textContent) - 1;
-        updateLikeDislike('john_doe', getPostId(window.location.href), 'remove');
+        updateLikeDislike('john_doe', comment_id, 'remove');
     } else {
         dislikeIcon.classList.add('bi-hand-thumbs-down-fill');
         dislikeIcon.classList.remove('bi-hand-thumbs-down');
@@ -134,20 +136,19 @@ function toggleDislike() {
             likeIcon.classList.remove('bi-hand-thumbs-up-fill');
             likeIcon.classList.add('bi-hand-thumbs-up');
             likeCounter.textContent = parseInt(likeCounter.textContent) - 1;
-            updateLikeDislike('john_doe', getPostId(window.location.href), 'remove');
-            return;
+            updateLikeDislike('john_doe', comment_id, 'remove');
         }
 
         dislikeCounter.textContent = parseInt(dislikeCounter.textContent) + 1;
-        updateLikeDislike('john_doe', getPostId(window.location.href), 'dislike');
+        updateLikeDislike('john_doe', comment_id, 'dislike');
     }
 }
 
-function updateLikeDislike(username, commentId, action) {
+function updateLikeDislike(username, comment_id, action) {
     $.ajax({
         url: '/FableFlow/src/models/utilities/UpdateCommentsLikesDislikes.php',
         type: 'POST',
-        data: { username: username, comment_id: commentId, action: action },
+        data: { username: username, comment_id: comment_id, action: action },
         success: function(response) {
             console.log('Database updated successfully:', response);
         },
