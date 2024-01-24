@@ -82,6 +82,8 @@ function getTimeAgo(mysqlDatetime) {
     }
 }
 
+// !!! CHANGE NAME TO TOGGLE LIKE/DISLIKE, MUST BE LINKED TO ACCOUNT, ALSO WHEN LOGIN AND PAGE RELOAD SHOULD STILL SEE THE LIKED BUTTON !!!
+
 function toggleLike() {
     const likeIcon = document.getElementById('thumb-up');
     const dislikeIcon = document.getElementById('thumb-down');
@@ -94,6 +96,7 @@ function toggleLike() {
         likeIcon.classList.add('bi-hand-thumbs-up');
 
         likeCounter.textContent = parseInt(likeCounter.textContent) - 1;        
+        updateLikeDislike('john_doe', getPostId(window.location.href), 'remove');
     } else {
         likeIcon.classList.add('bi-hand-thumbs-up-fill');
         likeIcon.classList.remove('bi-hand-thumbs-up');
@@ -102,9 +105,12 @@ function toggleLike() {
             dislikeIcon.classList.remove('bi-hand-thumbs-down-fill');
             dislikeIcon.classList.add('bi-hand-thumbs-down');
             dislikeCounter.textContent = parseInt(dislikeCounter.textContent) - 1;
+            updateLikeDislike('john_doe', getPostId(window.location.href), 'remove');
+            return;
         }
 
         likeCounter.textContent = parseInt(likeCounter.textContent) + 1;
+        updateLikeDislike('john_doe', getPostId(window.location.href), 'like');
     }
 }
 
@@ -120,6 +126,7 @@ function toggleDislike() {
         dislikeIcon.classList.add('bi-hand-thumbs-down');
 
         dislikeCounter.textContent = parseInt(dislikeCounter.textContent) - 1;
+        updateLikeDislike('john_doe', getPostId(window.location.href), 'remove');
     } else {
         dislikeIcon.classList.add('bi-hand-thumbs-down-fill');
         dislikeIcon.classList.remove('bi-hand-thumbs-down');
@@ -128,9 +135,12 @@ function toggleDislike() {
             likeIcon.classList.remove('bi-hand-thumbs-up-fill');
             likeIcon.classList.add('bi-hand-thumbs-up');
             likeCounter.textContent = parseInt(likeCounter.textContent) - 1;
+            updateLikeDislike('john_doe', getPostId(window.location.href), 'remove');
+            return;
         }
 
         dislikeCounter.textContent = parseInt(dislikeCounter.textContent) + 1;
+        updateLikeDislike('john_doe', getPostId(window.location.href), 'dislike');
     }
 }
 

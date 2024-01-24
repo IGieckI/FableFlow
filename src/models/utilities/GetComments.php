@@ -10,13 +10,13 @@
         $comments = $db->findBy(['chapter_id' => $chapter_id], null, null, Tables::Comments);        
         foreach ($comments as $comment) {
             $user = $db->findBy(['username' => $comment['username']], null, null, Tables::Users);            
-            $likes = $db->count(['chapter_id' => $comment['chapter_id'], 'is_dislike' => 0], Tables::Likes);
+            $likes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 0], Tables::Likes);
             $likes = $likes[0]['COUNT(*)'];
-            $dislikes = $db->count(['chapter_id' => $comment['chapter_id'], 'is_dislike' => 1], Tables::Likes);
+            $dislikes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 1], Tables::Likes);
             $dislikes = $dislikes[0]['COUNT(*)'];            
             $result[] = new Comment($user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes);
         }
-        $dbHelper->disconnect();
+        $db->disconnect();
         header('Content-Type: application/json');
         
         echo json_encode($result);
