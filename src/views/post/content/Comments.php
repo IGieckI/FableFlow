@@ -6,4 +6,12 @@
             </div>                        
         </div>
     </div>
+    <div class="row">
+        <div class="input-group">
+            <input type="text" id="message-input" class="form-control" placeholder="Type your message...">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="send-button"><i class="bi bi-send"></i></button>
+            </div>
+        </div>
+    </div>
 </div>
