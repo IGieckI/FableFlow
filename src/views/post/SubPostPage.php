@@ -1,4 +1,9 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+        $_SESSION['username'] = 'john_doe';
+    }    
+
     if (isset($_GET['subpage']) and isset($_GET['chapter_id'])) {
         $subpage = $_GET['subpage'];
         $chapter_id = $_GET['chapter_id'];
@@ -22,7 +27,34 @@
                 $filePath = 'content/Comments.php';
                 echo '<script type="text/JavaScript">  
                         loadComments();
-                    </script>';                
+
+                        $("#send-button").click(function () {
+                            var message = $("#message-input").val();
+
+                            if (message.trim() !== "") {
+                                $.ajax({
+                                    url: "/FableFlow/src/models/utilities/PostComment.php",
+                                    type: "POST",
+                                    data: { username: "' . $_SESSION["username"] . '", chapter_id: getPostId(window.location.href), content: message},
+                                    dataType: "json",
+                                    success: function(response) {
+                                        $("#message-input").val("");
+                                        
+                                        // Clear the comments container
+                                        var commentsContainer = $("#comments-container");
+                                        commentsContainer.empty();
+
+                                        // Reload the comments or posts (replace this with the appropriate function)
+                                        loadComments();
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.error("Error loading comments:", textStatus, errorThrown);
+                                        console.log(jqXHR.responseText);
+                                    }
+                                });
+                            }
+                        });
+                    </script>';
                 break;
             default:
                 echo "Invalid subpage";
