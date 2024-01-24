@@ -24,6 +24,8 @@ TO-DO:
 - [ ] Security sulle DB query
 - [X] MVC pattern (si farà solo in parte per questioni di tempo)
 - [ ] Check the difference between SQL tables and SQL diagram
+- [ ] Code refactory (check if have been used HTML standard tags where possible) IMPORTANT!!!
+- [ ] Check for redundant JS code, and make an Utilities.js class
 
 Poi bisognerebbe scegliere le palette
 
