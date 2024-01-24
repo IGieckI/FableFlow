@@ -4,11 +4,11 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = $_POST['username'];
         $comment_id = $_POST['comment_id'];
-        $quantity = $_POST['action'];
+        $action = $_POST['action'];
 
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-        $dbHelper->updateLikesDislikes($username, $comment_id, $action);
-        $dbHelper->disconnect();
+        $db->updateLikesDislikes($username, $comment_id, $action);
+        $db->disconnect();
 
         echo 'Database updated successfully';
     } else {

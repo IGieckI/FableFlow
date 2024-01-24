@@ -124,11 +124,11 @@
             $query = "";
         
             if ($action === 'like') {
-                $query .= "INSERT INTO " . Tables::Comments . " (username, is_dislike, comment_id) VALUES ($username, 0, $comment_id);";
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, comment_id) VALUES ('$username', 0, $comment_id);";
             } elseif ($action === 'dislike') {
-                $query .= "INSERT INTO " . Tables::Comments . " (username, is_dislike, comment_id) VALUES ('$username', 1, '$comment_id');";
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, comment_id) VALUES ('$username', 1, '$comment_id');";
             } elseif ($action === 'remove') {
-                $query .= "DELETE FROM " . Tables::Likes . " WHERE username = '$username' AND comment_id = '$comment_id';";
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND comment_id = '$comment_id';";
             }
 
             return $this->db->query($query);
