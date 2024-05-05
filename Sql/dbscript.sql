@@ -115,6 +115,14 @@ CREATE TABLE likes(
     FOREIGN KEY (proposal_id) REFERENCES proposals(proposal_id),
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
     );
+
+CREATE TABLE notifications(
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    notification_datetime DATETIME NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username)
+);
     
 INSERT INTO tag (name) 
 VALUES ('Drama'),
