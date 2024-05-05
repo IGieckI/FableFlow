@@ -3,11 +3,11 @@
         session_start();
     }
 
-    $_SESSION['cssFiles'] = ['css/Comments.css'];
-    $_SESSION['jsFiles'] = ['js/PostPage.js', 'js/Comments.js'];
+    $_SESSION['cssFiles'] = ['../css/Comments.css'];
+    $_SESSION['jsFiles'] = ['../js/PostPage.js', '../js/Comments.js'];
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
-    require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/models/utilities/DbHelper.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
