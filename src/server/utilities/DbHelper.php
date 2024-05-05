@@ -8,6 +8,7 @@
         case Followers = 'followers';
         case Likes = 'likes';
         case Messages = 'messages';
+        case Notifications = 'notifications';
         case OptionChoices = 'option_choices';
         case Options = 'options';
         case Pools = 'pools';
