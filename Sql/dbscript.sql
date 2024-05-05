@@ -232,3 +232,9 @@ INSERT INTO option_choices (option_id, username) VALUES
     (5, 'jane_smith'),
     (6, 'bob_jones'),
     (7, 'john_doe');
+    
+INSERT INTO notifications (notification_id, username, content, notification_datetime) VALUES
+    (1, 'john_doe', 'Andrea created a new Story', '2024-05-05 10:30:00'),
+    (2, 'john_doe', 'Andrea followed you!', '2024-05-05 14:00:00'),
+    (3, 'jane_smith', 'Andrea upvoted your story!', '2024-05-05 18:00:00'),
+    (4, 'bob_jones', 'New Pool of "Finding Andrea" has come out', '2024-05-05 11:45:00');
