@@ -2,7 +2,7 @@
     require '../utilities/DbHelper.php';
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
     
-    $data = $db.findBy(['chapter_id' => $_GET['id']], null, null, Tables::Chapters);
+    $data = $db->findBy(['chapter_id' => $_GET['id']], null, null, Tables::Chapters);
     $data = $data[0]['content'];
     $dbHelper->disconnect();
     

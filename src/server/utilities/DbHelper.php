@@ -140,5 +140,9 @@
             return $this->db->query($query);
         }
         
+        public function insertUser($username, $password) {
+            $query = "INSERT INTO " . Tables::Users->value . " (username, password, icon, description) VALUES ('$username', '$password', 'NULL', 'NULL')";
+            return $this->db->query($query);
+        }
     }
 ?>
