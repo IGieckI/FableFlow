@@ -1,6 +1,6 @@
 function loadComments() {
     $.ajax({
-        url: '/FableFlow/src/models/utilities/GetComments.php',
+        url: '/FableFlow/src/server/api/GetComments.php',
         type: 'GET',
         data: { chapter_id: getPostId(window.location.href) },
         dataType: 'json',
@@ -146,7 +146,7 @@ function toggleDislike(comment_id) {
 
 function updateLikeDislike(username, comment_id, action) {
     $.ajax({
-        url: '/FableFlow/src/models/utilities/UpdateCommentsLikesDislikes.php',
+        url: '/FableFlow/src/server/api/UpdateCommentsLikesDislikes.php',
         type: 'POST',
         data: { username: username, comment_id: comment_id, action: action },
         success: function(response) {

@@ -33,7 +33,7 @@
 
                             if (message.trim() !== "") {
                                 $.ajax({
-                                    url: "/FableFlow/src/models/utilities/PostComment.php",
+                                    url: "/FableFlow/src/server/api/PostComment.php",
                                     type: "POST",
                                     data: { username: "' . $_SESSION["username"] . '", chapter_id: getPostId(window.location.href), content: message},
                                     dataType: "json",

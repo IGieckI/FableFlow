@@ -1,5 +1,5 @@
 <?php
-    require './DbHelper.php';
+    require '../utilities/DbHelper.php';
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
     
     $data = $db.findBy(['chapter_id' => $_GET['id']], null, null, Tables::Chapters);

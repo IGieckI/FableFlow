@@ -5,7 +5,7 @@ $(document).ready(function() {
 
     function loadPosts(page) {
         $.ajax({
-            url: './models/utilities/GetPosts.php',
+            url: './server/api/GetPosts.php',
             type: 'GET',
             data: { page: page },
             dataType: 'json',

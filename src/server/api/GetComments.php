@@ -1,6 +1,6 @@
 <?php
-    require './DbHelper.php';
-    require '../Comment.php';
+    require '../utilities/DbHelper.php';
+    require '../models/Comment.php';
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
