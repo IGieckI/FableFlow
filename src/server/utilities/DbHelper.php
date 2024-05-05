@@ -77,6 +77,36 @@
             return $data;
         }
 
+        public function deleteBy(array $criteria, Tables $table) {
+            $query = "DELETE FROM $table->value";
+            $params = [];
+            
+            if (!empty($criteria)) {
+                $conditions = [];
+                foreach ($criteria as $col => $value) {
+                    $conditions[] = "$col = ?";
+                    $params[] = $value;
+                }
+                $query .= " WHERE " . implode(' AND ', $conditions);
+            }
+            
+            $statement = $this->db->prepare($query);
+            if (!$statement) {
+                throw new Exception("Failed to prepare statement: " . $this->db->error);
+            }
+            
+            if (!empty($params)) {
+                $types = str_repeat('s', count($params));
+                $statement->bind_param($types, ...$params);
+            }
+            
+            $statement->execute();
+            
+            return $statement->affected_rows > 0;
+        }
+        
+        
+
         public function count(array $criteria, Tables $table) {
             $query = "SELECT COUNT(*) FROM $table->value";
         

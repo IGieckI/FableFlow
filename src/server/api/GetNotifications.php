@@ -8,14 +8,15 @@
     if (isset($_SESSION['username'])) {
         $username = $_SESSION['username'];
     } else {
-        $username = "";
+        $username = "john_doe"; // !!! CAMBIA IN $username = ""
     }
 
     // Retrieve all the notifications for the user
     try {
         $notifications = $db->findBy(['username' => $username], null, null, Tables::Notifications);
+        $result = [];
         foreach ($notifications as $notification) {
-            $result[] = new Notification($notification['notification_id'], $notification['username'], $notification['notification_datetime'], $notification['content']);
+            array_push($result, new Notification($notification['notification_id'], $notification['username'], $notification['notification_datetime'], $notification['content']));
         }
         $db->disconnect();
         header('Content-Type: application/json');
