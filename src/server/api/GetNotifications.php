@@ -5,11 +5,11 @@
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
     // Check for the API parameter correctness
-    if (isset($_GET['username'])) {
-        $username = $_GET['username'];
+    if (isset($_SESSION['username'])) {
+        $username = $_SESSION['username'];
     } else {
         http_response_code(400);
-        echo json_encode(['error' => 'Username is required']);
+        echo json_encode(['error' => 'Login is required (server-side username)']);
         exit();
     }
 

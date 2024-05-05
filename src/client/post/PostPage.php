@@ -6,7 +6,7 @@
     $_SESSION['cssFiles'] = ['css/Comments.css'];
     $_SESSION['jsFiles'] = ['js/PostPage.js', 'js/Comments.js'];
 
-    require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/views/Header.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/models/utilities/DbHelper.php';
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
@@ -57,5 +57,5 @@
 </div>
 
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/views/Footer.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Footer.php';
 ?>

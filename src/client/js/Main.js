@@ -79,8 +79,31 @@ $(document).ready(function() {
             return seconds + ' seconds ago';
         }
     }
+
+    // Check for new notifications every 3 seconds
+    setInterval(function() {
+        $.ajax({
+            url: './server/api/GetNotifications.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var notifications = JSON.parse(data);
+
+                // !!! MANAGE NOTIFICATIONS !!!
+
+                // Update the notification icon
+                if (notifications.length > 0) {
+                    $('#notification_icon').removeClass('bi-bell-fill');
+                    $('#notification_icon').addClass('bi-bell');
+                } else {
+                    $('#notification_icon').removeClass('bi-bell-fill');
+                    $('#notification_icon').addClass('bi-bell');
+                }
+            }
+        });
+    }, 3000);
 });
 
 function redirectToPostPage(chapterId) {
-    window.location.href = `views/post/PostPage.php?id=${chapterId}`;
+    window.location.href = `client/post/PostPage.php?id=${chapterId}`;
 }

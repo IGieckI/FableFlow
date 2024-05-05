@@ -18,19 +18,24 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     
         <!-- CSS files -->
-        <link rel="stylesheet" href="/FableFlow/src/views/css/Footer.css">
-        <link rel="stylesheet" href="/FableFlow/src/views/css/Header.css">
+        <link rel="stylesheet" href="/FableFlow/src/client/css/Footer.css">
+        <link rel="stylesheet" href="/FableFlow/src/client/css/Header.css">
         <?php
-            foreach ($_SESSION['cssFiles'] as $cssFile) {
-                echo "<link rel='stylesheet' href='$cssFile'>";
-            }
+            if (isset($_SESSION['cssFiles'])) {
+                foreach ($_SESSION['cssFiles'] as $cssFile) {
+                    echo "<link rel='stylesheet' href='$cssFile'>";
+                }
+            }            
         ?>
 
         <!-- JS files -->
+        <script src="/FableFlow/src/client/js/Main.js"></script>
         <?php
-            foreach ($_SESSION['jsFiles'] as $jsFile) {
-                echo "<script src='$jsFile'></script>";
-            }
+            if (isset($_SESSION['jsFiles'])) {
+                foreach ($_SESSION['jsFiles'] as $jsFile) {
+                    echo "<script src='$jsFile'></script>";
+                }
+            }            
         ?>
     </head>
 

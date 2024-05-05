@@ -3,10 +3,9 @@
         session_start();
     }
 
-    $_SESSION['cssFiles'] = ['views/css/Main.css'];
-    $_SESSION['jsFiles'] = ['views/js/Main.js'];
+    $_SESSION['cssFiles'] = ['client/css/Main.css'];
 
-    include 'views/Header.php';
+    include 'client/Header.php';
 ?>
 
 <div class="main-container">
@@ -20,5 +19,5 @@
 </div>
 
 <?php
-    include 'views/Footer.php';
+    include 'client/Footer.php';
 ?>
