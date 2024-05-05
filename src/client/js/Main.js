@@ -1,7 +1,11 @@
 $(document).ready(function() {
+    $('#notification_icon').click(function() {
+        $('#notification_menu').toggle();
+    });
+
     var page = 0;
 
-    loadPosts(page++);
+    loadPosts(page++);    
 
     function loadPosts(page) {
         $.ajax({
@@ -86,10 +90,13 @@ $(document).ready(function() {
             url: './server/api/GetNotifications.php',
             type: 'GET',
             dataType: 'json',
-            success: function(data) {
-                var notifications = JSON.parse(data);
+            success: function(notifications) {
+                $('#notification_list').empty();
 
-                // !!! MANAGE NOTIFICATIONS !!!
+                //var notifications = JSON.parse(data);
+                notifications.forEach(function(notification) {
+                    $('#notification_list').append('<li>' + notification.content + ' (' + getTimeAgo(notification.datetime) + ')' + '</li>');
+                });
 
                 // Update the notification icon
                 if (notifications.length > 0) {

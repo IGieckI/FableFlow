@@ -46,6 +46,9 @@
                 <div class="row">
                     <div class="col-1">
                         <i id="notification_icon" class="bi bi-bell icons"></i>
+                        <div id="notification_menu" class="notification-menu">
+                            <ul id="notification_list"></ul>
+                        </div>
                     </div>
                     <div class="col-1">
                         <i id="chat_icon" class="bi bi-chat-dots icons"></i>

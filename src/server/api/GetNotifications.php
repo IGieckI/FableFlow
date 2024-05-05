@@ -8,9 +8,7 @@
     if (isset($_SESSION['username'])) {
         $username = $_SESSION['username'];
     } else {
-        http_response_code(400);
-        echo json_encode(['error' => 'Login is required (server-side username)']);
-        exit();
+        $username = "";
     }
 
     // Retrieve all the notifications for the user
