@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var page = 0;
+    let page = 0;
 
     loadPosts(page++);
 
@@ -16,20 +16,23 @@ $(document).ready(function() {
             success: function(notifications) {
                 $('#notification_list').empty();
 
-                notifications.forEach(function(notification) {
-                    $('#notification_list').append('<li data-id=\'' + notification['id'] +'\'>' + notification.content + ' (' + getTimeAgo(notification.datetime) + ')' + '</li>');
-                    $('#notification_list [data-id="' + notification['id'] + '"]').click(function() {
-                        deleteNotification(notification['id']);
+                if (Array.isArray(notifications)) {
+                    
+                    notifications.forEach(function(notification) {
+                        $('#notification_list').append('<li data-id=\'' + notification['id'] +'\'>' + notification.content + ' (' + getTimeAgo(notification.datetime) + ')' + '</li>');
+                        $('#notification_list [data-id="' + notification['id'] + '"]').click(function() {
+                            deleteNotification(notification['id']);
+                        });
                     });
-                });
-                
-                // Update the notification icon
-                if (notifications.length > 0) {
-                    $('#notification_icon').removeClass('bi-bell');
-                    $('#notification_icon').addClass('bi-bell-fill');
-                } else {
-                    $('#notification_icon').removeClass('bi-bell-fill');
-                    $('#notification_icon').addClass('bi-bell');
+                    
+                    // Update the notification icon
+                    if (notifications.length > 0) {
+                        $('#notification_icon').removeClass('bi-bell');
+                        $('#notification_icon').addClass('bi-bell-fill');
+                    } else {
+                        $('#notification_icon').removeClass('bi-bell-fill');
+                        $('#notification_icon').addClass('bi-bell');
+                }
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -40,6 +43,11 @@ $(document).ready(function() {
     }, 250);
 });
 
+
+/**
+ * Makes an ajax request to get the posts to be displayed.
+ * @param  {[number]} page page number to be retrieved.
+ */
 function loadPosts(page) {
     $.ajax({
         url: './server/api/GetPosts.php',
@@ -65,6 +73,11 @@ function loadPosts(page) {
     });
 }
 
+/**
+ * Returns the html code corrisponding to a specific post. 
+ * 
+ * @param post An object which is compatible with the object in {@link /FableFlow/src/server/models/Post.php}
+ */
 function createPostHtml(post) {
     return `
         <div class="post" onclick="redirectToPostPage(${post.chapter_id});">
@@ -96,15 +109,15 @@ function createPostHtml(post) {
 }
 
 function getTimeAgo(mysqlDatetime) {
-    var mysqlDate = new Date(mysqlDatetime);
-    var currentDate = new Date();
+    let mysqlDate = new Date(mysqlDatetime);
+    let currentDate = new Date();
 
-    var timeDifference = currentDate.getTime() - mysqlDate.getTime();
+    let timeDifference = currentDate.getTime() - mysqlDate.getTime();
 
-    var seconds = Math.floor(timeDifference / 1000);
-    var minutes = Math.floor(seconds / 60);
-    var hours = Math.floor(minutes / 60);
-    var days = Math.floor(hours / 24);
+    let seconds = Math.floor(timeDifference / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
 
     if (days > 0) {
         return days + ' days ago';

@@ -29,7 +29,6 @@
         ?>
 
         <!-- JS files -->
-        <script src="/FableFlow/src/client/js/Main.js"></script>
         <?php
             if (isset($_SESSION['jsFiles'])) {
                 foreach ($_SESSION['jsFiles'] as $jsFile) {

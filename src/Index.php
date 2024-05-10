@@ -4,7 +4,7 @@
     }
 
     $_SESSION['cssFiles'] = ['client/css/Main.css'];
-
+    $_SESSION['jsFiles'] = ['client/js/Main.js'];
     include 'client/Header.php';
 ?>
 
