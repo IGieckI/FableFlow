@@ -3,8 +3,9 @@
         session_start();
     }
 
-    $_SESSION['cssFiles'] = ['client/css/Main.css'];
-    $_SESSION['jsFiles'] = ['client/js/Main.js'];
+    array_push($_SESSION['cssFiles'], 'client/css/Main.css');
+    array_push($_SESSION['jsFiles'], 'client/js/Main.js');
+    
     include 'client/Header.php';
 ?>
 

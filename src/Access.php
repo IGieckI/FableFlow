@@ -1,12 +1,18 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
+<?php
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+$_SESSION['cssFiles'][] = ['client/css/Access.css'];
+$_SESSION['jsFiles'][] = ['client/js/Access.js']
+
+?>
+
+
 <body>
     <h1>Login</h1>
-    <form action="PostLogin.php" method="post">
+    <form action="/FableFlow/src/server/AuthLogin.php" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <br>
@@ -27,4 +33,9 @@
         <button type="submit">Registrati</button>
     </form>
 </body>
-</html>
+
+
+
+<?php
+
+?>

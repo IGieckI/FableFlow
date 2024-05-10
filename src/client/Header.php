@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Home</title>
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -31,7 +30,7 @@
         <!-- JS files -->
         <?php
             if (isset($_SESSION['jsFiles'])) {
-                foreach ($_SESSION['jsFiles'] as $jsFile) {
+                foreach ($_SESSION['jsFiles'] as $key=>$jsFile) {
                     echo "<script src='$jsFile'></script>";
                 }
             }            
