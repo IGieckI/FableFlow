@@ -27,7 +27,10 @@
     }
 
     function redirect($ip_addr, $page_requested) {
-        setcookie("request", "ok", time() + (10), "/"); 
+        if (isset($_COOKIE['request'])) {
+            unset($_COOKIE['request']);
+        }
+        setcookie('request', 'ok', time() + 10, '/'); 
         header('Location: '. $ip_addr . $page_requested);
         exit;
     }
@@ -48,12 +51,21 @@
             if (isset($_SESSION['LOGGED']))
                 redirect($ip, $request);   
             break;
-        case '/FableFlow/src/server/AuthLogin.php':     
+        case '/FableFlow/src/server/AuthLogin.php':    
             if (auth($_POST['username'], $_POST['password'])) {
                 redirect($ip, "/FableFlow/src/Profile.php");
             }  else {
                 redirect($ip, '/FableFlow/src/Access.php');   
-            }
+            }   
+            break;
+        case '/FableFlow/src/server/api/GetLoggedUser.php':
+            redirect($ip, $request);
+            break;
+        case '/FableFlow/src/server/api/GetNotifications.php':
+            redirect($ip, $request);
+            break;
+        case '/FableFlow/src/server/api/GetPosts.php':
+            redirect($ip, $request);
             break;
         default:
             include '404.php';
