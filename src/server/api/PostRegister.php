@@ -6,6 +6,7 @@ $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
 $username = $_POST['username'];
 $password = $_POST['password'];
+$email = $_POST['email'];
 
 try {
     if((isset($username) && ($username != "")) && (isset($password) && ($password != ""))){

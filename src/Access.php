@@ -8,8 +8,16 @@ $_SESSION['cssFiles'][] = ['client/css/Access.css'];
 $_SESSION['jsFiles'][] = ['client/js/Access.js']
 
 ?>
-
-
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Register</title>
+    <?php
+    include './client/Access.html'
+    ?>
+</head>
 <body>
     <h1>Login</h1>
     <form action="/FableFlow/src/server/AuthLogin.php" method="post">
@@ -33,9 +41,4 @@ $_SESSION['jsFiles'][] = ['client/js/Access.js']
         <button type="submit">Registrati</button>
     </form>
 </body>
-
-
-
-<?php
-
-?>
+</html>
