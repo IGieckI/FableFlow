@@ -80,6 +80,12 @@
         case '/FableFlow/src/server/api/GetNumberOfFollowed.php':
             intermediate_post("./server/api/GetNumberOfFollowed.php");
             break;
+        case '/FableFlow/src/server/api/GetUserTags.php':
+            intermediate_post("./server/api/GetUserTags.php");
+            break;
+        case '/FableFlow/src/server/api/GetUserStories.php':
+            intermediate_post("./server/api/GetUserStories.php");
+            break;
         default:
             include '404.php';
             break;

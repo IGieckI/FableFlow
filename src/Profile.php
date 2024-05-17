@@ -11,7 +11,7 @@ include 'client/Header.php';
 
 ?>
 
-<div style="display: flex; justify-content:center;">
+<div style="display: grid; justify-content:center;">
     <section class="resume">
         <figure class="profile-pic">
             <img id="profile-pic" alt="profile picture">
@@ -21,7 +21,10 @@ include 'client/Header.php';
         <p class="followed-display" id="followed-display"></p>
         <p class="bio"></p>
     </section>
-</div>
+    <section id="tags" class="tags"></section>
+    <p id="bio" class="bio"></p>
+    <div id="stories" style="display: flex; flex-direction: row;"></div>
+    </div> 
 <?php
     include 'client/Footer.php';
 ?>
