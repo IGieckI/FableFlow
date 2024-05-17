@@ -11,18 +11,17 @@ include 'client/Header.php';
 
 ?>
 
-<section class="resume">
-    <figure class="profile-pic">
-        <img id="profile-pic" alt="profile picture">
-    </figure> 
-    <h2 class="username"></h2>
-    <section class="numbers"> 
-        <div class="followers-display"></div>
-        <div class="followings-display"></div>
+<div style="display: flex; justify-content:center;">
+    <section class="resume">
+        <figure class="profile-pic">
+            <img id="profile-pic" alt="profile picture">
+        </figure> 
+        <p class="username" id="username"></h2>    
+        <p class="followers-display" id="followers-display" ></p>
+        <p class="followed-display" id="followed-display"></p>
+        <p class="bio"></p>
     </section>
-    <p class="bio"></p>
-</section>
-
+</div>
 <?php
     include 'client/Footer.php';
 ?>

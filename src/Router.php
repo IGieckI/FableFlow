@@ -34,6 +34,13 @@
         header('Location: '. $ip_addr . $page_requested);
         exit;
     }
+
+    /* Calls a script which should handle a post request */
+    function intermediate_post($phpfile) {
+        require_once($phpfile);
+        exit;
+    }
+
     /* Here add variables that are needed in all pages*/
     $_SESSION['cssFiles'] = array("client/css/Footer.css", "client/css/Header.css");
     $_SESSION['jsFiles'] = array('client/js/Footer.js');
@@ -66,6 +73,12 @@
             break;
         case '/FableFlow/src/server/api/GetPosts.php':
             redirect($ip, $request);
+            break;
+        case '/FableFlow/src/server/api/GetNumberOfFollowers.php':
+            intermediate_post("./server/api/GetNumberOfFollowers.php");
+            break;
+        case '/FableFlow/src/server/api/GetNumberOfFollowed.php':
+            intermediate_post("./server/api/GetNumberOfFollowed.php");
             break;
         default:
             include '404.php';

@@ -1,0 +1,40 @@
+.profile-pic {
+    grid-row: span 2;
+    margin-right: 20px;
+}
+
+#profile-pic {
+    width: 90px;
+    float: right;
+}
+
+
+.resume {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 44% min-content min-content;
+}
+
+.username {
+    grid-row: 1;    
+    grid-column: 2;
+}
+
+.followers-display {
+    grid-row: 2;
+    grid-column: 3;
+    width: 90px;
+}
+
+.followed-display {
+    grid-row: 2;
+    width: 90px;
+    grid-column: 2;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  }
+
