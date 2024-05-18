@@ -26,12 +26,12 @@
     
     }
 
-    function redirect($ip_addr, $page_requested) {
+    function redirect($page_requested) {
         if (isset($_COOKIE['request'])) {
             unset($_COOKIE['request']);
         }
         setcookie('request', 'ok', time() + 10, '/'); 
-        header('Location: '. $ip_addr . $page_requested);
+        header('Location: '. $page_requested);
         exit;
     }
     /* Here add variables that are needed in all pages*/
@@ -42,30 +42,30 @@
     $ip = $_SESSION['REMOTE_ADDR'];
     switch ($request) {
         case '/FableFlow/src/Index.php':
-            redirect($ip, $request);
+            redirect($request);
             break;
         case '/FableFlow/src/Access.php':
-            redirect($ip, $request);
+            redirect($request);
             break;
         case '/FableFlow/src/Profile.php':
             if (isset($_SESSION['LOGGED']))
-                redirect($ip, $request);   
+                redirect($request);   
             break;
         case '/FableFlow/src/server/AuthLogin.php':    
             if (auth($_POST['username'], $_POST['password'])) {
-                redirect($ip, "/FableFlow/src/Profile.php");
+                redirect("/FableFlow/src/Profile.php");
             }  else {
-                redirect($ip, '/FableFlow/src/Access.php');   
+                redirect('/FableFlow/src/Access.php');   
             }   
             break;
         case '/FableFlow/src/server/api/GetLoggedUser.php':
-            redirect($ip, $request);
+            redirect($request);
             break;
         case '/FableFlow/src/server/api/GetNotifications.php':
-            redirect($ip, $request);
+            redirect($request);
             break;
         case '/FableFlow/src/server/api/GetPosts.php':
-            redirect($ip, $request);
+            redirect($request);
             break;
         default:
             include '404.php';
