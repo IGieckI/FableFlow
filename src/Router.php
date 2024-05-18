@@ -34,6 +34,13 @@
         header('Location: '. $page_requested);
         exit;
     }
+
+    /* Calls a script which should handle a post request */
+    function intermediate_post($phpfile) {
+        require_once($phpfile);
+        exit;
+    }
+
     /* Here add variables that are needed in all pages*/
     $_SESSION['cssFiles'] = array("client/css/Footer.css", "client/css/Header.css");
     $_SESSION['jsFiles'] = array('client/js/Footer.js');
