@@ -23,7 +23,7 @@ include 'client/Header.php';
     </section>
     <section id="tags" class="tags"></section>
     <p id="bio" class="bio"></p>
-    <div id="stories" style="display: flex; flex-direction: row;"></div>
+    <div id="stories"></div>
     </div> 
 <?php
     include 'client/Footer.php';

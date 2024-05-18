@@ -70,12 +70,16 @@ $(document).ready(function() {
                         let container = document.createElement('div');
                         let title = document.createElement('h3');
                         let like_display = document.createElement('span');
+                        let like_icon = document.createElement('i');
+                        like_icon.className = "bi bi-fire";
                         let link = document.createElement('a');
                         title.innerHTML = element['title'];
                         like_display.innerHTML = element['likes'];
+                        like_display.appendChild(like_icon);
                         container.appendChild(title);
                         container.appendChild(like_display);
                         stories_container.appendChild(container);
+                        
                     });
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

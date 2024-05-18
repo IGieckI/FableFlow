@@ -12,7 +12,7 @@
 .resume {
     width: 100%;
     display: grid;
-    grid-template-columns: 44% min-content min-content;
+    grid-template-columns: min-content min-content min-content;
 }
 
 .username {
@@ -38,4 +38,30 @@
     border-width: 2px;
     border-radius: 10px;
     padding: 1px;
+}
+
+#tags {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#stories {
+    display: flex;
+    border-top: solid;
+    padding-top: 10px;
+    flex-direction: column;
+}
+
+/* To refactor */
+#stories > div {
+    display: inline-flex;
+    border: solid;
+    justify-content: space-between;
+    margin-bottom: 2%;
+
+}
+
+#stories span {
+    align-content: center;
+    padding-left: 15px;
 }
