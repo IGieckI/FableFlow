@@ -18,16 +18,26 @@ Mockup da  fare:
 - [X] Creare frecce per tornare indietro e migliorare la navigazione.
 + altre se ci vengono in mente
 
-TO-DO:
-- [ ] Javascript variables have to be let and const not var
+Main TO-DO:
+- [X] Design
+- [ ] Registrazione e Login (Ciano)
+- [ ] Home con feed di post di utenti seguiti (Giacomo)
+- [ ] Commenti di post
+- [ ] Post con testo e/o foto
+- [ ] Follow di utente
+- [ ] Profilo utente con post, follow e follower (Dario)
+- [ ] Notifiche (Giacomo)
+
+Side TO-DO:
+- [X] Javascript variables have to be let and const not var
 - [ ] Desktop Mockup
 - [ ] Security sulle DB query
 - [X] MVC pattern (si farà solo in parte per questioni di tempo)
 - [ ] Check the difference between SQL tables and SQL diagram
 - [ ] Code refactory (check if have been used HTML standard tags where possible) IMPORTANT!!!
 - [ ] Check for redundant JS code, and make an Utilities.js class
-
-Poi bisognerebbe scegliere le palette
+- [X] Scegliere le palette
+- 
 
 Feature da aggiungere potrebbero essere:
 - tasto per la lettura automatica del testo
