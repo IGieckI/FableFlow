@@ -11,13 +11,14 @@ On Windows, copy the content of the file "httpd.conf" (located in the directory 
 > NOTE2: When the path ends with '\' put it, when it doesn't, don't.
 
 Examples:
-- <Directory "/opt/lampp/htdocs"> ---> <Directory "C:/xampp/htdocs"> ***CORRECT***
-- <Directory "/opt/lampp/htdocs"> ---> <Directory "C:***\***xampp***\***htdocs"> ***WRONG separator***
-- <Directory "/opt/lampp/htdocs"> ---> <Directory "C:/xampp/htdocs***/***"> ***WRONG ending character***
+- <Directory "/opt/lampp/htdocs"> ---> <Directory "C:/xampp/htdocs"> **CORRECT**
+- <Directory "/opt/lampp/htdocs"> ---> <Directory "C:\xampp\htdocs"> **WRONG separator**
+- <Directory "/opt/lampp/htdocs"> ---> <Directory "C:/xampp/htdocs/"> **WRONG ending character**
 
 ## Linux
 !!! FILL WITH A LINUX TUTORIAL !!!
 
+# TO-DO List
 Mockup da  fare:
 - [x] Home Page 
 - [x] Home Page con side bar
