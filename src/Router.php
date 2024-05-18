@@ -26,26 +26,25 @@
     
     }
 
-    /* Only for GET requests */
     function redirect($page_requested) {
-        $params = array();
-
         if (isset($_COOKIE['request'])) {
             unset($_COOKIE['request']);
         }
 
-        foreach ($_GET as $key=>$val) {
-            if($key != 'url' && $key != 'method') {
-                $params[] = $key.'='.$val;
-            } 
-        }   
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $parameters = array_slice($_GET, 2);
+            $page_requested .= '?';
+            foreach ($parameters as $key => $value) {
+                $page_requested .= $key . '=' . $value . '&';
+            }
+        }
 
         setcookie('request', 'ok', time() + 10, '/'); 
-        header('Location: '. $page_requested . "?" . implode("&", $params));
+        header('Location: '. $page_requested);
         exit;
     }
 
-    /* Calls a script which should handle a POST request */
+    /* Calls a script which should handle a post request */
     function intermediate_post($phpfile) {
         require_once($phpfile);
         exit;
@@ -56,6 +55,8 @@
     $_SESSION['jsFiles'] = array('client/js/Footer.js');
     
     $request = $_GET['url'];
+    $ip = $_SESSION['REMOTE_ADDR'];
+
     switch ($request) {
         case '/FableFlow/src/Index.php':
             redirect($request);
@@ -67,11 +68,23 @@
             if (isset($_SESSION['LOGGED']))
                 redirect($request);   
             break;
+        case '/FableFlow/src/client/post/PostPage.php':
+            redirect($request);
+            break;
+        case '/FableFlow/src/client/post/SubPostPage.php':
+            redirect($request);
+            break;
+        case '/FableFlow/src/client/post/content/Story.php':
+            redirect($request);
+            break;
+        case '/FableFlow/src/client/post/content/Comments.php':
+            redirect($request);
+            break;
         case '/FableFlow/src/server/AuthLogin.php':    
             if (auth($_POST['username'], $_POST['password'])) {
                 redirect("/FableFlow/src/Profile.php");
             }  else {
-                redirect('/FableFlow/src/Access.php');   
+                redirect('/FableFlow/src/Access.php');
             }   
             break;
         case '/FableFlow/src/server/api/GetLoggedUser.php':
