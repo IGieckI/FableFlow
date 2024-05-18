@@ -7,7 +7,7 @@ The procedure is similar for each OS:
 
 ## Windows
 On Windows, copy the content of the file "httpd.conf" (located in the directory of the project), and go in the installation directory of XAMPP, from there move to the "apache\conf\" folder, inside of that folder there should be a file named like the one we copied: "httpd.conf", open it, and scroll down to the bottom of it, then paste the copied code and change the path of the htdocs folder so that they match yours.
-> NOTE: Even if in Windows, the separator is '\', use '/' instead.
+> NOTE: Even if in Windows, the separator is '\', use '/' instead.\
 > NOTE2: When the path ends with '\' put it, when it doesn't, don't.
 
 Examples:
@@ -40,11 +40,15 @@ Main TO-DO:
 - [X] Design
 - [ ] Registrazione e Login (Ciano)
 - [ ] Home con feed di post di utenti seguiti (Giacomo)
-- [ ] Commenti di post
-- [ ] Post con testo e/o foto
-- [ ] Follow di utente
-- [ ] Profilo utente con post, follow e follower (Dario)
-- [ ] Notifiche (Giacomo)
+- [ ] Post: Storia (con possibile immagine allegata) (Giacomo)
+- [ ] Post: Pool (Ciano)
+- [ ] Post: Proposals (Giacomo)
+- [ ] Post: Commenti (Giacomo)
+- [ ] Search bar
+- [ ] Gestione del follow tra utenti (Dario)
+- [ ] Profilo utente con post (Dario)
+- [ ] Gestione delle immagini (Dario)
+- [ ] Gestione Notifiche (Giacomo)
 
 Side TO-DO:
 - [X] Javascript variables have to be let and const not var
