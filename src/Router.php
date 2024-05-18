@@ -26,16 +26,26 @@
     
     }
 
+    /* Only for GET requests */
     function redirect($page_requested) {
+        $params = array();
+
         if (isset($_COOKIE['request'])) {
             unset($_COOKIE['request']);
         }
+
+        foreach ($_GET as $key=>$val) {
+            if($key != 'url' && $key != 'method') {
+                $params[] = $key.'='.$val;
+            } 
+        }   
+
         setcookie('request', 'ok', time() + 10, '/'); 
-        header('Location: '. $page_requested);
+        header('Location: '. $page_requested . "?" . implode("&", $params));
         exit;
     }
 
-    /* Calls a script which should handle a post request */
+    /* Calls a script which should handle a POST request */
     function intermediate_post($phpfile) {
         require_once($phpfile);
         exit;
@@ -46,7 +56,6 @@
     $_SESSION['jsFiles'] = array('client/js/Footer.js');
     
     $request = $_GET['url'];
-    $ip = $_SESSION['REMOTE_ADDR'];
     switch ($request) {
         case '/FableFlow/src/Index.php':
             redirect($request);
