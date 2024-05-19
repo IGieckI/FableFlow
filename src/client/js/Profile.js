@@ -4,7 +4,7 @@ $(document).ready(function() {
     let followers_display = document.getElementsByClassName("followers-display");
     let following_display = document.getElementsByClassName("following-display");
     $.ajax({
-        url: './server/api/GetLoggedUser.php',
+        url: '/FableFlow/src/server/api/GetLoggedUser.php',
         type: 'GET',
         dataType: 'json',
         success: function(user) {

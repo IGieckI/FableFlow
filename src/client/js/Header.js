@@ -6,7 +6,7 @@ $(document).ready(function() {
     // Check for new notifications every 3 seconds
     setInterval(function() {
         $.ajax({
-            url: './server/api/GetNotifications.php',
+            url: '/FableFlow/src/server/api/GetNotifications.php',
             type: 'GET',
             dataType: 'json',
             success: function(notifications) {
@@ -63,7 +63,7 @@ function getTimeAgo(mysqlDatetime) {
 
 function deleteNotification(notificationId) {
     $.ajax({
-        url: './server/api/DeleteNotification.php',
+        url: '/FableFlow/src/server/api/DeleteNotification.php',
         type: 'POST',
         data: { notificationId: notificationId },
         error: function(jqXHR, textStatus, errorThrown) {

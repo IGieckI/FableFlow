@@ -10,7 +10,7 @@ $(document).ready(function() {
  */
 function loadPosts(page) {
     $.ajax({
-        url: './server/api/GetPosts.php',
+        url: '/FableFlow/src/server/api/GetPosts.php',
         type: 'GET',
         data: { page: page },
         dataType: 'json',
