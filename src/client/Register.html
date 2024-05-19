@@ -47,6 +47,9 @@
                       <input type="password" class="form-control" name="passwordconfirm" id="passwordconfirm" placeholder="Confirm Password" required>
                       <label for="passwordconfirm" class="form-label">Confirm Password</label>
                     </div>
+                    <div id="error-message" class="text-danger" style="display: none;">
+                      Le password non coincidono.
+                    </div>
                   </div>
                   <div class="col-12">
                     <div class="d-grid my-3">
@@ -64,20 +67,22 @@
       </div>
     </div>
   </section>
-</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
+  <script>
     document.getElementById('register').addEventListener('submit', function(event) {
-    const password = document.getElementById('password').value;
-    const passwordconfirm = document.getElementById('passwordconfirm').value;
-    const passwordMismatch = document.getElementById('passwordMismatch');
-
-      if (password !== passwordconfirm) {
-        passwordMismatch.style.display = 'block';
-        event.preventDefault(); // Prevent form submission
-      } else {
-        passwordMismatch.style.display = 'none';
-      }
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('passwordconfirm').value;
+        
+        if (password !== confirmPassword) {
+            document.getElementById('error-message').style.display = 'block';
+            event.preventDefault();
+        } else {
+            document.getElementById('error-message').style.display = 'none';
+        }
     });
 </script>
+</body>
 </html>
