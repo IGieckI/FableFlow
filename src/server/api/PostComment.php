@@ -1,5 +1,5 @@
 <?php
-    require '../utilities/DbHelper.php';
+    require __DIR__ . '/../utilities/DbHelper.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST['username'];

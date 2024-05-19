@@ -1,6 +1,4 @@
 <?php
-require './server/utilities/DbHelper.php';
-
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -13,6 +11,10 @@ if (session_status() == PHP_SESSION_NONE) {
  * Otherwise it returns False.
  */
 function auth($username, $password) {
+
+    // HO CANCELLATO L'IMPORT DI dbhelper.php PERCHE' ERA LA CAUSA DEL NON FUNZIONAMENTO DELLE API, PER FARE L'AUTH ESEGUIRE UN API .php SUL SERVER (scriverne una se non presente)
+    // AKA QUESTA FUNZIONE VA TOLTA !!!
+
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
     $user = $db->getUser($username);
     $db->disconnect();
@@ -33,20 +35,19 @@ function redirect($page_requested) {
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $parameters = array_slice($_GET, 2);
         $page_requested .= '?';
+        $paramArray = [];
         foreach ($parameters as $key => $value) {
-            $page_requested .= $key . '=' . $value . '&';
+            $paramArray[] = $key . '=' . $value;
         }
+        $page_requested .= implode('&', $paramArray);
+
+        header('Location: ' . $page_requested);
+    } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        error_log("Document root: " . $_SERVER['DOCUMENT_ROOT'] . "page_request" . $page_requested);
+        require_once($_SERVER['DOCUMENT_ROOT'] . $page_requested);
     }
-
     setcookie('request', 'ok', time() + 10, '/');
-    header('Location: ' . $page_requested);
-    exit;
-}
-
-/* Calls a script which should handle a post request */
-function intermediate_post($phpfile) {
-    require_once($phpfile);
-    exit;
+    exit;    
 }
 
 /* Here add variables that are needed in all pages */
@@ -70,9 +71,11 @@ $routes = [
         '/FableFlow/src/client/post/content/Story.php' => 'redirect',
         '/FableFlow/src/client/post/content/Comments.php' => 'redirect',
         '/FableFlow/src/server/api/GetNotifications.php' => 'redirect',
-        '/FableFlow/src/server/api/GetPosts.php' => 'redirect',
+        '/FableFlow/src/server/api/GetPosts.php' => 'redirect',        
+        '/FableFlow/src/server/api/GetStory.php' => 'redirect',
         '/FableFlow/src/server/api/GetLoggedUser.php' => 'redirect',
-    ],/FableFlow/src/client/post/server/api/GetNotifications.php
+        '/FableFlow/src/server/api/GetComments.php' => 'redirect',
+    ],
     'POST' => [
         '/FableFlow/src/server/AuthLogin.php' => function($_) {
             if (auth($_POST['username'], $_POST['password'])) {
@@ -81,6 +84,11 @@ $routes = [
                 redirect('/FableFlow/src/Access.php');
             }
         },
+        '/FableFlow/src/server/api/DeleteNotification.php' => 'redirect',
+        '/FableFlow/src/server/api/PostComment.php' => 'redirect',
+        '/FableFlow/src/server/api/UpdateCommentsLikesDislikes.php' => 'redirect',
+        '/FableFlow/src/server/api/PostLogin.php' => 'redirect',
+        '/FableFlow/src/server/api/PostRegister.php' => 'redirect',
     ]
 ];
 
