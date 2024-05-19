@@ -17,11 +17,10 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     
         <!-- CSS files -->
-        <link rel="stylesheet" href="/FableFlow/src/client/css/Footer.css">
-        <link rel="stylesheet" href="/FableFlow/src/client/css/Header.css">
         <?php
             if (isset($_SESSION['cssFiles'])) {
                 foreach ($_SESSION['cssFiles'] as $cssFile) {
+                    error_log("---CSS---> " . $cssFile);
                     echo "<link rel='stylesheet' href='$cssFile'>";
                 }
             }            
@@ -31,6 +30,7 @@
         <?php
             if (isset($_SESSION['jsFiles'])) {
                 foreach ($_SESSION['jsFiles'] as $key=>$jsFile) {
+                    error_log("---JS---> " . $jsFile);
                     echo "<script src='$jsFile'></script>";
                 }
             }            

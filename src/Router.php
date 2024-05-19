@@ -1,9 +1,7 @@
 <?php
-    require './server/utilities/DbHelper.php';
-
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();        
-    }
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
     /**
      * As side effect it sets the session variable LOGGED

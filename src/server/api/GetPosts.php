@@ -1,6 +1,6 @@
 <?php
-    require '../utilities/DbHelper.php';
-    require '../models/Post.php';
+    require __DIR__ . '/../utilities/DbHelper.php';
+    require __DIR__ . '/../models/Post.php';
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 

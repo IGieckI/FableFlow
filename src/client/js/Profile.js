@@ -2,7 +2,7 @@ $(document).ready(function() {
     let pp = document.getElementById("profile-pic");
     let username = document.getElementsByClassName("username");
     $.ajax({
-        url: './server/api/GetLoggedUser.php',
+        url: '/FableFlow/src/server/api/GetLoggedUser.php',
         type: 'GET',
         dataType: 'json',
         success: function(user) {

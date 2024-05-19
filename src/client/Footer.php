@@ -7,7 +7,7 @@
                 <path d="M4 12H20M12 4V20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             </button>
-            <buttom id="profile" class="footer-btn" onclick="redirectToProfile('<?php echo $_SESSION["LOGGED"]; ?>')">
+            <buttom id="profile" class="footer-btn" onclick="redirectToProfile('<?php echo $_SESSION["LOGGED"] ?? false; ?>')">
                 <svg class="footer-icon" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" class="footer-icon-part" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path class="footer-icon-part" d="M12.1207 12.78C12.0507 12.77 11.9607 12.77 11.8807 12.78C10.1207 12.72 8.7207 11.28 8.7207 9.50998C8.7207 7.69998 10.1807 6.22998 12.0007 6.22998C13.8107 6.22998 15.2807 7.69998 15.2807 9.50998C15.2707 11.28 13.8807 12.72 12.1207 12.78Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
