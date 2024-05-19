@@ -3,27 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-    /**
-     * As side effect it sets the session variable LOGGED
-     * which enables to enter pages for only logged users.
-     *
-     * Returns True iff the entered password corresponds to a user.
-     * Otherwise it returns False.
-     */
-    function auth($username, $password) {
-        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-        $user = $db->getUser($username);
-        $db->disconnect();
-        if ($user[0]['password']==$password) {
-            $_SESSION['username'] = $username;
-            $_SESSION['LOGGED'] = 'true';
-            return True;
-        } 
-        
-        return False;
-    
-    }
-
     function redirect($ip_addr, $page_requested) {
         if (isset($_COOKIE['request'])) {
             unset($_COOKIE['request']);
@@ -39,54 +18,52 @@ if (session_status() == PHP_SESSION_NONE) {
         exit;
     }
 
-    /* Here add variables that are needed in all pages*/
-    $_SESSION['cssFiles'] = array("client/css/Footer.css", "client/css/Header.css");
-    $_SESSION['jsFiles'] = array('client/js/Footer.js');
-    
-    $request = $_GET['url'];
-    $ip = $_SESSION['REMOTE_ADDR'];
-    switch ($request) {
-        case '/FableFlow/src/Index.php':
-            redirect($ip, $request);
-            break;
-        case '/FableFlow/src/Access.php':
-            redirect($ip, $request);
-            break;
-        case '/FableFlow/src/Profile.php':
-            if (isset($_SESSION['LOGGED']))
-                redirect($ip, $request);   
-            break;
-        case '/FableFlow/src/server/AuthLogin.php':    
-            if (auth($_POST['username'], $_POST['password'])) {
-                redirect($ip, "/FableFlow/src/Profile.php");
-            }  else {
-                redirect($ip, '/FableFlow/src/Access.php');   
-            }   
-            break;
-        case '/FableFlow/src/server/api/GetLoggedUser.php':
-            redirect($ip, $request);
-            break;
-        case '/FableFlow/src/server/api/GetNotifications.php':
-            redirect($ip, $request);
-            break;
-        case '/FableFlow/src/server/api/GetPosts.php':
-            redirect($ip, $request);
-            break;
-        case '/FableFlow/src/server/api/GetNumberOfFollowers.php':
-            intermediate_post("./server/api/GetNumberOfFollowers.php");
-            break;
-        case '/FableFlow/src/server/api/GetNumberOfFollowed.php':
-            intermediate_post("./server/api/GetNumberOfFollowed.php");
-            break;
-        case '/FableFlow/src/server/api/GetUserTags.php':
-            intermediate_post("./server/api/GetUserTags.php");
-            break;
-        case '/FableFlow/src/server/api/GetUserStories.php':
-            intermediate_post("./server/api/GetUserStories.php");
-            break;
-        default:
-            include '404.php';
-            break;
-    }
+/* Here add variables that are needed in all pages */
+$_SESSION['cssFiles'] = array("/FableFlow/src/client/css/Footer.css", "/FableFlow/src/client/css/Header.css");
+$_SESSION['jsFiles'] = array("/FableFlow/src/client/js/Footer.js", "/FableFlow/src/client/js/Header.js");
 
+$request = $_GET['url'];
+$ip = $_SESSION['REMOTE_ADDR'] ?? $_SERVER['REMOTE_ADDR'];
+
+error_log("Request: " . $request . " from " . $ip);
+
+$routes = [
+    'GET' => [
+        '/FableFlow/src/Index.php' => 'redirect',
+        '/FableFlow/src/Access.php' => 'redirect',
+        '/FableFlow/src/Profile.php' => function($_) {
+            if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/Profile.php');
+        },
+        '/FableFlow/src/client/post/PostPage.php' => 'redirect',
+        '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
+        '/FableFlow/src/client/post/content/Story.php' => 'redirect',
+        '/FableFlow/src/client/post/content/Comments.php' => 'redirect',
+        '/FableFlow/src/server/api/GetNotifications.php' => 'redirect',
+        '/FableFlow/src/server/api/GetPosts.php' => 'redirect',        
+        '/FableFlow/src/server/api/GetStory.php' => 'redirect',
+        '/FableFlow/src/server/api/GetLoggedUser.php' => 'redirect',
+        '/FableFlow/src/server/api/GetComments.php' => 'redirect',
+    ],
+    'POST' => [
+        '/FableFlow/src/server/api/AuthLogin.php' => 'redirect',
+        '/FableFlow/src/server/api/DeleteNotification.php' => 'redirect',
+        '/FableFlow/src/server/api/PostComment.php' => 'redirect',
+        '/FableFlow/src/server/api/UpdateCommentsLikesDislikes.php' => 'redirect',
+        '/FableFlow/src/server/api/PostLogin.php' => 'redirect',
+        '/FableFlow/src/server/api/PostRegister.php' => 'redirect',
+    ]
+];
+
+$request_method = $_SERVER['REQUEST_METHOD'];
+
+if (isset($routes[$request_method][$request])) {
+    $action = $routes[$request_method][$request];
+    if (is_callable($action)) {
+        $action($request);
+    } else {
+        redirect('/FableFlow/src/404.php');
+    }
+} else {
+    redirect('/FableFlow/src/404.php');
+}
 ?>
