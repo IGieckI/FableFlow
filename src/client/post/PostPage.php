@@ -3,8 +3,8 @@
         session_start();
     }
 
-    $_SESSION['cssFiles'] = ['../css/Comments.css'];
-    $_SESSION['jsFiles'] = ['../js/PostPage.js', '../js/Comments.js'];
+    array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/Comments.css');
+    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/PostPage.js', '/FableFlow/src/client/js/Comments.js');
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';

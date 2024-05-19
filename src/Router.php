@@ -50,8 +50,8 @@ function intermediate_post($phpfile) {
 }
 
 /* Here add variables that are needed in all pages */
-$_SESSION['cssFiles'] = array("client/css/Footer.css", "client/css/Header.css");
-$_SESSION['jsFiles'] = array("client/js/Footer.js", "client/js/Header.js");
+$_SESSION['cssFiles'] = array("/FableFlow/src/client/css/Footer.css", "/FableFlow/src/client/css/Header.css");
+$_SESSION['jsFiles'] = array("/FableFlow/src/client/js/Footer.js", "/FableFlow/src/client/js/Header.js");
 
 $request = $_GET['url'];
 $ip = $_SESSION['REMOTE_ADDR'] ?? $_SERVER['REMOTE_ADDR'];
@@ -86,6 +86,8 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 if (isset($routes[$request_method][$request])) {
     $action = $routes[$request_method][$request];
     if (is_callable($action)) {
+        $action($request);
+    } else {
         $action($request);
     }
 } else {
