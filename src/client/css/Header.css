@@ -70,3 +70,12 @@ header > * {
     list-style-type: none;
     padding: 0;
 }
+
+.clickable-text {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.clickable-text:hover {
+    text-decoration: underline;
+}
