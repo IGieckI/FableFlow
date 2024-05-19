@@ -3,30 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-/**
- * As side effect it sets the session variable LOGGED
- * which enables to enter pages for only logged users.
- *
- * Returns True iff the entered password corresponds to a user.
- * Otherwise it returns False.
- */
-function auth($username, $password) {
-
-    // HO CANCELLATO L'IMPORT DI dbhelper.php PERCHE' ERA LA CAUSA DEL NON FUNZIONAMENTO DELLE API, PER FARE L'AUTH ESEGUIRE UN API .php SUL SERVER (scriverne una se non presente)
-    // AKA QUESTA FUNZIONE VA TOLTA !!!
-
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-    $user = $db->getUser($username);
-    $db->disconnect();
-    if ($user[0]['password'] == $password) {
-        $_SESSION['username'] = $username;
-        $_SESSION['LOGGED'] = 'true';
-        return true;
-    }
-
-    return false;
-}
-
 function redirect($page_requested) {
     if (isset($_COOKIE['request'])) {
         unset($_COOKIE['request']);
@@ -77,13 +53,7 @@ $routes = [
         '/FableFlow/src/server/api/GetComments.php' => 'redirect',
     ],
     'POST' => [
-        '/FableFlow/src/server/AuthLogin.php' => function($_) {
-            if (auth($_POST['username'], $_POST['password'])) {
-                redirect("/FableFlow/src/Profile.php");
-            } else {
-                redirect('/FableFlow/src/Access.php');
-            }
-        },
+        '/FableFlow/src/server/api/AuthLogin.php' => 'redirect',
         '/FableFlow/src/server/api/DeleteNotification.php' => 'redirect',
         '/FableFlow/src/server/api/PostComment.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateCommentsLikesDislikes.php' => 'redirect',
