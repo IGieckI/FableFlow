@@ -21,6 +21,18 @@ require __DIR__. '/../Header.php';
         <p class="followed-display" id="followed-display"></p>
         <p class="bio"></p>
     </section>
+    <?php if (isset($_GET['user_viewing'])) {
+        echo 
+            '<section id="guest-view">
+                <button id="follow"></button>
+            </section>';
+    } else {
+        echo 
+            '<section id="owner-view"> 
+                <div id="dialog" title="Upload Image"> 
+                <button id="edit">Change Image</button>
+            </section>';
+    } ?>
     <section id="tags" class="tags"></section>
     <p id="bio" class="bio"></p>
     <div id="stories"></div>

@@ -4,6 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     loadContent('story', getPostId(currentURL));
 });
 
+function goToProfile() {
+    let username = this.getAttribute("username");
+    window.location.assign('/FableFlow/src/client/profile/Profile.php?user_viewing='+username);
+}
+
+
+$(document).ready(function() {
+    document.querySelector("#user_icon").onclick = goToProfile;
+});
+
 
 // Use jQuery to load content based on the selected subpage
 function loadContent(subpage, chapter_id) {

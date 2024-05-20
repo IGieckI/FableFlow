@@ -35,7 +35,7 @@
         <div class="col-2">
             <span><i class="bi bi-fire"></i><?php echo $likes[0]['COUNT(*)']; ?></span>
         </div>
-        <div class="col-2">
+        <div id="user_icon" username=<?php echo $author[0]['username']?> class="col-2">
             <img src="<?php echo $author[0]['icon']; ?>" alt="User Icon" width="30" height="30">
         </div>
     </div>

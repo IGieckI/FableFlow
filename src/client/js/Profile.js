@@ -1,19 +1,81 @@
-$(document).ready(function() {
-    let pp = document.getElementById("profile-pic");
-    let username = document.getElementsByClassName("username");
+function isAlreadyFollowing(followed, follower) {
     $.ajax({
-        url: '/FableFlow/src/server/api/GetLoggedUser.php',
+        url: '/FableFlow/src/server/api/IsItAlreadyAFollower.php',
         type: 'GET',
         dataType: 'json',
-        success: function(user) {
-            pp.setAttribute("src", "/FableFlow/resources/icons/"+user[0].pic_uri+".png");
-            username[0].innerHTML =  ""+user[0].username;
-            document.querySelector("#bio").innerHTML=user[0].description;
+        data: {followed: followed, follower: follower},
+        success: function(data) {
+            if(data['result']) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Failed AJAX call in follow checking: ', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+function getLoggedUsername() {
+    $.ajax({
+        url: '/FableFlow/src/server/api/GetLoggedUsername.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            return data['result'];
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Failed AJAX call in logging checking: ', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+function followOrUnfollow() {
+    
+}
+
+function redirectToLogin() {
+    window.location.assign = "/FableFlow/src/Access.php";
+}
+
+$(document).ready(function() {
+    $.ajax({
+        url: '/FableFlow/src/server/api/GetViewedUser.php',
+        type: 'GET',
+        dataType: 'json',
+        data: {user_viewing: window.location.search.substring(1).split('&')[0].split('=')[1]},
+        success: function(GetViewedUserOutput) {
+            $('#profile-pic').attr("src", "/FableFlow/resources/icons/"+GetViewedUserOutput['user'].pic_uri+".png");
+            $('.username').html(GetViewedUserOutput['user'].username);
+            $('#bio').html(GetViewedUserOutput['user'].description);
+
+
+            if (GetViewedUserOutput['myprofile']==true) {
+                
+            } else {
+                console.log($('#follow'));
+                $('#follow').text("FOLLOW");
+                if (getLoggedUsername()!='') {
+                    if (isAlreadyFollowing(GetViewedUserOutput['user'].username, getLoggedUsername())) {
+                        $('#follow').text("UNFOLLOW");
+                    }
+                    document.querySelector('#follow').onclick = followOrUnfollow;
+                } else {
+                    document.querySelector('#follow').onclick = redirectToLogin;
+                }
+                
+                
+            }
+
+
             $.ajax({
                 url: '/FableFlow/src/server/api/GetNumberOfFollowers.php',
                 type: 'GET',
                 dataType: 'json',
-                data: {username:user[0].username},
+                data: {username:GetViewedUserOutput['user'].username},
                 success: function(data) {
                     document.querySelector('#followers-display').innerHTML="Followers: "+data['nfollowers'];
                 },
@@ -27,7 +89,7 @@ $(document).ready(function() {
                 url: '/FableFlow/src/server/api/GetNumberOfFollowed.php',
                 type: 'GET',
                 dataType: 'json',
-                data: {username: user[0].username},
+                data: {username: GetViewedUserOutput['user'].username},
                 success: function(data) {
                     document.querySelector('#followed-display').innerHTML="Following: "+data['nfollowed'];
                 },
@@ -41,7 +103,7 @@ $(document).ready(function() {
                 url: '/FableFlow/src/server/api/GetUserTags.php',
                 type: 'GET',
                 dataType: 'json',
-                data: {username: user[0].username},
+                data: {username: GetViewedUserOutput['user'].username},
                 success: function(data) {
                     
                     let tags_container = document.querySelector('#tags');
@@ -62,7 +124,7 @@ $(document).ready(function() {
                 url: '/FableFlow/src/server/api/GetUserStories.php',
                 type: 'GET',
                 dataType: 'json',
-                data: {username: user[0].username},
+                data: {username: GetViewedUserOutput['user'].username},
                 success: function(data) {
                     let stories_container = document.querySelector('#stories');
                     data['output'].forEach(element => {

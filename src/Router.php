@@ -41,6 +41,7 @@ $routes = [
         '/FableFlow/src/Access.php' => 'redirect',
         '/FableFlow/src/client/profile/Profile.php' => function($_) {
             if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/client/profile/Profile.php');
+            redirect('/FableFlow/src/Access.php');
         },
         '/FableFlow/src/client/post/PostPage.php' => 'redirect',
         '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
@@ -49,9 +50,8 @@ $routes = [
         '/FableFlow/src/server/api/GetNotifications.php' => 'redirect',
         '/FableFlow/src/server/api/GetPosts.php' => 'redirect',        
         '/FableFlow/src/server/api/GetStory.php' => 'redirect',
-        '/FableFlow/src/server/api/GetLoggedUser.php' => 'redirect',
+        '/FableFlow/src/server/api/GetViewedUser.php' => 'redirect',
         '/FableFlow/src/server/api/GetComments.php' => 'redirect',
-        '/FableFlow/src/server/api/GetLoggedUser.php' => 'redirect',
         '/FableFlow/src/server/api/GetNumberOfFollowed.php' => 'redirect',
         '/FableFlow/src/server/api/GetNumberOfFollowers.php' => 'redirect',
         '/FableFlow/src/server/api/GetUserStories.php' => 'redirect',
