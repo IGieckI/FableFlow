@@ -6,7 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 array_push($_SESSION['cssFiles'],  './../css/Profile.css');
 array_push($_SESSION['jsFiles'], './../js/Profile.js');
-
+array_push($_SESSION['jsFiles'], 'https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"');
 require __DIR__. '/../Header.php';
 
 ?>
@@ -29,8 +29,14 @@ require __DIR__. '/../Header.php';
     } else {
         echo 
             '<section id="owner-view"> 
-                <div id="dialog" title="Upload Image"> 
-                <button id="edit">Change Image</button>
+                <div id="upload" title="Upload Image">
+                    <form id="upload_form" > 
+                        <label for="filename">Image File</label>
+                        <input id="filename" name="filename" type="file"></input>
+                        <input type="submit" value="Send File" />
+                    </form>
+                </div>
+                <button id="edit">Upload Image</button>
             </section>';
     } ?>
     <section id="tags" class="tags"></section>
