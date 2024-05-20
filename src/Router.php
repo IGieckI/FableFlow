@@ -3,20 +3,28 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-    function redirect($ip_addr, $page_requested) {
-        if (isset($_COOKIE['request'])) {
-            unset($_COOKIE['request']);
+function redirect($page_requested) {
+    if (isset($_COOKIE['request'])) {
+        unset($_COOKIE['request']);
+    }
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $parameters = array_slice($_GET, 2);
+        $page_requested .= '?';
+        $paramArray = [];
+        foreach ($parameters as $key => $value) {
+            $paramArray[] = $key . '=' . $value;
         }
-        setcookie('request', 'ok', time() + 10, '/'); 
-        header('Location: '. $ip_addr . $page_requested);
-        exit;
-    }
+        $page_requested .= implode('&', $paramArray);
 
-    /* Calls a script which should handle a post request */
-    function intermediate_post($phpfile) {
-        require_once($phpfile);
-        exit;
+        header('Location: ' . $page_requested);
+    } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        error_log("Document root: " . $_SERVER['DOCUMENT_ROOT'] . "page_request" . $page_requested);
+        require_once($_SERVER['DOCUMENT_ROOT'] . $page_requested);
     }
+    setcookie('request', 'ok', time() + 10, '/');
+    exit;    
+}
 
 /* Here add variables that are needed in all pages */
 $_SESSION['cssFiles'] = array("/FableFlow/src/client/css/Footer.css", "/FableFlow/src/client/css/Header.css");
@@ -43,6 +51,11 @@ $routes = [
         '/FableFlow/src/server/api/GetStory.php' => 'redirect',
         '/FableFlow/src/server/api/GetLoggedUser.php' => 'redirect',
         '/FableFlow/src/server/api/GetComments.php' => 'redirect',
+        '/FableFlow/src/server/api/GetLoggedUser.php' => 'redirect',
+        '/FableFlow/src/server/api/GetNumberOfFollowed.php' => 'redirect',
+        '/FableFlow/src/server/api/GetNumberOfFollowers.php' => 'redirect',
+        '/FableFlow/src/server/api/GetUserStories.php' => 'redirect',
+        '/FableFlow/src/server/api/GetUserTags.php' => 'redirect',
     ],
     'POST' => [
         '/FableFlow/src/server/api/AuthLogin.php' => 'redirect',

@@ -7,7 +7,7 @@ $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 /* For each story we need 1) The title 2) The id(for link) 3) Num of Likes*/
 $output = [];
 
-$stories = $db->findBy(['username'=>$_POST['username']], null, null, Tables::Stories);
+$stories = $db->findBy(['username'=>$_GET['username']], null, null, Tables::Stories);
 
 foreach ($stories as $story) {
 

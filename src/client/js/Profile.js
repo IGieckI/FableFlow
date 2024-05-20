@@ -11,7 +11,7 @@ $(document).ready(function() {
             document.querySelector("#bio").innerHTML=user[0].description;
             $.ajax({
                 url: './server/api/GetNumberOfFollowers.php',
-                type: 'POST',
+                type: 'GET',
                 dataType: 'json',
                 data: {username:user[0].username},
                 success: function(data) {
@@ -25,7 +25,7 @@ $(document).ready(function() {
         
             $.ajax({
                 url: './server/api/GetNumberOfFollowed.php',
-                type: 'POST',
+                type: 'GET',
                 dataType: 'json',
                 data: {username: user[0].username},
                 success: function(data) {
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
             $.ajax({
                 url: './server/api/GetUserTags.php',
-                type: 'POST',
+                type: 'GET',
                 dataType: 'json',
                 data: {username: user[0].username},
                 success: function(data) {
@@ -47,7 +47,6 @@ $(document).ready(function() {
                     let tags_container = document.querySelector('#tags');
                     data['tags'].forEach(element => {
                         let tag = document.createElement('span');
-                        console.log(element);
                         tag.innerHTML=""+element['tag'];
                         tags_container.appendChild(tag);
                         
@@ -61,7 +60,7 @@ $(document).ready(function() {
 
             $.ajax({
                 url: './server/api/GetUserStories.php',
-                type: 'POST',
+                type: 'GET',
                 dataType: 'json',
                 data: {username: user[0].username},
                 success: function(data) {
