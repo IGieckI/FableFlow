@@ -10,7 +10,7 @@ $(document).ready(function() {
             username[0].innerHTML =  ""+user[0].username;
             document.querySelector("#bio").innerHTML=user[0].description;
             $.ajax({
-                url: './server/api/GetNumberOfFollowers.php',
+                url: '/FableFlow/src/server/api/GetNumberOfFollowers.php',
                 type: 'GET',
                 dataType: 'json',
                 data: {username:user[0].username},
@@ -24,7 +24,7 @@ $(document).ready(function() {
             });
         
             $.ajax({
-                url: './server/api/GetNumberOfFollowed.php',
+                url: '/FableFlow/src/server/api/GetNumberOfFollowed.php',
                 type: 'GET',
                 dataType: 'json',
                 data: {username: user[0].username},
@@ -38,7 +38,7 @@ $(document).ready(function() {
             });
 
             $.ajax({
-                url: './server/api/GetUserTags.php',
+                url: '/FableFlow/src/server/api/GetUserTags.php',
                 type: 'GET',
                 dataType: 'json',
                 data: {username: user[0].username},
@@ -59,7 +59,7 @@ $(document).ready(function() {
             });
 
             $.ajax({
-                url: './server/api/GetUserStories.php',
+                url: '/FableFlow/src/server/api/GetUserStories.php',
                 type: 'GET',
                 dataType: 'json',
                 data: {username: user[0].username},
@@ -70,8 +70,8 @@ $(document).ready(function() {
                         let title = document.createElement('h3');
                         let like_display = document.createElement('span');
                         let like_icon = document.createElement('i');
-                        like_icon.className = "bi bi-fire";
                         let link = document.createElement('a');
+                        like_icon.className = "bi bi-fire";
                         title.innerHTML = element['title'];
                         like_display.innerHTML = element['likes'];
                         like_display.appendChild(like_icon);

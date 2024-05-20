@@ -4,8 +4,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-array_push($_SESSION['cssFiles'],  './css/Profile.css');
-array_push($_SESSION['jsFiles'], './js/Profile.js');
+array_push($_SESSION['cssFiles'],  './../css/Profile.css');
+array_push($_SESSION['jsFiles'], './../js/Profile.js');
 
 require __DIR__. '/../Header.php';
 

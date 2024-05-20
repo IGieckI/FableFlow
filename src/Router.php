@@ -39,8 +39,8 @@ $routes = [
     'GET' => [
         '/FableFlow/src/Index.php' => 'redirect',
         '/FableFlow/src/Access.php' => 'redirect',
-        '/FableFlow/src/Profile.php' => function($_) {
-            if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/Profile.php');
+        '/FableFlow/src/client/profile/Profile.php' => function($_) {
+            if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/client/profile/Profile.php');
         },
         '/FableFlow/src/client/post/PostPage.php' => 'redirect',
         '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
