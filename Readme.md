@@ -18,6 +18,14 @@ Examples:
 ## Linux
 !!! FILL WITH A LINUX TUTORIAL !!!
 
+# List of the Current Session Variables
+A session variable has to be used as $_SESSION['variableName'], this is a list of the current used session variables:
+- cssFiles: List of the css files that will be loaded
+- jsFiles: List of the js files that will be loaded
+- REMOTE_ADDR: IP address of the remote client
+- LOGGED: Boolean which is true, if the client is logged, false otherwise (might be deprecated)
+- username: Username of the current logged user
+
 # TO-DO List
 Mockup da  fare:
 - [x] Home Page 
