@@ -1,40 +1,93 @@
+function updateFollowings(username) {
+    $.ajax({
+        url: '/FableFlow/src/server/api/GetNumberOfFollowed.php',
+        type: 'GET',
+        dataType: 'json',
+        data: {username: username},
+        success: function(data) {
+            document.querySelector('#followed-display').innerHTML="Following: "+data['nfollowed'];
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Couldnt find followings:', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+function updateFollowers(username) {
+    $.ajax({
+        url: '/FableFlow/src/server/api/GetNumberOfFollowers.php',
+        type: 'GET',
+        dataType: 'json',
+        data: {username: username},
+        success: function(data) {
+            document.querySelector('#followers-display').innerHTML="Followers: "+data['nfollowers'];
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Couldnt find followers:', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+
 function isAlreadyFollowing(followed, follower) {
+    let result;
     $.ajax({
         url: '/FableFlow/src/server/api/IsItAlreadyAFollower.php',
         type: 'GET',
         dataType: 'json',
+        async: false,
         data: {followed: followed, follower: follower},
         success: function(data) {
-            if(data['result']) {
-                return true;
-            } else {
-                return false;
-            }
+            result = data['result'];
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error('Failed AJAX call in follow checking: ', textStatus, errorThrown);
             console.log(jqXHR.responseText);
         }
     });
+    return result;
 }
 
 function getLoggedUsername() {
+    let d;
     $.ajax({
         url: '/FableFlow/src/server/api/GetLoggedUsername.php',
         type: 'GET',
         dataType: 'json',
+        async: false,
         success: function(data) {
-            return data['result'];
+            d =  data['result'];
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error('Failed AJAX call in logging checking: ', textStatus, errorThrown);
             console.log(jqXHR.responseText);
         }
     });
+    return d;
 }
 
-function followOrUnfollow() {
-    
+function followOrUnfollow(followed, follower) {
+
+    let isAlreadyFollowing_result = isAlreadyFollowing(followed, follower);
+    $.ajax({
+        url: '/FableFlow/src/server/api/UpdateFollowship.php',
+        type: 'POST',
+        data: {followed:followed, follower:follower, isAlreadyFollowing: isAlreadyFollowing_result }, 
+        success: function() {
+            if (isAlreadyFollowing_result) {
+                $('#follow').text("UNFOLLOW");
+            } else {
+                $('#follow').text("FOLLOW");
+            }
+            updateFollowers(followed);            
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Failed AJAX call in logging checking: ', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    });
 }
 
 function redirectToLogin() {
@@ -48,56 +101,31 @@ $(document).ready(function() {
         dataType: 'json',
         data: {user_viewing: window.location.search.substring(1).split('&')[0].split('=')[1]},
         success: function(GetViewedUserOutput) {
+            let viewer = getLoggedUsername();
             $('#profile-pic').attr("src", "/FableFlow/resources/icons/"+GetViewedUserOutput['user'].pic_uri+".png");
             $('.username').html(GetViewedUserOutput['user'].username);
             $('#bio').html(GetViewedUserOutput['user'].description);
-
+            updateFollowings(GetViewedUserOutput['user'].username);
+            updateFollowers(GetViewedUserOutput['user'].username);
 
             if (GetViewedUserOutput['myprofile']==true) {
-                
+                /*
+                Owners functions calls TBD
+                */
             } else {
                 console.log($('#follow'));
                 $('#follow').text("FOLLOW");
-                if (getLoggedUsername()!='') {
-                    if (isAlreadyFollowing(GetViewedUserOutput['user'].username, getLoggedUsername())) {
+                if (viewer!='') {
+                    if (isAlreadyFollowing(GetViewedUserOutput['user'].username, viewer)) {
                         $('#follow').text("UNFOLLOW");
                     }
-                    document.querySelector('#follow').onclick = followOrUnfollow;
+                    document.querySelector('#follow').addEventListener('click', function() {
+                        followOrUnfollow(GetViewedUserOutput['user'].username, viewer);
+                    });
                 } else {
                     document.querySelector('#follow').onclick = redirectToLogin;
                 }
-                
-                
             }
-
-
-            $.ajax({
-                url: '/FableFlow/src/server/api/GetNumberOfFollowers.php',
-                type: 'GET',
-                dataType: 'json',
-                data: {username:GetViewedUserOutput['user'].username},
-                success: function(data) {
-                    document.querySelector('#followers-display').innerHTML="Followers: "+data['nfollowers'];
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Couldnt find followers:', textStatus, errorThrown);
-                    console.log(jqXHR.responseText);
-                }
-            });
-        
-            $.ajax({
-                url: '/FableFlow/src/server/api/GetNumberOfFollowed.php',
-                type: 'GET',
-                dataType: 'json',
-                data: {username: GetViewedUserOutput['user'].username},
-                success: function(data) {
-                    document.querySelector('#followed-display').innerHTML="Following: "+data['nfollowed'];
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Couldnt find followings:', textStatus, errorThrown);
-                    console.log(jqXHR.responseText);
-                }
-            });
 
             $.ajax({
                 url: '/FableFlow/src/server/api/GetUserTags.php',

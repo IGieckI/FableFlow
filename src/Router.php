@@ -57,8 +57,11 @@ $routes = [
         '/FableFlow/src/server/api/GetUserStories.php' => 'redirect',
         '/FableFlow/src/server/api/GetUserTags.php' => 'redirect',
         '/FableFlow/src/server/api/IsUserLogged.php' => 'redirect',
+        '/FableFlow/src/server/api/IsItAlreadyAFollower.php' => 'redirect',
+        '/FableFlow/src/server/api/GetLoggedUsername.php' => 'redirect',
     ],
     'POST' => [
+        '/FableFlow/src/server/api/UpdateFollowship.php' => 'redirect',
         '/FableFlow/src/server/api/AuthLogin.php' => 'redirect',
         '/FableFlow/src/server/api/DeleteNotification.php' => 'redirect',
         '/FableFlow/src/server/api/PostComment.php' => 'redirect',

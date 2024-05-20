@@ -174,5 +174,11 @@
             $query = "INSERT INTO " . Tables::Users->value . " (username, password, icon, description) VALUES ('$username', '$password', 'NULL', 'NULL')";
             return $this->db->query($query);
         }
+
+        public function insertInto($values, Tables $table) {
+            $query = "INSERT INTO " . $table->value . " VALUES (";
+            error_log("--------------------------------------------------". $query);
+            $this->db->query($query . implode(',', $values). ')');
+        }
     }
 ?>

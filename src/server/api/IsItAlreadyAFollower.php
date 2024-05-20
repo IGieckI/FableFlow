@@ -8,9 +8,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
 $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-$result = $db->findBy(['followed'=>$_GET['followed'], 'follower'=>$_GET['follower']], 1, 0, Tables::Followers).fetch_all();
+$result = $db->findBy(['followed'=>$_GET['followed'], 'follower'=>$_GET['follower']], 1, 0, Tables::Followers);
 
-echo json_encode(['result'=>sizeof($result)==0?FALSE:TRUE]);
+$db->disconnect();
+
+echo json_encode(['result'=>(sizeof($result)==0)?FALSE:TRUE]);
 
 
 ?>
