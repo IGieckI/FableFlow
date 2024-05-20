@@ -67,7 +67,15 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 if (isset($routes[$request_method][$request])) {
     $action = $routes[$request_method][$request];
     if (is_callable($action)) {
-        $action($request);
+        /*if(isset($_POST['risultato'])) {
+            $risultato = $_POST['risultato']
+            if($risultato == true){
+                redirect('/FableFlow/Index.php')
+            }
+            else{
+                redirect('/FableFlow/src/client/Login.html')
+            }*/
+            $action($request);
     } else {
         redirect('/FableFlow/src/404.php');
     }
