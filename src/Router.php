@@ -61,6 +61,7 @@ $routes = [
         '/FableFlow/src/server/api/GetLoggedUsername.php' => 'redirect',
     ],
     'POST' => [
+        '/FableFlow/src/server/api/UploadImage.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateFollowship.php' => 'redirect',
         '/FableFlow/src/server/api/AuthLogin.php' => 'redirect',
         '/FableFlow/src/server/api/DeleteNotification.php' => 'redirect',

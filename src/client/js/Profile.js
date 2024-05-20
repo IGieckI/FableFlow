@@ -1,3 +1,23 @@
+function uploadImage() {
+    console.log($('#upload_form'));
+    $.ajax({
+        url: '/FableFlow/src/server/api/UploadImage.php',
+        type: 'POST',
+        data: new FormData($('#upload_form')[0]), 
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(data) {
+            alert(data['result']);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Profile image upload failed:', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+
 function updateFollowings(username) {
     $.ajax({
         url: '/FableFlow/src/server/api/GetNumberOfFollowed.php',
@@ -108,12 +128,26 @@ $(document).ready(function() {
             updateFollowings(GetViewedUserOutput['user'].username);
             updateFollowers(GetViewedUserOutput['user'].username);
 
-            if (GetViewedUserOutput['myprofile']==true) {
-                /*
-                Owners functions calls TBD
-                */
+            if (GetViewedUserOutput['myprofile']) {
+                $( '#upload' ).dialog({
+                    modal: true,
+                    autoOpen: false,
+                    show: {
+                      effect: 'drop',
+                      duration: 1000
+                    },
+                    hide: {
+                      effect: 'drop',
+                      duration: 1000
+                    },
+                    buttons: {
+                        "Confirm upload" : uploadImage
+                    }
+                }); 
+                document.querySelector('#edit').addEventListener('click', function() {
+                    $('#upload').dialog('open');
+                });
             } else {
-                console.log($('#follow'));
                 $('#follow').text("FOLLOW");
                 if (viewer!='') {
                     if (isAlreadyFollowing(GetViewedUserOutput['user'].username, viewer)) {
