@@ -1,46 +1,6 @@
 $(document).ready(function() {
     let page = 0;
-
     loadPosts(page++);
-
-    $('#notification_icon').click(function() {
-        $('#notification_menu').toggle();
-    });
-
-    // Check for new notifications every 3 seconds
-    setInterval(function() {
-        $.ajax({
-            url: './server/api/GetNotifications.php',
-            type: 'GET',
-            dataType: 'json',
-            success: function(notifications) {
-                $('#notification_list').empty();
-
-                if (Array.isArray(notifications)) {
-                    
-                    notifications.forEach(function(notification) {
-                        $('#notification_list').append('<li data-id=\'' + notification['id'] +'\'>' + notification.content + ' (' + getTimeAgo(notification.datetime) + ')' + '</li>');
-                        $('#notification_list [data-id="' + notification['id'] + '"]').click(function() {
-                            deleteNotification(notification['id']);
-                        });
-                    });
-                    
-                    // Update the notification icon
-                    if (notifications.length > 0) {
-                        $('#notification_icon').removeClass('bi-bell');
-                        $('#notification_icon').addClass('bi-bell-fill');
-                    } else {
-                        $('#notification_icon').removeClass('bi-bell-fill');
-                        $('#notification_icon').addClass('bi-bell');
-                }
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error loading notifications:', textStatus, errorThrown);
-                console.log(jqXHR.responseText);
-            }
-        });
-    }, 250);
 });
 
 
@@ -50,7 +10,7 @@ $(document).ready(function() {
  */
 function loadPosts(page) {
     $.ajax({
-        url: './server/api/GetPosts.php',
+        url: '/FableFlow/src/server/api/GetPosts.php',
         type: 'GET',
         data: { page: page },
         dataType: 'json',
@@ -128,18 +88,6 @@ function getTimeAgo(mysqlDatetime) {
     } else {
         return seconds + ' seconds ago';
     }
-}
-
-function deleteNotification(notificationId) {
-    $.ajax({
-        url: './server/api/DeleteNotification.php',
-        type: 'POST',
-        data: { notificationId: notificationId },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error('Error deleting notifications:', textStatus, errorThrown);
-            console.log(jqXHR.responseText);
-        }
-    });
 }
 
 function redirectToPostPage(chapterId) {

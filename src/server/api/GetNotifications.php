@@ -1,6 +1,6 @@
 <?php
-    require '../utilities/DbHelper.php';
-    require '../models/Notification.php';
+    require __DIR__ . '/../utilities/DbHelper.php';
+    require __DIR__ . '/../models/Notification.php';
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 

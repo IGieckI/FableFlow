@@ -1,6 +1,6 @@
 <?php
-    require '../utilities/DbHelper.php';
-    require '../models/User.php';
+    require __DIR__ . '/../utilities/DbHelper.php';
+    require __DIR__ . '/../models/User.php';
 
     if (session_status() == PHP_SESSION_NONE) {
         session_start();

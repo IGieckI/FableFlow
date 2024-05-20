@@ -20,7 +20,7 @@ $_SESSION['jsFiles'][] = ['client/js/Access.js']
 </head>
 <body>
     <h1>Login</h1>
-    <form action="/FableFlow/src/server/AuthLogin.php" method="post">
+    <form action="/FableFlow/src/server/api/AuthLogin.php" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <br>
