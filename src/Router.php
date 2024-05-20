@@ -56,6 +56,7 @@ $routes = [
         '/FableFlow/src/server/api/GetNumberOfFollowers.php' => 'redirect',
         '/FableFlow/src/server/api/GetUserStories.php' => 'redirect',
         '/FableFlow/src/server/api/GetUserTags.php' => 'redirect',
+        '/FableFlow/src/server/api/IsUserLogged.php' => 'redirect',
     ],
     'POST' => [
         '/FableFlow/src/server/api/AuthLogin.php' => 'redirect',
