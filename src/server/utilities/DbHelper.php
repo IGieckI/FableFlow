@@ -177,8 +177,30 @@
 
         public function insertInto($values, Tables $table) {
             $query = "INSERT INTO " . $table->value . " VALUES (";
-            error_log("--------------------------------------------------". $query);
             $this->db->query($query . implode(',', $values). ')');
+        }
+
+        public function update($updates, $conditions, Tables $table) {
+            $query = "UPDATE " . $table->value;
+
+            if (!empty($updates)) {
+                $updatesImploded = [];
+                foreach ($updates as $col=>$value) {
+                    $updatesImploded[] = "$col = $value";
+                }
+                $query .= " SET " . implode(',', $updatesImploded);
+            }
+            
+            if (!empty($conditions)) {
+                $conditionsImploded = [];
+                foreach ($conditions as $col => $value) {
+                    error_log("<-----------------------------". $col . ".........." . $value);
+                    $conditionsImploded[] = "$col = $value";
+                }
+                $query .= " WHERE " . implode(' AND ', $conditionsImploded);
+            }   
+            error_log("-------------->" . $query);
+            $this->db->query($query);
         }
     }
 ?>

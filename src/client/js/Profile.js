@@ -1,5 +1,22 @@
+/* Owner only function, for guests a new image upload will display at reload of page. */
+function updateUserProfilePicture(imageId) {
+    $.ajax({
+        url: '/FableFlow/src/server/api/UpdateUserImage.php',
+        type: 'POST',
+        data: {'imageId': imageId}, 
+        success: function(data) {
+            $('#profile-pic').attr("src", "/FableFlow/resources/icons/"+imageId);
+            $('#upload').dialog('close');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Profile image update failed:', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+
 function uploadImage() {
-    console.log($('#upload_form'));
     $.ajax({
         url: '/FableFlow/src/server/api/UploadImage.php',
         type: 'POST',
@@ -8,7 +25,11 @@ function uploadImage() {
         contentType: false,
         dataType: 'json',
         success: function(data) {
-            alert(data['result']);
+            if (data['result']=='notok') {
+                alert("Upload failed");
+            } else {
+                updateUserProfilePicture(data['id']);
+            }
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error('Profile image upload failed:', textStatus, errorThrown);
@@ -18,7 +39,7 @@ function uploadImage() {
 }
 
 
-function updateFollowings(username) {
+function loadFollowings(username) {
     $.ajax({
         url: '/FableFlow/src/server/api/GetNumberOfFollowed.php',
         type: 'GET',
@@ -34,7 +55,7 @@ function updateFollowings(username) {
     });
 }
 
-function updateFollowers(username) {
+function loadFollowers(username) {
     $.ajax({
         url: '/FableFlow/src/server/api/GetNumberOfFollowers.php',
         type: 'GET',
@@ -89,7 +110,6 @@ function getLoggedUsername() {
 }
 
 function followOrUnfollow(followed, follower) {
-
     let isAlreadyFollowing_result = isAlreadyFollowing(followed, follower);
     $.ajax({
         url: '/FableFlow/src/server/api/UpdateFollowship.php',
@@ -101,7 +121,7 @@ function followOrUnfollow(followed, follower) {
             } else {
                 $('#follow').text("FOLLOW");
             }
-            updateFollowers(followed);            
+            loadFollowers(followed);            
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error('Failed AJAX call in logging checking: ', textStatus, errorThrown);
@@ -122,12 +142,13 @@ $(document).ready(function() {
         data: {user_viewing: window.location.search.substring(1).split('&')[0].split('=')[1]},
         success: function(GetViewedUserOutput) {
             let viewer = getLoggedUsername();
-            $('#profile-pic').attr("src", "/FableFlow/resources/icons/"+GetViewedUserOutput['user'].pic_uri+".png");
+            $('#profile-pic').attr("src", "/FableFlow/resources/icons/"+GetViewedUserOutput['user'].pic_uri);
             $('.username').html(GetViewedUserOutput['user'].username);
             $('#bio').html(GetViewedUserOutput['user'].description);
-            updateFollowings(GetViewedUserOutput['user'].username);
-            updateFollowers(GetViewedUserOutput['user'].username);
+            loadFollowings(GetViewedUserOutput['user'].username);
+            loadFollowers(GetViewedUserOutput['user'].username);
 
+            /* Owner code */
             if (GetViewedUserOutput['myprofile']) {
                 $( '#upload' ).dialog({
                     modal: true,
@@ -148,6 +169,7 @@ $(document).ready(function() {
                     $('#upload').dialog('open');
                 });
             } else {
+                /* Guest code */
                 $('#follow').text("FOLLOW");
                 if (viewer!='') {
                     if (isAlreadyFollowing(GetViewedUserOutput['user'].username, viewer)) {

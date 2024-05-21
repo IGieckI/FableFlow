@@ -30,10 +30,10 @@ require __DIR__. '/../Header.php';
         echo 
             '<section id="owner-view"> 
                 <div id="upload" title="Upload Image">
-                    <form id="upload_form" > 
+                    <form id="upload_form"> 
                         <label for="filename">Image File</label>
                         <input id="filename" name="filename" type="file"></input>
-                        <input type="submit" value="Send File" />
+                        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px"/>
                     </form>
                 </div>
                 <button id="edit">Upload Image</button>

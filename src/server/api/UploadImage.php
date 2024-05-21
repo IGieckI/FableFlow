@@ -28,7 +28,7 @@ if(!in_array(strtolower($imageExtension),$valid)
 if ($error_found) {
     echo json_encode(['result'=>'notok']);
 } else {
-    echo json_encode(['result'=>'ok', 'id'=>$id]);
+    echo json_encode(['result'=>'ok', 'id'=>"$id.$extension"]);
 }
 
 error_log((string)$_FILES);
