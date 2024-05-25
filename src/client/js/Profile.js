@@ -204,35 +204,7 @@ $(document).ready(function() {
                 }
             });
 
-            $.ajax({
-                url: '/FableFlow/src/server/api/GetUserStories.php',
-                type: 'GET',
-                dataType: 'json',
-                data: {username: GetViewedUserOutput['user'].username},
-                success: function(data) {
-                    let stories_container = document.querySelector('#stories');
-                    data['output'].forEach(element => {
-                        let container = document.createElement('div');
-                        let title = document.createElement('h3');
-                        let like_display = document.createElement('span');
-                        let like_icon = document.createElement('i');
-                        let link = document.createElement('a');
-                        like_icon.className = "bi bi-fire";
-                        title.innerHTML = element['title'];
-                        like_display.innerHTML = element['likes'];
-                        like_display.appendChild(like_icon);
-                        container.appendChild(title);
-                        container.appendChild(like_display);
-                        stories_container.appendChild(container);
-                        
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('User not logged:', textStatus, errorThrown);
-                    console.log(jqXHR.responseText);
-                }
-            });
-
+            loadPosts(0, GetViewedUserOutput['user'].username);
 
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -242,3 +214,80 @@ $(document).ready(function() {
     });
 
 });
+
+/**
+ * Makes an ajax request to get the posts to be displayed.
+ * @param  {[number]} page page number to be retrieved.
+ * @param {[username]} username of the user for whom the posts are retrieved.
+ */
+function loadPosts(page, username) {
+    $.ajax({
+        url: '/FableFlow/src/server/api/GetPosts.php',
+        type: 'GET',
+        data: { page: page, user: username},
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+            if (data.length > 0) {
+                // Append new posts to the container
+                var postsContainer = $('#posts-container');
+                data.forEach(function(post) {
+                    var newPostHtml = createPostHtml(post);
+                    postsContainer.append(newPostHtml);
+                });
+            } else {
+                console.log('No more posts');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error loading posts:', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+/**
+ * Returns the html code corrisponding to a specific post. 
+ * 
+ * @param post An object which is compatible with the object in {@link /FableFlow/src/server/models/Post.php}
+ */
+function createPostHtml(post) {
+    return `
+        <div class="post" onclick="redirectToPostPage(${post.chapter_id});">
+                <span class="post-publication-time">${getTimeAgo(post.time)}</span>
+                <h2 class="post-title">${post.post_title}</h2>
+                <div class="post-likes-comments">
+                    <span><i class="bi bi-chat-dots"></i>${post.num_comments}</span>
+                    <span><i class="bi bi-fire"></i>${post.num_likes}</span>
+                </div>
+                <p class="post-content">
+                    ${post.post_content}
+                </p>
+        </div>`;
+}
+
+function getTimeAgo(mysqlDatetime) {
+    let mysqlDate = new Date(mysqlDatetime);
+    let currentDate = new Date();
+
+    let timeDifference = currentDate.getTime() - mysqlDate.getTime();
+
+    let seconds = Math.floor(timeDifference / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
+
+    if (days > 0) {
+        return days + ' days ago';
+    } else if (hours > 0) {
+        return hours + ' hours ago';
+    } else if (minutes > 0) {
+        return minutes + ' minutes ago';
+    } else {
+        return seconds + ' seconds ago';
+    }
+}
+
+function redirectToPostPage(chapterId) {
+    window.location.href = `../post/PostPage.php?id=${chapterId}`;
+}

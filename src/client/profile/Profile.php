@@ -41,8 +41,10 @@ require __DIR__. '/../Header.php';
     } ?>
     <section id="tags" class="tags"></section>
     <p id="bio" class="bio"></p>
-    <div id="stories"></div>
+    <div id="posts-container">
+                    <!-- Posts will be loaded here -->
     </div> 
+</div>
 <?php
     require __DIR__. '/../Footer.php';;
 ?>

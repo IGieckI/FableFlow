@@ -49,8 +49,13 @@
             }
         }
 
-        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table) {
-            $query = "SELECT * FROM $table->value";
+        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table, $join = null) {
+            
+            if (null !== $join) {
+                $query = "SELECT * FROM $join";
+            } else {
+                $query = "SELECT * FROM $table->value";
+            }
         
             if (!empty($criteria)) {
                 $conditions = [];
@@ -194,12 +199,10 @@
             if (!empty($conditions)) {
                 $conditionsImploded = [];
                 foreach ($conditions as $col => $value) {
-                    error_log("<-----------------------------". $col . ".........." . $value);
                     $conditionsImploded[] = "$col = $value";
                 }
                 $query .= " WHERE " . implode(' AND ', $conditionsImploded);
             }   
-            error_log("-------------->" . $query);
             $this->db->query($query);
         }
     }
