@@ -16,9 +16,9 @@ require __DIR__. '/../Header.php';
         <figure class="profile-pic">
             <img id="profile-pic" alt="profile picture">
         </figure> 
-        <p class="username" id="username"></h2>    
-        <p class="followers-display" id="followers-display" ></p>
-        <p class="followed-display" id="followed-display"></p>
+        <span class="username" id="username"></span>    
+        <span class="followers-display" id="followers-display" ></span>
+        <span class="followed-display" id="followed-display"></span>
         <p class="bio"></p>
     </section>
     <?php if (isset($_GET['user_viewing'])) {
