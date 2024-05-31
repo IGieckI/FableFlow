@@ -1,3 +1,4 @@
+/* PAGE NEEDS TO BE DECLARED OUTSIDE, SCOPING RULES??? */
 $(document).ready(function() {
     let page = 0;
     loadPosts(page++);

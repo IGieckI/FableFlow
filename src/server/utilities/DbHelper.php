@@ -49,8 +49,13 @@
             }
         }
 
-        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table) {
-            $query = "SELECT * FROM $table->value";
+        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table, $join = null) {
+            
+            if (null !== $join) {
+                $query = "SELECT * FROM $join";
+            } else {
+                $query = "SELECT * FROM $table->value";
+            }
         
             if (!empty($criteria)) {
                 $conditions = [];
@@ -173,6 +178,32 @@
         public function insertUser($username, $password) {
             $query = "INSERT INTO " . Tables::Users->value . " (username, password, icon, description) VALUES ('$username', '$password', 'NULL', 'NULL')";
             return $this->db->query($query);
+        }
+
+        public function insertInto($values, Tables $table) {
+            $query = "INSERT INTO " . $table->value . " VALUES (";
+            $this->db->query($query . implode(',', $values). ')');
+        }
+
+        public function update($updates, $conditions, Tables $table) {
+            $query = "UPDATE " . $table->value;
+
+            if (!empty($updates)) {
+                $updatesImploded = [];
+                foreach ($updates as $col=>$value) {
+                    $updatesImploded[] = "$col = $value";
+                }
+                $query .= " SET " . implode(',', $updatesImploded);
+            }
+            
+            if (!empty($conditions)) {
+                $conditionsImploded = [];
+                foreach ($conditions as $col => $value) {
+                    $conditionsImploded[] = "$col = $value";
+                }
+                $query .= " WHERE " . implode(' AND ', $conditionsImploded);
+            }   
+            $this->db->query($query);
         }
     }
 ?>

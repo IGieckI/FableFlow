@@ -39,8 +39,9 @@ $routes = [
     'GET' => [
         '/FableFlow/src/Index.php' => 'redirect',
         '/FableFlow/src/Access.php' => 'redirect',
-        '/FableFlow/src/Profile.php' => function($_) {
-            if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/Profile.php');
+        '/FableFlow/src/client/profile/Profile.php' => function($_) {
+            if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/client/profile/Profile.php');
+            redirect('/FableFlow/src/Access.php');
         },
         '/FableFlow/src/client/post/PostPage.php' => 'redirect',
         '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
@@ -49,10 +50,20 @@ $routes = [
         '/FableFlow/src/server/api/GetNotifications.php' => 'redirect',
         '/FableFlow/src/server/api/GetPosts.php' => 'redirect',        
         '/FableFlow/src/server/api/GetStory.php' => 'redirect',
-        '/FableFlow/src/server/api/GetLoggedUser.php' => 'redirect',
+        '/FableFlow/src/server/api/GetViewedUser.php' => 'redirect',
         '/FableFlow/src/server/api/GetComments.php' => 'redirect',
+        '/FableFlow/src/server/api/GetNumberOfFollowed.php' => 'redirect',
+        '/FableFlow/src/server/api/GetNumberOfFollowers.php' => 'redirect',
+        '/FableFlow/src/server/api/GetUserStories.php' => 'redirect',
+        '/FableFlow/src/server/api/GetUserTags.php' => 'redirect',
+        '/FableFlow/src/server/api/IsUserLogged.php' => 'redirect',
+        '/FableFlow/src/server/api/IsItAlreadyAFollower.php' => 'redirect',
+        '/FableFlow/src/server/api/GetLoggedUsername.php' => 'redirect',
     ],
     'POST' => [
+        '/FableFlow/src/server/api/UpdateUserImage.php' => 'redirect',
+        '/FableFlow/src/server/api/UploadImage.php' => 'redirect',
+        '/FableFlow/src/server/api/UpdateFollowship.php' => 'redirect',
         '/FableFlow/src/server/api/AuthLogin.php' => 'redirect',
         '/FableFlow/src/server/api/DeleteNotification.php' => 'redirect',
         '/FableFlow/src/server/api/PostComment.php' => 'redirect',

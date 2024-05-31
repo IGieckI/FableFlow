@@ -21,7 +21,7 @@ function auth($username, $password) {
     return false;
 }
 
-$on_success = '/FableFlow/src/Profile.php';
+$on_success = '/FableFlow/src/client/profile/Profile.php';
 $on_failure = '/FableFlow/src/Access.php';
 $result = auth($_POST['username'], $_POST['password'])?$on_success:$on_failure;
 header('Location: ' . $result);

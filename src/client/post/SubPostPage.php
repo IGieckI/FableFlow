@@ -1,7 +1,7 @@
 <?php
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
-        $_SESSION['username'] = 'john_doe';
+        $_SESSION['username1'] = 'john_doe';
     }    
 
     if (isset($_GET['subpage']) and isset($_GET['chapter_id'])) {
@@ -35,7 +35,7 @@
                                 $.ajax({
                                     url: "/FableFlow/src/server/api/PostComment.php",
                                     type: "POST",
-                                    data: { username: "' . $_SESSION["username"] . '", chapter_id: getPostId(window.location.href), content: message},
+                                    data: { username: "' . $_SESSION["username1"] . '", chapter_id: getPostId(window.location.href), content: message},
                                     dataType: "json",
                                     success: function(response) {
                                         $("#message-input").val("");

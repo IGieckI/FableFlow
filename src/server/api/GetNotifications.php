@@ -8,7 +8,7 @@
     if (isset($_SESSION['username'])) {
         $username = $_SESSION['username'];
     } else {
-        $username = "john_doe"; // !!! CAMBIA IN $username = ""
+        $username = ""; // !!! CAMBIA IN $username = ""
     }
 
     // Retrieve all the notifications for the user

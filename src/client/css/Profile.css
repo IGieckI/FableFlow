@@ -1,0 +1,99 @@
+.profile-pic {
+    grid-row: span 2;
+    margin-right: 20px;
+}
+
+#profile-pic {
+    width: 90px;
+    float: right;
+}
+
+#bio {
+    margin: 10px 0px 10px 0px;
+}
+
+.resume {
+    width: 100%;
+    display: grid;
+    grid-template-columns: min-content min-content min-content;
+}
+
+.username {
+    grid-row: 1;    
+    grid-column: 2;
+}
+
+.followers-display {
+    grid-row: 2;
+    grid-column: 3;
+    width: 90px;
+}
+
+.followed-display {
+    grid-row: 2;
+    width: 90px;
+    grid-column: 2;
+}
+
+#tags > span{
+
+    border: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    padding: 1px;
+}
+
+#tags {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#posts-container {
+    display: grid;
+    grid-row-gap: 20px;
+    margin-bottom: 2%;
+    margin-left: -200px;
+    margin-right: -200px;
+}
+
+#posts-container > .post {
+    display: grid;
+    border: solid;
+    border-radius: 11px;
+    padding: 5px 10px 5px 10px
+}
+
+.post > .post-content {
+    grid-row: 3;
+    margin: 0;
+}
+
+.post > .post-publication-time {
+    grid-row: 1;
+    grid-column: 2;
+    text-align: right;
+    font-size: 9px;
+}
+
+.post > .post-title {
+    grid-row: span 2;
+    grid-column: 1;
+}
+
+.post > .post-likes-comments {
+    grid-row: 2;
+    grid-column: 2;
+    text-align: right;
+}
+
+@media only screen and (max-width: 700px) {
+    #posts-container {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
+/* Guest styles */
+
+
+/* Owner styles */
