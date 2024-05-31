@@ -1,8 +1,18 @@
 function updateBio() {
-    /*$.ajax({
-        url: '/FableFlow/src/server/api/UpdateUserImage.php',
-        type: ''
-    });  */
+    let newbio = $('#new_bio').val();
+    $.ajax({
+        url: '/FableFlow/src/server/api/UpdateBio.php',
+        type: 'POST',
+        data: {'newbio': newbio},
+        success: function() {
+            $('#bio').text(newbio);
+            $('#changeBio').dialog('close');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Bio update failed:', textStatus, errorThrown);
+            console.log(jqXHR.responseText);
+        }
+    }); 
 }
 
 
@@ -13,7 +23,7 @@ function updateUserProfilePicture(imageId) {
         url: '/FableFlow/src/server/api/UpdateUserImage.php',
         type: 'POST',
         data: {'imageId': imageId}, 
-        success: function(data) {
+        success: function() {
             $('#profile-pic').attr("src", "/FableFlow/resources/icons/"+imageId);
             $('#upload').dialog('close');
         },
@@ -170,7 +180,7 @@ $(document).ready(function() {
                     },
                     hide: {
                       effect: 'drop',
-                      duration: 100
+                      duration: 50
                     },
                     buttons: {
                         "Confirm upload" : uploadImage

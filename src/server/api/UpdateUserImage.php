@@ -14,4 +14,6 @@ if (isset($_SESSION['LOGGED'])) {
                 Tables::Users);
 }
 
+$db->close();
+
 ?>
