@@ -37,6 +37,14 @@ require __DIR__. '/../Header.php';
                     </form>
                 </div>
                 <button id="edit">Upload Image</button>
+                <div id="changeBio" title="Change bio">
+                    <form id="bio_upload_form">
+                        <label for="new_bio">Bio:</label>
+                        <textarea id="new_bio" name="new_bio"></textarea>
+                        <input type="submit" tabindex="-1" style="position:absolute; top: -1000px"/> 
+                    </form>
+                </div>
+                <button id="edit_bio">Edit Bio</button>
             </section>';
     } ?>
     <section id="tags" class="tags"></section>
@@ -44,6 +52,7 @@ require __DIR__. '/../Header.php';
     <div id="posts-container">
                     <!-- Posts will be loaded here -->
     </div> 
+
 </div>
 <?php
     require __DIR__. '/../Footer.php';;

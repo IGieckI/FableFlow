@@ -97,3 +97,13 @@
 
 
 /* Owner styles */
+
+#bio_upload_form {
+    display: grid;
+}
+
+#new_bio {
+    height: 300px;
+    resize: none;
+}
+

@@ -1,3 +1,12 @@
+function updateBio() {
+    /*$.ajax({
+        url: '/FableFlow/src/server/api/UpdateUserImage.php',
+        type: ''
+    });  */
+}
+
+
+
 /* Owner only function, for guests a new image upload will display at reload of page. */
 function updateUserProfilePicture(imageId) {
     $.ajax({
@@ -153,13 +162,15 @@ $(document).ready(function() {
                 $( '#upload' ).dialog({
                     modal: true,
                     autoOpen: false,
+                    resizable: false,
+                    draggable: false,
                     show: {
                       effect: 'drop',
-                      duration: 1000
+                      duration: 100
                     },
                     hide: {
                       effect: 'drop',
-                      duration: 1000
+                      duration: 100
                     },
                     buttons: {
                         "Confirm upload" : uploadImage
@@ -168,6 +179,32 @@ $(document).ready(function() {
                 document.querySelector('#edit').addEventListener('click', function() {
                     $('#upload').dialog('open');
                 });
+                
+                $( '#changeBio' ).dialog({
+                    modal: true,
+                    draggable: false,
+                    autoOpen: false,
+                    resizable: false,
+                    show: {
+                      effect: 'drop',
+                      duration: 100
+                    },
+                    hide: {
+                      effect: 'drop',
+                      duration: 50
+                    },
+                    buttons: {
+                        "Confirm update" : updateBio
+                    },
+                    beforeClose: function() {
+                        $('#new_bio').val($('#bio').text());
+                    }
+                }); 
+                document.querySelector('#edit_bio').addEventListener('click', function() {
+                    $('#changeBio').dialog('open');
+                    $('#new_bio').text(GetViewedUserOutput['user'].description);
+                });
+               
             } else {
                 /* Guest code */
                 $('#follow').text("FOLLOW");
@@ -291,3 +328,9 @@ function getTimeAgo(mysqlDatetime) {
 function redirectToPostPage(chapterId) {
     window.location.href = `../post/PostPage.php?id=${chapterId}`;
 }
+
+$(window).resize(function() {
+    $("#upload").dialog("option", "position", {my: "center", at: "center", of: window});
+    $("#changeBio").dialog("option", "position", {my: "center", at: "center", of: window});
+    
+});
