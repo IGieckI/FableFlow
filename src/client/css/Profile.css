@@ -21,6 +21,7 @@
 .username {
     grid-row: 1;    
     grid-column: 2;
+    font-size: 20px;
 }
 
 .followers-display {
@@ -33,6 +34,7 @@
     grid-row: 2;
     width: 90px;
     grid-column: 2;
+    margin-right: 30px;
 }
 
 #tags > span{
@@ -109,6 +111,13 @@
     grid-column: span 2;
 }
 
+.limit {
+    display: none;
+    grid-row: 1;
+    grid-column: 2;
+}
+
+
 /* Jquery UI styles */
 
 .ui-dialog-titlebar > .ui-dialog-titlebar-close {
@@ -120,9 +129,5 @@
     display: flex !important;
 }
 
-.limit {
-    display: none;
-    grid-row: 1;
-    grid-column: 2;
-}
+
 
