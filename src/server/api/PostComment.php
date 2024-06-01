@@ -2,7 +2,7 @@
     require __DIR__ . '/../utilities/DbHelper.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST['username'];
+        $username = $_SESSION['username'];
         $chapter_id = $_POST['chapter_id'];
         $content = $_POST['content'];
         

@@ -1,3 +1,34 @@
+function initializeComments() {
+    document.getElementById(buttonId).addEventListener('click', function() {
+        var message = $("#message-input").val();
+
+        if (message.trim() !== "") {
+            $.ajax({
+                url: "/FableFlow/src/server/api/PostComment.php",
+                type: "POST",
+                data: { chapter_id: getPostId(window.location.href), content: message},
+                dataType: "json",
+                success: function(response) {
+                    $("#message-input").val("");
+                    
+                    // Clear the comments container
+                    var commentsContainer = $("#comments-container");
+                    commentsContainer.empty();
+
+                    // Reload the comments or posts (replace this with the appropriate function)
+                    loadComments();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error loading comments:", textStatus, errorThrown);
+                    console.log(jqXHR.responseText);
+                }
+            });
+        }
+    });
+
+    loadComments();    
+}
+
 function loadComments() {
     $.ajax({
         url: '/FableFlow/src/server/api/GetComments.php',
@@ -161,7 +192,6 @@ function updateLikeDislike(username, comment_id, action) {
 
 // Get the id of the post from the URL
 function getPostId(currentURL) {
-    param = currentURL.split("?");
-    param = param[param.length - 1].split("=");
-    return param[param.length - 1];
+    var match = currentURL.match(/id=([^&]*)/);
+    return match ? match[1] : null;
 }
