@@ -47,6 +47,7 @@ $routes = [
         '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
         '/FableFlow/src/client/post/content/Story.php' => 'redirect',
         '/FableFlow/src/client/post/content/Comments.php' => 'redirect',
+        '/FableFlow/src/client/post/content/proposal/CreateProposal.html' => 'redirect',
         '/FableFlow/src/server/api/GetNotifications.php' => 'redirect',
         '/FableFlow/src/server/api/GetPosts.php' => 'redirect',        
         '/FableFlow/src/server/api/GetStory.php' => 'redirect',
