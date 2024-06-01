@@ -3,8 +3,8 @@
         session_start();
     }
 
-    array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/Comments.css');
-    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/PostPage.js', '/FableFlow/src/client/js/Comments.js');
+    array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/Comments.css', '/FableFlow/src/client/css/Proposals.css');
+    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/PostPage.js', '/FableFlow/src/client/js/Comments.js', '/FableFlow/src/client/js/Proposal.js');
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';
@@ -17,7 +17,6 @@
     $story = $db->getStory($chapter[0]['story_id']);
     $author = $db->getUser($story[0]['username']);
     $likes = $db->count(['chapter_id' => $chapter[0]['chapter_id']], Tables::Likes);
-
 ?>
 
 <div class="container">
