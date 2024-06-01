@@ -16,7 +16,9 @@ Examples:
 - <Directory "/opt/lampp/htdocs"> ---> <Directory "C:/xampp/htdocs/"> **WRONG ending character**
 
 ## Linux
-!!! FILL WITH A LINUX TUTORIAL !!!
+1. Locate your lampp/xampp directory, on UBUNTU 24.04 LTS you can find it in `/opt/lampp`
+2. Locate the `apache` or `apache2` folder and its corrispective `conf` subfolder. 
+3. Create or update the `httpd.conf` file in the `conf` subfolder and paste the content of [httpd.conf](https://github.com/IGieckI/FableFlow/blob/main/httpd.conf)
 
 # List of the Current Session Variables
 A session variable has to be used as $_SESSION['variableName'], this is a list of the current used session variables:
@@ -53,9 +55,9 @@ Main TO-DO:
 - [ ] Post: Proposals (Giacomo)
 - [ ] Post: Commenti (Giacomo)
 - [ ] Search bar
-- [ ] Gestione del follow tra utenti (Dario)
-- [ ] Profilo utente con post (Dario)
-- [ ] Gestione delle immagini (Dario)
+- [X] Gestione del follow tra utenti (Dario)
+- [X] Profilo utente con post (Dario)
+- [X] Gestione delle immagini (Dario)
 - [ ] Gestione Notifiche (Giacomo)
 
 Side TO-DO:

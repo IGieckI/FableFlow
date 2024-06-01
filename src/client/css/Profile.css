@@ -100,10 +100,29 @@
 
 #bio_upload_form {
     display: grid;
+    grid-template-columns: 70% 30%;
 }
 
 #new_bio {
     height: 300px;
     resize: none;
+    grid-column: span 2;
+}
+
+/* Jquery UI styles */
+
+.ui-dialog-titlebar > .ui-dialog-titlebar-close {
+    padding: 0;
+
+}
+
+.ui-dialog-titlebar > button.ui-dialog-titlebar-close > i.bi.bi-x {
+    display: flex !important;
+}
+
+.limit {
+    display: none;
+    grid-row: 1;
+    grid-column: 2;
 }
 

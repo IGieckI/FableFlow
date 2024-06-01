@@ -188,6 +188,14 @@ $(document).ready(function() {
                 }); 
                 document.querySelector('#edit').addEventListener('click', function() {
                     $('#upload').dialog('open');
+                    $('button.ui-dialog-titlebar-close').html('<i class="bi bi-x"></i>');
+                });
+                document.querySelector('#new_bio').addEventListener('input', () => {
+                    if ($('#new_bio').val().length >= 50) {
+                        $('.limit').attr("style", "display: block;");
+                    } else {
+                        $('.limit').attr("style", "display: none;");
+                    }
                 });
                 
                 $( '#changeBio' ).dialog({
@@ -213,6 +221,7 @@ $(document).ready(function() {
                 document.querySelector('#edit_bio').addEventListener('click', function() {
                     $('#changeBio').dialog('open');
                     $('#new_bio').text(GetViewedUserOutput['user'].description);
+                    $('.limit').attr("style", "display: none;");
                 });
                
             } else {

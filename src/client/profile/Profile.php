@@ -39,8 +39,9 @@ require __DIR__. '/../Header.php';
                 <button id="edit">Upload Image</button>
                 <div id="changeBio" title="Change bio">
                     <form id="bio_upload_form">
-                        <label for="new_bio">Bio:</label>
-                        <textarea id="new_bio" name="new_bio"></textarea>
+                        <label for="new_bio">Add here your new bio:</label>
+                        <i class="bi bi-exclamation-circle limit">The bio character limit is 50!</i>
+                        <textarea id="new_bio" name="new_bio" maxlength="50"></textarea>
                         <input type="submit" tabindex="-1" style="position:absolute; top: -1000px"/> 
                     </form>
                 </div>
