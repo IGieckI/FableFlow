@@ -42,6 +42,7 @@
             $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $likes, $chapter['content']);
         }
         $db->disconnect();
+        $db = null;
         header('Content-Type: application/json');
 
         echo json_encode($result);

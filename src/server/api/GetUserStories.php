@@ -20,6 +20,7 @@ foreach ($stories as $story) {
 
 
 $db->disconnect();
+        $db = null;
 
 echo json_encode(["output"=>$output]);
 

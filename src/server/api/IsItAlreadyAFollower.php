@@ -11,6 +11,7 @@ $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 $result = $db->findBy(['followed'=>$_GET['followed'], 'follower'=>$_GET['follower']], 1, 0, Tables::Followers);
 
 $db->disconnect();
+        $db = null;
 
 echo json_encode(['result'=>(sizeof($result)==0)?FALSE:TRUE]);
 

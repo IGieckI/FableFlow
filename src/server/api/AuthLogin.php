@@ -13,6 +13,7 @@ function auth($username, $password) {
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
     $user = $db->getUser($username);
     $db->disconnect();
+        $db = null;
     if ($user[0]['password'] == $password) {
         $_SESSION['username'] = $username;
         $_SESSION['LOGGED'] = 'true';

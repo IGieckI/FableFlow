@@ -13,5 +13,6 @@ if ($_POST['isAlreadyFollowing']=='true') {
 }
 
 $db->disconnect();
+        $db = null;
 
 ?>

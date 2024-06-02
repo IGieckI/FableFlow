@@ -8,7 +8,7 @@
     if (isset($_SESSION['username'])) {
         $username = $_SESSION['username'];
     } else {
-        $username = ""; // !!! CAMBIA IN $username = ""
+        $username = "";
     }
 
     // Retrieve all the notifications for the user
@@ -19,6 +19,7 @@
             array_push($result, new Notification($notification['notification_id'], $notification['username'], $notification['notification_datetime'], $notification['content']));
         }
         $db->disconnect();
+        $db = null;
         header('Content-Type: application/json');
         
         echo json_encode($result);

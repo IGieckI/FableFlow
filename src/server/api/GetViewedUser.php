@@ -20,6 +20,7 @@
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
     $user = $db->getUser($username);
     $db->disconnect();
+        $db = null;
 
     $user = new User($user[0]['username'], $user[0]['icon'], $user[0]['description']); 
     header('Content-Type: application/json');
