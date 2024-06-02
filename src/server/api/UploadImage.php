@@ -6,7 +6,7 @@ is that of loading an image on the server. */
 $error_found = FALSE;
 
 // Directory where the image is going to be stored
-$imagedir = '/opt/lampp/htdocs/FableFlow/resources/icons/';
+$imagedir = __DIR__ . '/../../../resources/icons/';
 
 // Generate random name for the image
 $id = uniqid('', FALSE);
