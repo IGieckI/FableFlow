@@ -1,19 +1,48 @@
 //Automatically load the content of the story
 document.addEventListener('DOMContentLoaded', function() {
-    var currentURL = window.location.href;    
+    document.querySelector("#user_icon").onclick = goToProfile;
+    
+    addClickListener('load_story_button', function(storyId) {
+        loadContent('story', storyId);
+    });
+    
+    addClickListener('load_pools_button', function(storyId) {
+        loadContent('pools', storyId);
+    });
+    
+    addClickListener('load_proposals_button', function(storyId) {
+        loadContent('proposals', storyId);
+        initializeProposals();
+    });
+    
+    addClickListener('load_comments_button', function(storyId) {
+        loadContent('comments', storyId);
+        initializeComments(); // Replace USER_TOKEN with the actual user token !!!
+    });
+
+    // Initialize the sub-page content
+    var currentURL = window.location.href;
     loadContent('story', getPostId(currentURL));
 });
+
+    // Add event listeners for each sub-page button
+    function addClickListener(buttonId, callback) {
+        var button = document.getElementById(buttonId);
+        
+        if (button) {
+            button.addEventListener('click', function() {
+                var storyId = button.getAttribute('data-story-id');
+                callback(storyId);
+            });
+        } else {
+            console.error('Button not found:', buttonId);
+        }
+    }
 
 function goToProfile() {
     let username = this.getAttribute("username");
     window.location.assign('/FableFlow/src/client/profile/Profile.php?user_viewing='+username);
 }
-
-
-$(document).ready(function() {
-    document.querySelector("#user_icon").onclick = goToProfile;
-});
-
 
 // Use jQuery to load content based on the selected subpage
 function loadContent(subpage, chapter_id) {
