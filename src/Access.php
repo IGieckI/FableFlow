@@ -23,7 +23,7 @@ $_SESSION['jsFiles'][] = ['client/js/Access.js']
     </form>
     
     <h1>Registrazione</h1>
-    <form action="PostRegister.php" method="post">
+    <form action="/FableFlow/src/server/api/PostRegister.php" method="post">
         <label for="username-register">Username:</label>
         <input type="text" id="username-register" name="username" required>
         <br>
