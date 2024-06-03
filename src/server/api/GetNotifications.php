@@ -2,13 +2,21 @@
     require __DIR__ . '/../utilities/DbHelper.php';
     require __DIR__ . '/../models/Notification.php';
 
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+
+    error_log("SESSION USERNAME IN NOT ->" . isset($_SESSION['username']));
 
     // Check for the API parameter correctness
     if (isset($_SESSION['username'])) {
         $username = $_SESSION['username'];
     } else {
         $username = "";
+        http_response_code(400);
+        echo json_encode(['error' => "You must be logged in to view notifications."]);
     }
 
     // Retrieve all the notifications for the user

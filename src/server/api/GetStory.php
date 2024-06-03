@@ -5,7 +5,7 @@
     
     $data = $db->findBy(['chapter_id' => $_GET['id']], null, null, Tables::Chapters);
     $data = $data[0]['content'];
-    $dbHelper->disconnect();
+    $db->disconnect();
     
     header('Content-Type: application/json');
 
