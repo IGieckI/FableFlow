@@ -18,5 +18,6 @@
             echo json_encode(['error' => $e->getMessage()]);
         }
         $db->disconnect();
+        $db = null;
     }
 ?>

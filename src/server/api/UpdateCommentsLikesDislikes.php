@@ -13,6 +13,7 @@
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
         $db->updateLikesDislikes($username, $comment_id, $action);
         $db->disconnect();
+        $db = null;
     } else {
         echo 'Invalid request method';
     }

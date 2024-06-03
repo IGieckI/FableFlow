@@ -17,6 +17,7 @@
             $result[] = new Comment($comment['comment_id'], $user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes);
         }
         $db->disconnect();
+        $db = null;
         header('Content-Type: application/json');
         
         echo json_encode($result);

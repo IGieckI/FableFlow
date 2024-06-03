@@ -10,5 +10,6 @@ if (isset($_SESSION['LOGGED'])) {
 
 
 $db->disconnect();
+        $db = null;
 
 ?>
