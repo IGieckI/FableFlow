@@ -1,6 +1,10 @@
 <?php
     require __DIR__ . '/../utilities/DbHelper.php';
 
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     error_log('UpdateCommentsLikesDislikes.php' . $_SERVER['REQUEST_METHOD']);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

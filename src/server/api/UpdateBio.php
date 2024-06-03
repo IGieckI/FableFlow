@@ -1,12 +1,14 @@
 <?php
+    require __DIR__ . '/../utilities/DbHelper.php';
+    
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
-require __DIR__ . '/../utilities/DbHelper.php';
+    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-$db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+    $db->update(['description'=>"'".$_POST['newbio']."'"], [], Tables::Users);
 
-$db->update(['description'=>"'".$_POST['newbio']."'"], [], Tables::Users);
-
-$db->disconnect();
-        $db = null;
-
+    $db->disconnect();
+    $db = null;
 ?>
