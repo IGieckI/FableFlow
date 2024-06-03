@@ -21,7 +21,7 @@ require __DIR__. '/../Header.php';
         <span class="followed-display" id="followed-display"></span>
         <p class="bio"></p>
     </section>
-    <?php if (isset($_GET['user_viewing'])) {
+    <?php if (isset($_GET['user_viewing']) && strcmp($_GET['user_viewing'], $_SESSION['username'])!=0) {
         echo 
             '<section id="guest-view">
                 <button id="follow"></button>

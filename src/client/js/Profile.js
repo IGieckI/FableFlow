@@ -136,9 +136,9 @@ function followOrUnfollow(followed, follower) {
         data: {followed:followed, follower:follower, isAlreadyFollowing: isAlreadyFollowing_result }, 
         success: function() {
             if (isAlreadyFollowing_result) {
-                $('#follow').text("UNFOLLOW");
-            } else {
                 $('#follow').text("FOLLOW");
+            } else {
+                $('#follow').text("UNFOLLOW");
             }
             loadFollowers(followed);            
         },
@@ -169,6 +169,7 @@ $(document).ready(function() {
 
             /* Owner code */
             if (GetViewedUserOutput['myprofile']) {
+                
                 /* Create the Upload image dialog window */
                 $( '#upload' ).dialog({
                     modal: true,
@@ -243,6 +244,7 @@ $(document).ready(function() {
                         $('#follow').text("UNFOLLOW");
                     }
                     document.querySelector('#follow').addEventListener('click', function() {
+                        console.log(GetViewedUserOutput['user']);
                         followOrUnfollow(GetViewedUserOutput['user'].username, viewer);
                     });
                 } else {

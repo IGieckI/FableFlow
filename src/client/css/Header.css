@@ -84,11 +84,15 @@ header > * {
 
 .searched_user_container {
     display: grid;
+    grid-template-columns: 200px auto;
 }
 
 .searched_user_container > span {
     grid-row: 1;
     grid-column: 2;
+    align-content: center;
+    text-align: left;
+    margin-left: 20px;
 }
 
 .searched_user_container > img {

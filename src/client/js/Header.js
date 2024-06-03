@@ -55,7 +55,6 @@ $(document).ready(function() {
     $('#search_text').on('input', function() {
         const query = $(this).val();
         if (query.length==0) {
-            console.log("ciaooo");
             $('#users_found').empty();
         } else {
             searchNames(query);
