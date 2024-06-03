@@ -62,12 +62,16 @@ function createPostHtml(post) {
                         <span><i class="bi bi-fire"></i>${post.num_likes}</span>
                     </div>
                 </div>
+                
+                ${post.picture ? `<div class="row post-picture"><img src="${post.picture}" alt="Post Image" class="img-fluid"></div>` : ''}
+
                 <div class="row post-content">
                     ${post.post_content}
                 </div>
             </div>
         </div>`;
 }
+
 
 function getTimeAgo(mysqlDatetime) {
     let mysqlDate = new Date(mysqlDatetime);
