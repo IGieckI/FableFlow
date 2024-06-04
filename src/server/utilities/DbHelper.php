@@ -48,12 +48,20 @@
             }
         }
 
-        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table, $join = null) {
+        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table, $join = null, $selectwhat = null) {
             
-            if (null !== $join) {
-                $query = "SELECT * FROM $join";
+            $query = "SELECT";
+
+            if (null !== $selectwhat) {
+                $query .= " " . implode(',', $selectwhat);
             } else {
-                $query = "SELECT * FROM $table->value";
+                $query .= " *";
+            }
+
+            if (null !== $join) {
+                $query .= " FROM $join";
+            } else {
+                $query .= " FROM $table->value";
             }
         
             if (!empty($criteria)) {
