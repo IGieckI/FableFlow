@@ -28,6 +28,9 @@
             case 'create-proposal':
                 $filePath = 'content/proposal/CreateProposal.html';
                 break;
+            case 'read-proposal':
+                $filePath = 'content/proposal/Proposal.php';
+                break;
             default:
                 echo "Invalid subpage";
                 exit;

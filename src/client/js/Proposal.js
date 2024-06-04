@@ -34,8 +34,9 @@ function loadProposals() {
                 data.forEach(function(proposal) {
                     var newProposalHtml = createProposalHtml(proposal);
                     proposalsContainer.append(newProposalHtml);
-                    document.getElementById(proposal.proposalId).addEventListener('click', function() {
-                        window.location.href = `/FableFlow/src/client/post/content/proposal/Proposal.php?id=${proposal.proposalId}`;
+
+                    addClickListener(proposal.proposalId, function() {
+                        loadContent('read-proposal', proposal.proposalId);
                     });
                 });
             } else {
