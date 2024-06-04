@@ -34,6 +34,9 @@ function loadProposals() {
                 data.forEach(function(proposal) {
                     var newProposalHtml = createProposalHtml(proposal);
                     proposalsContainer.append(newProposalHtml);
+                    document.getElementById(proposal.proposalId).addEventListener('click', function() {
+                        window.location.href = `/FableFlow/src/client/post/content/proposal/Proposal.php?id=${proposal.proposalId}`;
+                    });
                 });
             } else {
                 console.log('No more proposals');
@@ -48,7 +51,7 @@ function loadProposals() {
 
 function createProposalHtml(proposal) {
     return `
-    <div id="${proposal.chapterId}" class="proposal">
+    <div id="${proposal.proposalId}" class="proposal">
         <div class="container-fluid">
             <div class="row user-info">
                 <div class="col-8">
