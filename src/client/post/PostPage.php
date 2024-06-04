@@ -11,8 +11,6 @@
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    //error_log("---POST PAGE---->" . $_GET['id'] . "<-----------");
-
     $chapter = $db->getChapter($_GET['id']);
     $story = $db->getStory($chapter[0]['story_id']);
     $author = $db->getUser($story[0]['username']);

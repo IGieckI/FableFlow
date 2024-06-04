@@ -30,7 +30,6 @@
     $on_failure = '/FableFlow/src/Access.php';
     $result = auth($_POST['username'], $_POST['password']) ? $on_success : $on_failure;
     header('Location: ' . $result);
-    error_log("USERNAME ->" . $_SESSION['username']);
 
     exit;
 ?>

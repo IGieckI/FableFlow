@@ -30,6 +30,5 @@
     $db = null;
 
     header('Location: ' . '/FableFlow/src/client/post/PostPage.php?id=' . $chapter_id);
-    error_log("Proposal posted successfully ----> " . $content);
 ?>
 

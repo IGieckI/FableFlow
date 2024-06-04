@@ -19,7 +19,6 @@ function redirect($page_requested) {
 
         header('Location: ' . $page_requested);
     } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        error_log("Document root: " . $_SERVER['DOCUMENT_ROOT'] . "page_request" . $page_requested);
         require_once($_SERVER['DOCUMENT_ROOT'] . $page_requested);
     }
     setcookie('request', 'ok', time() + 10, '/');
@@ -32,8 +31,6 @@ $_SESSION['jsFiles'] = array("/FableFlow/src/client/js/Footer.js", "/FableFlow/s
 
 $request = $_GET['url'];
 $ip = $_SESSION['REMOTE_ADDR'] ?? $_SERVER['REMOTE_ADDR'];
-
-error_log("Request: " . $request . " from " . $ip);
 
 $routes = [
     'GET' => [

@@ -7,8 +7,6 @@
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    error_log('------------------------------------'.$_GET['followed'].'--------'.$_GET['follower']);
-
     if ($_POST['isAlreadyFollowing']=='true') {
         $db->deleteBy(['followed'=>$_POST['followed'], 'follower'=>$_POST['follower']], Tables::Followers);
     } else {

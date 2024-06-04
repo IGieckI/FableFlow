@@ -10,10 +10,8 @@
 
     if (isset($_GET['user_viewing'])) {
         $username = $_GET['user_viewing'];
-        error_log("<--------------------------!!!!: " .$_GET['user_viewing']);
         $myprofile = FALSE;
     } else {
-        error_log(">--------------------------????" . $_SESSION['username']);
         $username = $_SESSION['username'];
     }
 

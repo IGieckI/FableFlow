@@ -30,7 +30,6 @@
             or die ('Could not connect to the database server' . mysqli_connect_error());
             
             if ($this->db->connect_error) {
-                error_log('$this->db->connect_error');
                 die("Error not expected, please contact the administrator. " . $this->db->connect_error);
             }
         }

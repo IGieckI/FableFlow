@@ -20,7 +20,6 @@
 
     //Valid image extensions
     $valid = array('jpg', 'jpeg', 'png');
-    error_log($_FILES['filename']['tmp_name']);
 
     /* Check file extension */
     if(!in_array(strtolower($imageExtension),$valid) 
@@ -33,6 +32,4 @@
     } else {
         echo json_encode(['result'=>'ok', 'id'=>"$id.$extension"]);
     }
-
-    error_log((string)$_FILES);
 ?>

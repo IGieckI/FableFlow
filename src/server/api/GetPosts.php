@@ -29,7 +29,6 @@
                                             'FROM chapters as c JOIN stories as s ON c.story_id = s.story_id' . ' ' .
                                             'JOIN users as u ON s.username = u.username' . ' ' .
                                             "WHERE s.username='". $_GET['user'] . "'");
-            //error_log($_GET['username']);
         } else {
             $chapters = $db->findBy([], POSTS_PER_LOAD, $start, Tables::Chapters);
         }
@@ -44,7 +43,6 @@
             $likes = $likes[0]['COUNT(*)'];
             $comments = $db->count(['comment_id' => $chapter['chapter_id']], Tables::Comments);
             $comments = $comments[0]['COUNT(*)'];
-            error_log("picture: " . $chapter['picture']);
             $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $chapter['picture'], $likes, $chapter['content']);
         }
         $db->disconnect();
