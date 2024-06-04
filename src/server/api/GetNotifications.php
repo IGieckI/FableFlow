@@ -8,8 +8,6 @@
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    error_log("SESSION USERNAME IN NOT ->" . isset($_SESSION['username']));
-
     // Check for the API parameter correctness
     if (isset($_SESSION['username'])) {
         $username = $_SESSION['username'];

@@ -72,6 +72,7 @@ $routes = [
         '/FableFlow/src/server/api/UpdateCommentsLikesDislikes.php' => 'redirect',
         '/FableFlow/src/server/api/PostLogin.php' => 'redirect',
         '/FableFlow/src/server/api/PostRegister.php' => 'redirect',
+        '/FableFlow/src/server/api/PostProposal.php' => 'redirect',
     ]
 ];
 

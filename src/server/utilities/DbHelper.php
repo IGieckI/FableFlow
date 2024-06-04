@@ -174,6 +174,11 @@
             $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content, comment_datetime) VALUES ('$username', '$chapter_id', '$content', '$datetime');";
             return $this->db->query($query);
         }
+
+        public function postProposal($chapter_id, $username, $title, $content) {
+            $query = "INSERT INTO " . Tables::Proposals->value . " (chapter_id, username_proposing, title, content) VALUES ('$chapter_id', '$username', '$title', '$content');";
+            return $this->db->query($query);
+        }
         
         public function insertUser($username, $password) {
             $query = "INSERT INTO " . Tables::Users->value . " (username, password, icon, description) VALUES ('$username', '$password', 'NULL', 'NULL')";

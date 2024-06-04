@@ -1,14 +1,19 @@
-var myIdContent = document.getElementById('new-proposal-button');
+var newProposalButton = document.getElementById('new-proposal-button');
+var hiddenChapterId = document.getElementById('hidden-chapter-id');
+
 setInterval(function(){
-    if(myIdContent !== document.getElementById('new-proposal-button')){
+    if (newProposalButton !== document.getElementById('new-proposal-button')){
         addClickListener('new-proposal-button', function(storyId) {
             loadContent('create-proposal', storyId);
         });
     }
+
+    if (hiddenChapterId !== document.getElementById('hidden-chapter-id')){
+        document.getElementById('hidden-chapter-id').value = getPostId(window.location.href);
+    }
 }, 500);
 
 function initializeProposals(username) {
-
     loadProposals();
 }
 

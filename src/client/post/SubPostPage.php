@@ -1,7 +1,6 @@
 <?php
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
-        $_SESSION['username1'] = 'john_doe'; // Replace this with the actual username !!!
     }    
 
     if (isset($_GET['subpage']) and isset($_GET['chapter_id'])) {

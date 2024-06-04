@@ -1,6 +1,10 @@
 <?php
     require __DIR__ . '/../utilities/DbHelper.php';
 
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_SESSION['username'];
         $chapter_id = $_POST['chapter_id'];

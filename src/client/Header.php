@@ -21,7 +21,6 @@
         <?php
             if (isset($_SESSION['cssFiles'])) {
                 foreach ($_SESSION['cssFiles'] as $cssFile) {
-                    error_log("---CSS---> " . $cssFile);
                     echo "<link rel='stylesheet' href='$cssFile'>";
                 }
             }            
@@ -31,7 +30,6 @@
         <?php
             if (isset($_SESSION['jsFiles'])) {
                 foreach ($_SESSION['jsFiles'] as $key=>$jsFile) {
-                    error_log("---JS---> " . $jsFile);
                     echo "<script src='$jsFile'></script>";
                 }
             }            
