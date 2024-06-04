@@ -48,7 +48,7 @@ CREATE TABLE messages (
     sender VARCHAR(255) REFERENCES users(username),
     receiver VARCHAR(255) REFERENCES users(username),
     content VARCHAR(500),
-    message_datetime DATE,
+    message_datetime DATE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT messages PRIMARY KEY(message_id, sender, receiver)
 );
 
@@ -79,14 +79,15 @@ CREATE TABLE chapters(
     chapter_title VARCHAR(255) NOT NULL,
    	content TEXT NOT NULL,
     picture VARCHAR(36), /*uuid()*/
-    publication_datetime DATETIME NOT NULL
+    publication_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE proposals(
 	proposal_id INT AUTO_INCREMENT PRIMARY KEY,
     chapter_id INT NOT NULL,
     username_proposing VARCHAR(255) NOT NULL,
-    publication_datetime DATETIME NOT NULL,
+    publication_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
     FOREIGN KEY (username_proposing) REFERENCES users(username)
@@ -97,7 +98,7 @@ CREATE TABLE comments(
     username VARCHAR(255) NOT NULL,
     chapter_id INT,
     proposal_id INT,
-    comment_datetime DATETIME NOT NULL,
+    comment_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     content TEXT NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
@@ -121,7 +122,7 @@ CREATE TABLE notifications(
     notification_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
-    notification_datetime DATETIME NOT NULL,
+    notification_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (username) REFERENCES users(username)
 );
     
