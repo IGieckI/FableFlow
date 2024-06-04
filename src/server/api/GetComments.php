@@ -8,8 +8,8 @@
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    // Number of comments to retrieve
     $chapter_id = isset($_GET['chapter_id']) ? (int)$_GET['chapter_id'] : 1;
+
     try {
         $comments = $db->findBy(['chapter_id' => $chapter_id], null, null, Tables::Comments);        
         foreach ($comments as $comment) {

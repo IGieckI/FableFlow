@@ -1,31 +1,39 @@
+var sendCommentButton = document.getElementById('send-button');
+
+setInterval(function(){
+    if (sendCommentButton !== document.getElementById('send-button') && document.getElementById('send-button') !== null) {
+        sendCommentButton = document.getElementById('send-button');
+
+        document.getElementById("send-button").addEventListener('click', function() {
+            var message = $("#message-input").val();
+    
+            if (message.trim() !== "") {
+                $.ajax({
+                    url: "/FableFlow/src/server/api/PostComment.php",
+                    type: "POST",
+                    data: { chapter_id: getPostId(window.location.href), content: message},
+                    dataType: "json",
+                    success: function(response) {
+                        $("#message-input").val("");
+                        
+                        // Clear the comments container
+                        var commentsContainer = $("#comments-container");
+                        commentsContainer.empty();
+    
+                        // Reload the comments or posts (replace this with the appropriate function)
+                        loadComments();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("Error loading comments:", textStatus, errorThrown);
+                        console.log(jqXHR.responseText);
+                    }
+                });
+            }
+        });
+    }
+}, 500);
+
 function initializeComments() {
-    document.getElementById(buttonId).addEventListener('click', function() {
-        var message = $("#message-input").val();
-
-        if (message.trim() !== "") {
-            $.ajax({
-                url: "/FableFlow/src/server/api/PostComment.php",
-                type: "POST",
-                data: { chapter_id: getPostId(window.location.href), content: message},
-                dataType: "json",
-                success: function(response) {
-                    $("#message-input").val("");
-                    
-                    // Clear the comments container
-                    var commentsContainer = $("#comments-container");
-                    commentsContainer.empty();
-
-                    // Reload the comments or posts (replace this with the appropriate function)
-                    loadComments();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Error loading comments:", textStatus, errorThrown);
-                    console.log(jqXHR.responseText);
-                }
-            });
-        }
-    });
-
     loadComments();    
 }
 
