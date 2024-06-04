@@ -155,6 +155,10 @@
             return $this->findBy(['username' => $username], 1, 0, Tables::Users);
         }
 
+        public function getProposals($chapter_id) {
+            return $this->findBy(['chapter_id' => $chapter_id], null, null, Tables::Proposals);
+        }
+
         public function updateLikesDislikes($username, $comment_id, $action) {
             $query = "";
         
@@ -175,8 +179,12 @@
         }
 
         public function postProposal($chapter_id, $username, $title, $content) {
-            $query = "INSERT INTO " . Tables::Proposals->value . " (chapter_id, username_proposing, title, content) VALUES ('$chapter_id', '$username', '$title', '$content');";
-            return $this->db->query($query);
+            $query = "INSERT INTO " . Tables::Proposals->value . " (chapter_id, username_proposing, title, content) VALUES (?, ?, ?, ?)";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("isss", $chapter_id, $username, $title, $content);  // "isss" indicates the types of the parameters: integer, string, string, string
+            
+            return $stmt->execute();
         }
         
         public function insertUser($username, $password) {

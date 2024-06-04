@@ -17,7 +17,7 @@ setInterval(function(){
     }
 }, 500);
 
-function initializeProposals(username) {
+function initializeProposals() {
     loadProposals();
 }
 
@@ -28,6 +28,7 @@ function loadProposals() {
         data: { chapter_id: getPostId(window.location.href) },
         dataType: 'json',
         success: function(data) {
+            console.log(data);
             if (data.length > 0) {
                 var proposalsContainer = $('#proposals-container');
                 data.forEach(function(proposal) {
@@ -47,21 +48,21 @@ function loadProposals() {
 
 function createProposalHtml(proposal) {
     return `
-    <div id="${proposal.chapter_id}" class="proposal">
+    <div id="${proposal.chapterId}" class="proposal">
         <div class="container-fluid">
             <div class="row user-info">
                 <div class="col-8">
-                    <img src="${proposal.user_icon}" alt="User Icon" width="30" height="30">
-                    <span>${proposal.username}</span>
+                    <img src="${proposal.user.icon}" alt="User Icon" width="30" height="30">
+                    <span>${proposal.user.username}</span>
                 </div>
                 <div class="col-4 time-text">
-                    <span>${proposal.time}</span>
+                    <span>${getTimeAgo(proposal.publicationDatetime)}</span>
                 </div>
             </div>
 
             <div class="row proposal-title">
                 <div class="col-10">
-                    ${proposal.post_title}
+                    ${proposal.title}
                 </div>        
                 <div class="col-2 proposal-details">
                     <span><i class="bi bi-chat-dots"></i>${proposal.num_comments}</span>
@@ -69,7 +70,7 @@ function createProposalHtml(proposal) {
                 </div>
             </div>
             <div class="row proposal-content">
-                ${proposal.post_content}
+                ${proposal.content}
             </div>
         </div>
     </div>`;

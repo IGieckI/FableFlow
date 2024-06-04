@@ -57,6 +57,7 @@ $routes = [
         '/FableFlow/src/server/api/IsUserLogged.php' => 'redirect',
         '/FableFlow/src/server/api/IsItAlreadyAFollower.php' => 'redirect',
         '/FableFlow/src/server/api/GetLoggedUsername.php' => 'redirect',
+        '/FableFlow/src/server/api/GetProposals.php' => 'redirect',
     ],
     'POST' => [
         '/FableFlow/src/server/api/UpdateBio.php' => 'redirect',
