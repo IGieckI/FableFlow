@@ -66,33 +66,13 @@
                     </div>
                     <div class="offcanvas-body">
                         <div class="input-group">
-                            <input type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
+                            <input id="search_text" type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
                             <button class="btn btn-outline-secondary" type="button" id="searchIcon">
                             <i id="search_icon" class="bi bi-search"></i>
                             </button>
                         </div>
-                        <ul class="nav navbar-nav">
-                            <div class="row">
-                                <i class="bi bi-fire"></i>
-                                <p> Trending </p>
-                                <?php
-                                    $_COOKIE["Trending"] = [];
-                                    foreach ($_COOKIE["Trending"] as $value) {
-                                        echo '<div class="row"><a href="' . $value . '">' . $value . '</a></div>';
-                                }
-                                ?>
-                            </div>
-                            <div class="row">
-                                <hr>
-                            </div>
-                            <div class="row">
-                                <?php
-                                $_COOKIE["latest_research"] = [];
-                                    foreach ($_COOKIE["latest_research"] as $value) {
-                                        echo '<div class="row"><a href="' . $value . '">' . $value . '</a><button type="button">X</button></div>';
-                                }
-                                ?>
-                            </div>
+                        <ul id="users_found" class="nav navbar-nav">
+                            
                         </ul>
                     </div>
                 </div>

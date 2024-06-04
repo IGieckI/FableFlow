@@ -1,4 +1,7 @@
+let names = [];
+
 $(document).ready(function() {
+
     $('#notification_icon').click(function() {
         $('#notification_menu').toggle();
     });
@@ -37,7 +40,53 @@ $(document).ready(function() {
             }
         });
     }, 250);
+
+    // Fetch names from the server on page load
+    $.ajax({
+        url: '/FableFlow/src/server/api/GetUsers.php',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            names = data;
+        }
+    });
+
+    // Event listener for the search input
+    $('#search_text').on('input', function() {
+        const query = $(this).val();
+        if (query.length==0) {
+            $('#users_found').empty();
+        } else {
+            searchNames(query);
+        }
+    });
 });
+
+function searchNames(query) {
+    const lowerQuery = query.toLowerCase();
+
+    // Filter names by checking if they contain the query as a substring
+    const results = names.filter(user => user.username.toLowerCase().includes(lowerQuery));
+
+    // Sort results by the position of the query in the name
+    results.sort((a, b) => a.username.toLowerCase().indexOf(lowerQuery) - b.username.toLowerCase().indexOf(lowerQuery));
+
+    // Display results
+    $('#users_found').empty();
+    results.forEach(result => {
+        $('#users_found').append(`<li>
+                                    <a href="/FableFlow/src/client/profile/Profile.php?user_viewing=${result.username}">
+                                        <div class="searched_user_container">
+                                            <span>
+                                                ${result.username}
+                                            </span>
+                                            <img alt="user ${result.username}" src='/FableFlow/resources/icons/${result.icon}'>
+                                            </img>
+                                        </div>
+                                    </a>
+                                </li>`);
+    });
+}
 
 function getTimeAgo(mysqlDatetime) {
     let mysqlDate = new Date(mysqlDatetime);
@@ -72,3 +121,4 @@ function deleteNotification(notificationId) {
         }
     });
 }
+

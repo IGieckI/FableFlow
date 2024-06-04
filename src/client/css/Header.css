@@ -79,3 +79,24 @@ header > * {
 .clickable-text:hover {
     text-decoration: underline;
 }
+
+/* side nav styles */
+
+.searched_user_container {
+    display: grid;
+    grid-template-columns: 200px auto;
+}
+
+.searched_user_container > span {
+    grid-row: 1;
+    grid-column: 2;
+    align-content: center;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.searched_user_container > img {
+    grid-row: 1;
+    grid-column: 1;
+    width: 200px;
+}

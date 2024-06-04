@@ -136,9 +136,9 @@ function followOrUnfollow(followed, follower) {
         data: {followed:followed, follower:follower, isAlreadyFollowing: isAlreadyFollowing_result }, 
         success: function() {
             if (isAlreadyFollowing_result) {
-                $('#follow').text("UNFOLLOW");
-            } else {
                 $('#follow').text("FOLLOW");
+            } else {
+                $('#follow').text("UNFOLLOW");
             }
             loadFollowers(followed);            
         },
@@ -169,6 +169,8 @@ $(document).ready(function() {
 
             /* Owner code */
             if (GetViewedUserOutput['myprofile']) {
+                
+                /* Create the Upload image dialog window */
                 $( '#upload' ).dialog({
                     modal: true,
                     autoOpen: false,
@@ -186,18 +188,11 @@ $(document).ready(function() {
                         "Confirm upload" : uploadImage
                     }
                 }); 
+                /* Add open dialog window on button click event */
                 document.querySelector('#edit').addEventListener('click', function() {
                     $('#upload').dialog('open');
-                    $('button.ui-dialog-titlebar-close').html('<i class="bi bi-x"></i>');
                 });
-                document.querySelector('#new_bio').addEventListener('input', () => {
-                    if ($('#new_bio').val().length >= 50) {
-                        $('.limit').attr("style", "display: block;");
-                    } else {
-                        $('.limit').attr("style", "display: none;");
-                    }
-                });
-                
+                /* Create the Update bio dialog window */
                 $( '#changeBio' ).dialog({
                     modal: true,
                     draggable: false,
@@ -218,10 +213,27 @@ $(document).ready(function() {
                         $('#new_bio').val($('#bio').text());
                     }
                 }); 
+                /* Open bio update dialog window on button click event */
                 document.querySelector('#edit_bio').addEventListener('click', function() {
                     $('#changeBio').dialog('open');
-                    $('#new_bio').text(GetViewedUserOutput['user'].description);
+                    /* Hide marker */
                     $('.limit').attr("style", "display: none;");
+                });
+                /* Add user's bio to update */
+                $('#new_bio').text(GetViewedUserOutput['user'].description);
+                /* Handling character count limit */
+                document.querySelector('#new_bio').addEventListener('input', () => {
+                    /* Should be fetched from DB */
+                    let character_limit = 50; 
+                    if ($('#new_bio').val().length >= character_limit) {
+                        $('.limit').attr("style", "display: block;");
+                    } else {
+                        $('.limit').attr("style", "display: none;");
+                    }
+                });
+                /* Adding to all dialog elements the same graphical element for closing */
+                $('button.ui-dialog-titlebar-close').each(function() {
+                    $(this).html('<i class="bi bi-x"></i>');
                 });
                
             } else {
@@ -232,6 +244,7 @@ $(document).ready(function() {
                         $('#follow').text("UNFOLLOW");
                     }
                     document.querySelector('#follow').addEventListener('click', function() {
+                        console.log(GetViewedUserOutput['user']);
                         followOrUnfollow(GetViewedUserOutput['user'].username, viewer);
                     });
                 } else {
@@ -239,6 +252,7 @@ $(document).ready(function() {
                 }
             }
 
+            /*
             $.ajax({
                 url: '/FableFlow/src/server/api/GetUserTags.php',
                 type: 'GET',
@@ -259,6 +273,7 @@ $(document).ready(function() {
                     console.log(jqXHR.responseText);
                 }
             });
+            */
 
             loadPosts(0, GetViewedUserOutput['user'].username);
 
@@ -283,7 +298,6 @@ function loadPosts(page, username) {
         data: { page: page, user: username},
         dataType: 'json',
         success: function(data) {
-            console.log(data);
             if (data.length > 0) {
                 // Append new posts to the container
                 var postsContainer = $('#posts-container');
