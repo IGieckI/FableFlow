@@ -67,7 +67,7 @@ CREATE TABLE options (
 
 CREATE TABLE pools (
     pool_id INT PRIMARY KEY AUTO_INCREMENT,
-    story_id INT REFERENCES stories(story_id),
+    chapter_id INT REFERENCES chapters(chapter_id),
     title VARCHAR (50), 
     content VARCHAR (500),
     expire_datetime DATETIME NOT NULL
@@ -211,11 +211,17 @@ INSERT INTO messages (sender, receiver, content, message_datetime) VALUES
     ('bob_jones', 'john_doe', 'Hey John!', '2023-01-03 15:45:00'),
     ('alice_doe', 'john_doe', 'Hi John, how are you?', '2023-01-04 10:15:00');
 
-INSERT INTO pools (story_id, title, content, expire_datetime) VALUES
-    (1, 'Adventure Pool', 'Exciting adventures await!', '2023-02-28 08:00:00'),
-    (2, 'Mystery Pool', 'Solve the mystery!', '2023-03-15 08:00:00'),
-    (3, 'Fantasy Pool', 'Enter a world of magic!', '2023-04-10 08:00:00'),
-    (4, 'Mystery Pool 2', 'Another mysterious story', '2023-05-20 08:00:00');
+INSERT INTO pools (chapter_id, title, content, expire_datetime) 
+VALUES 
+    (1, 'What Happens Next?', 
+        'In this chapter, our heroes find themselves at a crossroads. Should they venture into the dark forest or take the hidden path along the river? Each choice holds potential danger and unforeseen adventures. Choose wisely!', 
+        '2023-02-28 08:00:00'),
+    (2, 'The Change of Coins', 
+        'A mysterious figure approaches with an offer: a coin that grants wishes. But there is a catch - each wish comes with a price. Will the characters accept the coin and face the consequences or reject it and miss out on their hearts desire?', 
+        '2023-03-15 08:00:00'),
+    (3, 'Path to the Lake', 
+        'The characters have reached a magical lake that is said to grant great power. However, to access this power, they must first solve an ancient riddle and face the guardians of the lake. Will they succeed or fall short?', 
+        '2023-04-10 08:00:00');
 
 INSERT INTO options (pool_id, content) VALUES
     (1, 'Choose your path in the adventurous journey!'),
