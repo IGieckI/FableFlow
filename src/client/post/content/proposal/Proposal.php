@@ -11,12 +11,7 @@
             </div>
         </div>
         <div class="chapter-content">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt, nisi ac euismod convallis, nisl mauris tempor nulla, nec convallis nunc lacus at ligula. Nulla facilisi. Aenean efficitur ex in augue fermentum, quis vehicula metus egestas.
-            </p>
-            <p>
-                Proin fermentum elit a dictum aliquet. Duis dictum tortor et metus ultrices gravida. Integer eget turpis quis lorem bibendum accumsan. Pellentesque tincidunt, risus a suscipit sagittis, orci ligula dictum metus, id gravida elit turpis non lectus.
-            </p>
+            
         </div>
         <div class="divider"></div>
         <div class="comment-box">
