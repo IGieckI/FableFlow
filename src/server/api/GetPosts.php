@@ -24,7 +24,6 @@
                                             'c.story_id as story_id,
                                             c.chapter_id as chapter_id,
                                             c.content as content,
-                                            c.picture as picture,
                                             c.publication_datetime as publication_datetime' . ' ' . 
                                             'FROM chapters as c JOIN stories as s ON c.story_id = s.story_id' . ' ' .
                                             'JOIN users as u ON s.username = u.username' . ' ' .
