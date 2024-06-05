@@ -2,26 +2,32 @@
 require __DIR__ . '/../utilities/DbHelper.php';
 require __DIR__ . '/../models/Post.php';
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
 $username = $_POST['username'];
 $password = $_POST['password'];
-$email = $_POST['email'];
+//$email = $_POST['email'];
 
 try {
-    if((isset($username) && ($username != "")) && (isset($password) && ($password != ""))){
-        $user = $db->findBy(['username' => $user], null, null, Tables::Users);
-        $user = $user[0];
+    if(!empty($username) && !empty($password)){
+        $user = $db->findBy(['username' => $username], null, null, Tables::Users);
         if(count($user) != 0){
-            header("Location: Access.html");
+            header("Location: FableFlow/src/Access.php");
             exit();
         }
         else{
             $hashed_pass = password_hash($password, PASSWORD_BCRYPT);
-            $n = $db->insertUser($username, $password);
-            $_SESSION['username']=$_POST['username'];
-            header("Location: main.js");
-            exit();
+            $insert = $db->insertUser($username, $hashed_pass);
+            if($insert){
+                $_SESSION['username']=$_POST['username'];
+                $_SESSION['LOGGED']=true;
+                header("Location: /FableFlow/src/client/profile/Main.php");
+                exit();
+            }
         }
     }
 } catch (Exception $e) {
