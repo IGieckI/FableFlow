@@ -1,17 +1,18 @@
 <div class="container">
         <div class="d-flex justify-content-between align-items-center mt-4">
             <div>
-                <h1 class="mb-0 d-inline-block">Chapter Title</h1>
-                <span class="ml-2 text-muted">5 hours ago</span>
+                <h1 id="proposal-title" class="mb-0 d-inline-block"></h1>
+                <span id="proposal-time" class="ml-2 text-muted"></span>
             </div>
             <div class="ml-auto">
                 <span class="text-danger">
-                    <i class="bi bi-fire"></i> 120
+                    <span><i id="proposal-like-icon" class="bi bi-fire"></i></span>
+                    <span id="proposal-like-span"></span>
                 </span>
             </div>
         </div>
-        <div class="chapter-content">
-            
+        <div id="proposal-content" class="proposal-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
         <div class="divider"></div>
         <div class="comment-box">

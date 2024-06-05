@@ -11,7 +11,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     addClickListener('load-proposals-button', function(chapterId) {
-        loadContent('proposals', chapterId);
+        loadContent('proposals', chapterId, function() {
+            newProposalButton = document.getElementById('new-proposal-button');
+
+            addClickListener('new-proposal-button', function(storyId) {
+                loadContent('create-proposal', storyId, function() {
+                    document.getElementById('hidden-chapter-id').value = getChapterId(window.location.href);
+                });
+            });
+        });
         initializeProposals();
     });
     
@@ -63,13 +71,14 @@ function addClickListener(elementId, callback) {
     }
 }
 
-function loadContent(subpage, chapter_id) {
+function loadContent(subpage, chapter_id, callback=function() {}) {
     $.ajax({
         type: "GET",
         url: "SubPostPage.php",
         data: { subpage: subpage , chapter_id: chapter_id},
         success: function(response) {
             $("#subpageContent").html(response);
+            callback();
         },
         error: function() {
             alert("Error loading subpage content.");

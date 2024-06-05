@@ -1,22 +1,3 @@
-var newProposalButton = document.getElementById('new-proposal-button');
-var hiddenChapterId = document.getElementById('hidden-chapter-id');
-
-setInterval(function(){
-    if (newProposalButton !== document.getElementById('new-proposal-button') && document.getElementById('new-proposal-button') !== null) {
-        newProposalButton = document.getElementById('new-proposal-button');
-
-        addClickListener('new-proposal-button', function(storyId) {
-            loadContent('create-proposal', storyId);
-        });
-    }
-
-    if (hiddenChapterId !== document.getElementById('hidden-chapter-id') && document.getElementById('hidden-chapter-id') !== null ) {
-        hiddenChapterId = document.getElementById('hidden-chapter-id');
-
-        document.getElementById('hidden-chapter-id').value = getChapterId(window.location.href);
-    }
-}, 500);
-
 function initializeProposals() {
     loadProposals();
 }
@@ -35,7 +16,14 @@ function loadProposals() {
                     proposalsContainer.append(newProposalHtml);
 
                     addClickListener(proposal.proposalId, function() {
-                        loadContent('read-proposal', proposal.proposalId);
+                        loadContent('read-proposal', proposal.proposalId, function() {
+                            // load proposal informations
+                            console.log(document.getElementById("proposal-title"));
+                            document.getElementById("proposal-title").innerHTML = proposal["title"];
+                            document.getElementById("proposal-time").innerHTML = getTimeAgo(proposal["publicationDatetime"]);
+                            document.getElementById("proposal-like-span").innerHTML = proposal["num_likes"];
+                            document.getElementById("proposal-content").innerHTML = proposal["content"];
+                        });                        
                     });
                 });
             } else {
