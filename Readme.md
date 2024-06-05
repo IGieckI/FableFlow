@@ -48,7 +48,7 @@ Mockup da  fare:
 
 Main TO-DO:
 - [X] Design
-- [ ] Registrazione e Login (Ciano)
+- [X] Registrazione e Login (Ciano)
 - [ ] Home con feed di post di utenti seguiti (Giacomo)
 - [ ] Post: Storia (con possibile immagine allegata) (Giacomo)
 - [ ] Post: Pool (Ciano)
