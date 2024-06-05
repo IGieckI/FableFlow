@@ -11,33 +11,27 @@
     $response = array();
 
     try {
-        // Instantiate DbHelper with your database configuration
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $title = isset($_POST['title']) ? $_POST['title'] : '';
-            $username = isset($_POST['username']) ? $_POST['username'] : '';
+        $title = isset($_POST['title']);
+        $username = isset($_POST['username']);
 
-            if (!empty($title) && !empty($username)) {
-                // Insert into the stories table
-                $db->insertInto(["NULL", "'$title'", "'$username'"], Tables::Stories);
+        // Insert into the stories table
+        $reponse = $db->postStory($title, $username);
 
-                $response['status'] = 'success';
-                $response['message'] = 'Post created successfully.';
-            } else {
-                $response['status'] = 'error';
-                $response['message'] = 'Title and Username are required.';
-            }
-        } else {
-            $response['status'] = 'error';
-            $response['message'] = 'Invalid request method.';
+        // Send a notification to all of the followers
+        $followers = $db->findBy(['followed' => $username], null, null, Tables::Followers);
+        for ($i = 0; $i < count($followers); $i++) {
+            $follower = $followers[$i];
+            $db->generateNotification($follower, $username . 'posted a new story: ' . $title);
         }
 
-        $db->disconnect();
+        echo json_encode($response);
     } catch (Exception $e) {
-        $response['status'] = 'error';
-        $response['message'] = 'Exception: ' . $e->getMessage();
-    }
+        http_response_code(400);
+        echo json_encode(['error' => $e->getMessage()]);
+    }    
 
-    echo json_encode($response);
+    $db->disconnect();
+    $db = null;
 ?>

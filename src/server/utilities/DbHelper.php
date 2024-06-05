@@ -181,8 +181,18 @@
             return $this->db->query($query);
         }
 
-        public function postComment($username, $chapter_id, $content, $datetime) {
-            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content, comment_datetime) VALUES ('$username', '$chapter_id', '$content', '$datetime');";
+        public function postStory($username, $title) {
+            $query = "INSERT INTO " . Tables::Stories->value . " (title, username) VALUES ('$title', '$username')";
+            return $this->db->query($query);
+        }
+
+        public function postChapter($storyId, $chapterTitle, $content, $picture) {
+            $query = "INSERT INTO " . Tables::Chapters->value . " (story_id, chapter_title, content, picture) VALUES ('$storyId', '$chapterTitle', '$content', '$picture')";
+            return $this->db->query($query);
+        }
+
+        public function postComment($username, $chapter_id, $content) {
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content) VALUES ('$username', '$chapter_id', '$content');";
             return $this->db->query($query);
         }
 
@@ -224,6 +234,21 @@
                 $query .= " WHERE " . implode(' AND ', $conditionsImploded);
             }   
             $this->db->query($query);
+        }
+
+        public function generateNotification($username, $content) {
+            $query = "INSERT INTO " . Tables::Notifications->value . " (username, content) VALUES ('$username', '$content')";
+            return $this->db->query($query);
+        }
+
+        public function follow($followed, $follower) {
+            $query = "INSERT INTO " . Tables::Followers->value . " (followed, follower) VALUES ('$followed', '$follower')";
+            return $this->db->query($query);
+        }
+
+        public function unfollow($followed, $follower) {
+            $query = "DELETE FROM " . Tables::Followers->value . " WHERE followed = '$followed' AND follower = '$follower'";
+            return $this->db->query($query);
         }
     }
 ?>
