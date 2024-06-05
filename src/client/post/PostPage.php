@@ -20,6 +20,7 @@
         </div>
         <div class="col-2">
             <span><i id="like-icon" class="bi bi-fire"></i></span>
+            <span id="like-span"></span>
         </div>
         <div id="user_icon" username="" class="col-2">
             <span id="username-span"></span>

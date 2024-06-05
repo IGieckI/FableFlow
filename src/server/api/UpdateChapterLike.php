@@ -22,12 +22,12 @@
         $chapterStatus = $db->chapterStatus($chapterId, $username);
 
         // Use the count function to get the number of likes of the chapter
-        $likes = $db->count(['chapter_id' => $chapterId, 'username' => $username], Tables::Likes);
+        $likes = $db->count(['chapter_id' => $chapterId], Tables::Likes)[0]['COUNT(*)'];
 
         $db->disconnect();
         $db = null;
 
-        echo json_encode(['likes' => $likes[0]['COUNT(*)'], 'status' => $chapterStatus]);
+        echo json_encode(['likes' => $likes, 'status' => $chapterStatus]);
     } else {
         echo 'Invalid request method';
     }
