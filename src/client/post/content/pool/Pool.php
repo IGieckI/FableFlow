@@ -13,7 +13,25 @@ function hasExpired($date_r) {
 
 $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
+if (isset($_GET['pool_id']) && isset($_GET['chapter_id'])) {
+
 $result = $db->findBy(['pool_id'=>$_GET['pool_id'], 'chapter_id'=>$_GET['chapter_id']], null, null, Tables::Pools);
+
+error_log('llllllllllllllllllllllllllllllllll');
+
+$choices = $db->findBy(['p.pool_id'=>$_GET['pool_id']], null, null, null, 'options as o JOIN pools as p ON o.pool_id=p.pool_id', ['o.content as content, o.option_id as option_id']);
+
+error_log('rrrrrrrrrrrrrrrrrr');
+
+    if (isset($_SESSION['LOGGED'])) {
+        $choice = $db->findBy(['p.pool_id'=>$_GET['pool_id'], 'oc.username'=>$_SESSION['username']], null, null, null,
+        '(options_choices as oc JOIN options as o ON oc.option_id=o.option_id) JOIN pools as p ON p.pool_id = o.pool_id',
+        ['oc.option_id as option_id']);
+    }
+
+} else {
+    die('pool not found');
+}
 
 $db->disconnect();
 
@@ -34,8 +52,15 @@ $db->disconnect();
     <!-- Textarea -->
     <textarea rows="10" cols="50"><?php echo $result[0]['content']?></textarea>
     <!-- Unordered list of checkboxes -->
-    <ul>
-
-    </ul>
+    <?php
+        $list = "<ul>";
+        foreach ($choices as $choice) {
+            $list.= '<li>
+                    <label for="'. $choice['option_id'] .'">'.$choice['content'].'</label>
+                    <input type="checkbox" id="'. $choice['option_id']. '"></li>';
+        }
+        $list .= "</ul>";
+        echo $list;
+    ?>
 </body>
 </html>

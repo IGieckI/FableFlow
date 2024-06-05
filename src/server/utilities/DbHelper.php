@@ -48,7 +48,7 @@
             }
         }
 
-        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table, $join = null, $selectwhat = null) {
+        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table = null, $join = null, $selectwhat = null) {
             
             $query = "SELECT";
 
