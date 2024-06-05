@@ -33,12 +33,12 @@ try{
                 header("Location: /FableFlow/src/client/profile/Main.php");
             }
             else{
-                header("Location: /FableFlow/src/Access.php");
+                header("Location: /FableFlow/src/client/Login.php");
             }
             exit();
         }
         else{
-            header("Location: /FableFlow/src/Access.php");
+            header("Location: /FableFlow/src/client/Login.php");
             exit();
         }
     }

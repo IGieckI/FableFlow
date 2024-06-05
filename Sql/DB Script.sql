@@ -6,9 +6,7 @@ USE fableflow;
 
 CREATE TABLE users (
     username VARCHAR(20) PRIMARY KEY,
-    email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    token_cookie VARCHAR(64),
     icon VARCHAR(36), /*uuid()*/
     description VARCHAR(50) DEFAULT ''
 );
@@ -138,10 +136,10 @@ VALUES ('Drama'),
 ('Horror'),
 ('Mythology');
 
-INSERT INTO users (username, email, password, token_cookie icon, description) VALUES
-    ('john_doe', 'password123', 'johndoe69@gmail.com', NULL, '4F45C6A3-45D4-2F2B-1C1E-9876543210AB', 'User account for John Doe'),
-    ('jane_smith', 'pass456', 'janesmith70@gmail.com', NULL, '8A2B1C0D-3E4F-5A6B-9C8D-76543210FEDC',NULL),
-    ('bob_jones', 'secretPass', 'jurskills71@gmail.com', NULL, '1B2C3D4E-5F6A-7B8C-9D0E-123456789ABC', 'User account for Bob Jones');
+INSERT INTO users (username, password, icon, description) VALUES
+    ('john_doe', 'password123', '4F45C6A3-45D4-2F2B-1C1E-9876543210AB', 'User account for John Doe'),
+    ('jane_smith', 'pass456', '8A2B1C0D-3E4F-5A6B-9C8D-76543210FEDC',NULL),
+    ('bob_jones', 'secretPass', '1B2C3D4E-5F6A-7B8C-9D0E-123456789ABC', 'User account for Bob Jones');
 
 INSERT INTO stories (story_id, title, username)
 VALUES

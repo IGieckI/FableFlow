@@ -35,10 +35,11 @@ $ip = $_SESSION['REMOTE_ADDR'] ?? $_SERVER['REMOTE_ADDR'];
 $routes = [
     'GET' => [
         '/FableFlow/src/Index.php' => 'redirect',
-        '/FableFlow/src/Access.php' => 'redirect',
+        '/FableFlow/src/client/Login.php' => 'redirect',
+        '/FableFlow/src/client/Register.php' => 'redirect',
         '/FableFlow/src/client/profile/Profile.php' => function($_) {
             if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/client/profile/Profile.php');
-            redirect('/FableFlow/src/Access.php');
+            redirect('/FableFlow/src/client/Login.php');
         },
         '/FableFlow/src/client/post/PostPage.php' => 'redirect',
         '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
