@@ -17,8 +17,9 @@
             $likes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 0], Tables::Likes);
             $likes = $likes[0]['COUNT(*)'];
             $dislikes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 1], Tables::Likes);
-            $dislikes = $dislikes[0]['COUNT(*)'];            
-            $result[] = new Comment($comment['comment_id'], $user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes);
+            $dislikes = $dislikes[0]['COUNT(*)'];
+            $commentStatus = $db->commentStatus($comment['comment_id'], $_SESSION['username']);
+            $result[] = new Comment($comment['comment_id'], $user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes, $commentStatus);
         }
         $db->disconnect();
         $db = null;

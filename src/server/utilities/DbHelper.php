@@ -250,5 +250,54 @@
             $query = "DELETE FROM " . Tables::Followers->value . " WHERE followed = '$followed' AND follower = '$follower'";
             return $this->db->query($query);
         }
+
+        // This function return 0 if the user has not liked or disliked the comment, 1 if the user has liked the comment, and -1 if the user has disliked the comment
+        public function commentStatus($commentId, $username) {
+            $query = "SELECT is_dislike FROM " . Tables::Likes->value . " WHERE comment_id = ? AND username = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $commentId, $username);
+            $stmt->execute();
+            $stmt->bind_result($is_dislike);
+            
+            if ($stmt->fetch()) {
+                return $is_dislike ? -1 : 1;
+            } else {
+                return 0;
+            }
+        }
+
+        // This function return 0 if the user has not liked or disliked the proposal, 1 if the user has liked the proposal, and -1 if the user has disliked the proposal
+        public function proposalStatus($proposalId, $username) {
+            $query = "SELECT is_dislike FROM " . Tables::Likes->value . " WHERE proposal_id = ? AND username = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $proposalId, $username);
+            $stmt->execute();
+            $stmt->bind_result($is_dislike);
+            
+            if ($stmt->fetch()) {
+                return $is_dislike ? -1 : 1;
+            } else {
+                return 0;
+            }
+        }
+
+        // This function return 0 if the user has not liked or disliked the chapter, 1 if the user has liked the chapter, and -1 if the user has disliked the chapter
+        public function chapterStatus($chapterId, $username) {
+            $query = "SELECT is_dislike FROM " . Tables::Likes->value . " WHERE chapter_id = ? AND username = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $chapterId, $username);
+            $stmt->execute();
+            $stmt->bind_result($is_dislike);
+            
+            if ($stmt->fetch()) {
+                return $is_dislike ? -1 : 1;
+            } else {
+                return 0;
+            }
+        }
+        
     }
 ?>

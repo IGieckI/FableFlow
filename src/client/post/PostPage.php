@@ -4,7 +4,7 @@
     }
 
     array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/Comments.css', '/FableFlow/src/client/css/Proposals.css', '/FableFlow/src/client/css/Proposal.css');
-    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/PostPage.js', '/FableFlow/src/client/js/Comments.js', '/FableFlow/src/client/js/Proposal.js');
+    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/PostPage.js', '/FableFlow/src/client/js/Comments.js', '/FableFlow/src/client/js/Proposals.js','/FableFlow/src/client/js/Proposal.js');
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';
@@ -34,16 +34,16 @@
     </div>
     <div class="row">
         <div class="col">
-            <button id="load_story_button" class="btn btn-block" data-story-id="<?php echo $_GET['id']; ?>">Story</button>
+            <button id="load-story-button" class="btn btn-block"">Story</button>
         </div>
         <div class="col">
-            <button id="load_pools_button" class="btn btn-block" data-story-id="<?php echo $_GET['id']; ?>">Pools</button>
+            <button id="load-pools-button" class="btn btn-block">Pools</button>
         </div>
         <div class="col">
-            <button id="load_proposals_button" class="btn btn-block" data-story-id="<?php echo $_GET['id']; ?>">Proposals</button>
+            <button id="load-proposals-button" class="btn btn-block">Proposals</button>
         </div>
         <div class="col">
-            <button id="load_comments_button" class="btn btn-block" data-story-id="<?php echo $_GET['id']; ?>">Comments</button>
+            <button id="load-comments-button" class="btn btn-block">Comments</button>
         </div>
     </div>
     <div id="subpageContent" class="row" style="margin: 5%;">

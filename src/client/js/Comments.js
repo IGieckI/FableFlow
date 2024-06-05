@@ -44,11 +44,19 @@ function loadComments() {
         data: { chapter_id: getPostId(window.location.href) },
         dataType: 'json',
         success: function(data) {
+            console.log(data);
             if (data.length > 0) {
                 var commentsContainer = $('#comments-container');
                 data.forEach(function(comment) {
                     var newCommentHtml = createCommentHtml(comment);
                     commentsContainer.append(newCommentHtml);
+                    
+                    addClickListener(`thumb-up-${comment.comment_id}`, function() {
+                        toggleLike(comment.comment_id);
+                    });
+                    addClickListener(`thumb-down-${comment.comment_id}`, function() {
+                        toggleDislike(comment.comment_id);
+                    });
                 });
             } else {
                 console.log('No more comments');
@@ -85,15 +93,15 @@ function createCommentHtml(comment) {
                 <div class="row action-buttons">
                     <div class="col-6"></div>
                     <div class="col-3">
-                        <span class="like-dislike-btn" onclick="toggleLike('${comment.comment_id}')">
+                        <span class="like-dislike-btn">
                             <span>${comment.nlikes}</span>
-                            <i id="${likeButtonId}" class="bi bi-hand-thumbs-up"></i> Like
+                            <i id="${likeButtonId}" class="${comment.commentStatus == 1 ? "bi bi-hand-thumbs-up-fill" : "bi bi-hand-thumbs-up"}"></i> Like
                         </span>
                     </div>
                     <div class="col-3">
-                        <span class="like-dislike-btn" onclick="toggleDislike('${comment.comment_id}')">
+                        <span class="like-dislike-btn">
                             <span>${comment.ndislikes}</span>
-                            <i id="${dislikeButtonId}" class="bi bi-hand-thumbs-down"></i> Dislike
+                            <i id="${dislikeButtonId}" class="${comment.commentStatus == -1 ? "bi bi-hand-thumbs-down-fill" : "bi bi-hand-thumbs-down"}"></i> Dislike
                         </span>
                     </div>
                 </div>

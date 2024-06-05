@@ -18,7 +18,6 @@ CREATE TABLE stories (
     FOREIGN KEY (username) REFERENCES users(username)
 );
 
-
 CREATE TABLE tag (
     name VARCHAR(255) PRIMARY KEY
 );
