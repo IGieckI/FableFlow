@@ -8,7 +8,9 @@
 }
 
 .comment-box {
+    margin: 0 auto 20px;
     margin-bottom: 20px;
+    max-width: 70%;
 }
 
 .user-pic {
@@ -23,7 +25,6 @@
 }
 
 .comment-container {
-    max-width: 50%;
     margin: 0 auto 20px;
 }
 
