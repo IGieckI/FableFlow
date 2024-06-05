@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-2">
                         <button class="btn btn-side-hamburgher icons" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            <i class="bi bi-list"></i>
+                            <i id="search_icon" class="bi bi-search"></i>
                         </button>
                     </div>
 
@@ -69,9 +69,6 @@
                     <div class="offcanvas-body">
                         <div class="input-group">
                             <input id="search_text" type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
-                            <button class="btn btn-outline-secondary" type="button" id="searchIcon">
-                            <i id="search_icon" class="bi bi-search"></i>
-                            </button>
                         </div>
                         <ul id="users_found" class="nav navbar-nav">
                             
