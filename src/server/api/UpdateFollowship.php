@@ -8,9 +8,10 @@
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
     if ($_POST['isAlreadyFollowing']=='true') {
-        $db->deleteBy(['followed'=>$_POST['followed'], 'follower'=>$_POST['follower']], Tables::Followers);
+        $db->follow($_POST['followed'], $_POST['follower']);        
+        $db->generateNotification($_POST['followed'], $_POST['follower'] . " now follows you!");
     } else {
-        $db->insertInto(["'".$_POST['followed']."'", "'".$_POST['follower']."'"], Tables::Followers);
+        $db->follow($_POST['followed'], $_POST['follower']);
     }
 
     $db->disconnect();
