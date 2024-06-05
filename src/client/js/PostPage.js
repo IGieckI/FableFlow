@@ -2,42 +2,41 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector("#user_icon").onclick = goToProfile;
     
-    addClickListener('load_story_button', function(storyId) {
-        loadContent('story', storyId);
+    addClickListener('load-story-button', function(chapterId) {
+        loadContent('story', chapterId);
     });
     
-    addClickListener('load_pools_button', function(storyId) {
-        loadContent('pools', storyId);
+    addClickListener('load-pools-button', function(chapterId) {
+        loadContent('pools', chapterId);
     });
     
-    addClickListener('load_proposals_button', function(storyId) {
-        loadContent('proposals', storyId);
+    addClickListener('load-proposals-button', function(chapterId) {
+        loadContent('proposals', chapterId);
         initializeProposals();
     });
     
-    addClickListener('load_comments_button', function(storyId) {
-        loadContent('comments', storyId);
-        initializeComments(); // Replace USER_TOKEN with the actual user token !!!
+    addClickListener('load-comments-button', function(chapterId) {
+        loadContent('comments', chapterId);
+        initializeComments();
     });
 
     // Initialize the sub-page content
-    var currentURL = window.location.href;
-    loadContent('story', getPostId(currentURL));
+    loadContent('story', getPostId(window.location.href));
 });
 
-    // Add event listeners for each sub-page button
-    function addClickListener(buttonId, callback) {
-        var button = document.getElementById(buttonId);
-        
-        if (button) {
-            button.addEventListener('click', function() {
-                var storyId = button.getAttribute('data-story-id');
-                callback(storyId);
-            });
-        } else {
-            console.error('Button not found:', buttonId);
-        }
+// Add an onclick-event listener to an HTML element
+function addClickListener(elementId, callback) {
+    var element = document.getElementById(elementId);
+    const chapterId = getPostId(window.location.href);
+    
+    if (element) {
+        element.addEventListener('click', function() {
+            callback(chapterId);
+        });
+    } else {
+        console.error('Button not found:', elementId);
     }
+}
 
 function goToProfile() {
     let username = this.getAttribute("username");
