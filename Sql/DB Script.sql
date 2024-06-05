@@ -173,11 +173,11 @@ VALUES
     (3, 'Something Happened 4', 'Chapter 1 content', '2023-03-20 10:45:00');
 
 -- Insert into proposals
-INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, content)
+INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, title, content)
 VALUES
-    (1, 'john_doe', '2023-01-01 12:00:00', 'This is a proposal content.'),
-    (2, 'jane_smith', '2023-01-02 14:30:00', 'Another proposal for a chapter.'),
-    (3, 'bob_jones', '2023-02-15 15:30:00', 'A third proposal for a chapter.');
+    (1, 'john_doe', '2023-01-01 12:00:00', 'Big changes', 'This is a proposal content.'),
+    (2, 'jane_smith', '2023-01-02 14:30:00', 'Incredible news from the deep space', 'Another proposal for a chapter.'),
+    (3, 'bob_jones', '2023-02-15 15:30:00', 'Black mage has arrived', 'A third proposal for a chapter.');
 
 -- Insert into comments
 INSERT INTO comments (username, chapter_id, proposal_id, comment_datetime, content)
