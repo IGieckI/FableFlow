@@ -190,7 +190,7 @@ function toggleDislike(comment_id) {
     }
 }
 
-function updateLikeDislike(username, comment_id, action) {
+function updateLikeDislike(comment_id, action) {
     $.ajax({
         url: '/FableFlow/src/server/api/UpdateCommentsLikesDislikes.php',
         type: 'POST',
