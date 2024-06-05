@@ -181,13 +181,25 @@
             return $this->db->query($query);
         }
 
-        public function updateChapterLikes($username, $chapter_id, $action) {
+        public function updateChapterLikes($username, $chapterId, $action) {
             $query = "";
         
             if ($action === 'like') {
-                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, chapter_id) VALUES ('$username', 0, $chapter_id);";
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, chapter_id) VALUES ('$username', 0, $chapterId);";
             } elseif ($action === 'unlike') {
-                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND chapter_id = '$chapter_id';";
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND chapter_id = '$chapterId';";
+            }
+
+            return $this->db->query($query);
+        }
+
+        public function updateProposalLikes($username, $proposalId, $action) {
+            $query = "";
+        
+            if ($action === 'like') {
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, proposal_id) VALUES ('$username', 0, $proposalId);";
+            } elseif ($action === 'unlike') {
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND proposal_id = '$proposalId';";
             }
 
             return $this->db->query($query);

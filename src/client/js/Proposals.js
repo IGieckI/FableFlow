@@ -23,6 +23,13 @@ function loadProposals() {
                             document.getElementById("proposal-time").innerHTML = getTimeAgo(proposal["publicationDatetime"]);
                             document.getElementById("proposal-like-span").innerHTML = proposal["num_likes"];
                             document.getElementById("proposal-content").innerHTML = proposal["content"];
+                            document.getElementById("proposal-like-icon").addEventListener('click', function() {
+                                updateProposalLike(proposal["proposalId"]);
+                            });
+                            
+                            
+                            //document.getElementById("proposal-user-icon").src = proposal["user"]["icon"];
+                            
                         });                        
                     });
                 });

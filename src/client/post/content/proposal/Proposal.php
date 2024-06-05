@@ -5,6 +5,8 @@
                 <span id="proposal-time" class="ml-2 text-muted"></span>
             </div>
             <div class="ml-auto">
+ 
+
                 <span class="text-danger">
                     <span><i id="proposal-like-icon" class="bi bi-fire"></i></span>
                     <span id="proposal-like-span"></span>

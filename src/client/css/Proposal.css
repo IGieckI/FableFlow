@@ -26,3 +26,11 @@
     max-width: 50%;
     margin: 0 auto 20px;
 }
+
+.like-clicked {
+    color: red; /* Change to your desired color */
+}
+
+#proposal-like-icon:hover {
+    cursor: pointer;
+}

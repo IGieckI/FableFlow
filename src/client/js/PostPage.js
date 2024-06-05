@@ -92,16 +92,12 @@ function goToProfile() {
 }
 
 function updateChapterLike(chapterId) {
-    console.log("Updating likes for chapter: " + chapterId);
     $.ajax({
         type: "POST",
         url: "/FableFlow/src/server/api/UpdateChapterLike.php",
         data: { chapterId: chapterId },
         success: function(response) {
             response = JSON.parse(response);
-            console.log(response);
-            console.log(response["likes"]);
-            console.log(response["status"]);
             document.getElementById("like-span").innerHTML = response["likes"];
             document.getElementById("like-icon").className = response["status"] == 0 ? "bi bi-fire" : "bi bi-fire like-clicked";
         },
