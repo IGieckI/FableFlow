@@ -70,7 +70,7 @@ CREATE TABLE pools (
     story_id INT REFERENCES stories(story_id),
     title VARCHAR (50), 
     content VARCHAR (500),
-    expire_datetime DATE
+    expire_datetime DATETIME NOT NULL
 );
 
 CREATE TABLE chapters(
@@ -212,10 +212,10 @@ INSERT INTO messages (sender, receiver, content, message_datetime) VALUES
     ('alice_doe', 'john_doe', 'Hi John, how are you?', '2023-01-04 10:15:00');
 
 INSERT INTO pools (story_id, title, content, expire_datetime) VALUES
-    (1, 'Adventure Pool', 'Exciting adventures await!', '2023-02-28'),
-    (2, 'Mystery Pool', 'Solve the mystery!', '2023-03-15'),
-    (3, 'Fantasy Pool', 'Enter a world of magic!', '2023-04-10'),
-    (4, 'Mystery Pool 2', 'Another mysterious story', '2023-05-20');
+    (1, 'Adventure Pool', 'Exciting adventures await!', '2023-02-28 08:00:00'),
+    (2, 'Mystery Pool', 'Solve the mystery!', '2023-03-15 08:00:00'),
+    (3, 'Fantasy Pool', 'Enter a world of magic!', '2023-04-10 08:00:00'),
+    (4, 'Mystery Pool 2', 'Another mysterious story', '2023-05-20 08:00:00');
 
 INSERT INTO options (pool_id, content) VALUES
     (1, 'Choose your path in the adventurous journey!'),
