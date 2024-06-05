@@ -11,7 +11,7 @@ $(document).ready(function() {
  */
 function loadPosts(page) {
     $.ajax({
-        url: '/FableFlow/src/server/api/GetPosts.php',
+        url: '/FableFlow/src/server/api/GetChapters.php',
         type: 'GET',
         data: { page: page },
         dataType: 'json',

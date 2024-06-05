@@ -11,7 +11,7 @@ setInterval(function(){
                 $.ajax({
                     url: "/FableFlow/src/server/api/PostComment.php",
                     type: "POST",
-                    data: { chapter_id: getPostId(window.location.href), content: message},
+                    data: { chapter_id: getChapterId(window.location.href), content: message},
                     dataType: "json",
                     success: function(response) {
                         $("#message-input").val("");
@@ -41,10 +41,9 @@ function loadComments() {
     $.ajax({
         url: '/FableFlow/src/server/api/GetComments.php',
         type: 'GET',
-        data: { chapter_id: getPostId(window.location.href) },
+        data: { chapter_id: getChapterId(window.location.href) },
         dataType: 'json',
         success: function(data) {
-            console.log(data);
             if (data.length > 0) {
                 var commentsContainer = $('#comments-container');
                 data.forEach(function(comment) {
@@ -145,7 +144,7 @@ function toggleLike(comment_id) {
         likeIcon.classList.add('bi-hand-thumbs-up');
 
         likeCounter.textContent = parseInt(likeCounter.textContent) - 1;
-        updateLikeDislike('john_doe', comment_id, 'remove');
+        updateLikeDislike(comment_id, 'remove');
     } else {
         likeIcon.classList.add('bi-hand-thumbs-up-fill');
         likeIcon.classList.remove('bi-hand-thumbs-up');
@@ -154,11 +153,11 @@ function toggleLike(comment_id) {
             dislikeIcon.classList.remove('bi-hand-thumbs-down-fill');
             dislikeIcon.classList.add('bi-hand-thumbs-down');
             dislikeCounter.textContent = parseInt(dislikeCounter.textContent) - 1;
-            updateLikeDislike('john_doe', comment_id, 'remove');
+            updateLikeDislike(comment_id, 'remove');
         }
 
         likeCounter.textContent = parseInt(likeCounter.textContent) + 1;
-        updateLikeDislike('john_doe', comment_id, 'like');
+        updateLikeDislike(comment_id, 'like');
     }
 }
 
@@ -174,7 +173,7 @@ function toggleDislike(comment_id) {
         dislikeIcon.classList.add('bi-hand-thumbs-down');
 
         dislikeCounter.textContent = parseInt(dislikeCounter.textContent) - 1;
-        updateLikeDislike('john_doe', comment_id, 'remove');
+        updateLikeDislike(comment_id, 'remove');
     } else {
         dislikeIcon.classList.add('bi-hand-thumbs-down-fill');
         dislikeIcon.classList.remove('bi-hand-thumbs-down');
@@ -183,11 +182,11 @@ function toggleDislike(comment_id) {
             likeIcon.classList.remove('bi-hand-thumbs-up-fill');
             likeIcon.classList.add('bi-hand-thumbs-up');
             likeCounter.textContent = parseInt(likeCounter.textContent) - 1;
-            updateLikeDislike('john_doe', comment_id, 'remove');
+            updateLikeDislike(comment_id, 'remove');
         }
 
         dislikeCounter.textContent = parseInt(dislikeCounter.textContent) + 1;
-        updateLikeDislike('john_doe', comment_id, 'dislike');
+        updateLikeDislike(comment_id, 'dislike');
     }
 }
 
@@ -195,7 +194,7 @@ function updateLikeDislike(username, comment_id, action) {
     $.ajax({
         url: '/FableFlow/src/server/api/UpdateCommentsLikesDislikes.php',
         type: 'POST',
-        data: { username: username, comment_id: comment_id, action: action },
+        data: { comment_id: comment_id, action: action },
         success: function(response) {
             console.log('Database updated successfully:', response);
         },
@@ -207,7 +206,7 @@ function updateLikeDislike(username, comment_id, action) {
 }
 
 // Get the id of the post from the URL
-function getPostId(currentURL) {
+function getChapterId(currentURL) {
     var match = currentURL.match(/id=([^&]*)/);
     return match ? match[1] : null;
 }

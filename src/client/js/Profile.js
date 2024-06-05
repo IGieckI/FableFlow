@@ -293,7 +293,7 @@ $(document).ready(function() {
  */
 function loadPosts(page, username) {
     $.ajax({
-        url: '/FableFlow/src/server/api/GetPosts.php',
+        url: '/FableFlow/src/server/api/GetChapters.php',
         type: 'GET',
         data: { page: page, user: username},
         dataType: 'json',

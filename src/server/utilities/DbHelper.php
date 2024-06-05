@@ -167,7 +167,7 @@
             return $this->findBy(['chapter_id' => $chapter_id], null, null, Tables::Proposals);
         }
 
-        public function updateLikesDislikes($username, $comment_id, $action) {
+        public function updateCommentsLikesDislikes($username, $comment_id, $action) {
             $query = "";
         
             if ($action === 'like') {
@@ -176,6 +176,18 @@
                 $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, comment_id) VALUES ('$username', 1, '$comment_id');";
             } elseif ($action === 'remove') {
                 $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND comment_id = '$comment_id';";
+            }
+
+            return $this->db->query($query);
+        }
+
+        public function updateChapterLikes($username, $chapter_id, $action) {
+            $query = "";
+        
+            if ($action === 'like') {
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, chapter_id) VALUES ('$username', 0, $chapter_id);";
+            } elseif ($action === 'unlike') {
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND chapter_id = '$chapter_id';";
             }
 
             return $this->db->query($query);
@@ -298,6 +310,5 @@
                 return 0;
             }
         }
-        
     }
 ?>

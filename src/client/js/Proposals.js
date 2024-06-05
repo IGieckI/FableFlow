@@ -13,7 +13,7 @@ setInterval(function(){
     if (hiddenChapterId !== document.getElementById('hidden-chapter-id') && document.getElementById('hidden-chapter-id') !== null ) {
         hiddenChapterId = document.getElementById('hidden-chapter-id');
 
-        document.getElementById('hidden-chapter-id').value = getPostId(window.location.href);
+        document.getElementById('hidden-chapter-id').value = getChapterId(window.location.href);
     }
 }, 500);
 
@@ -25,10 +25,9 @@ function loadProposals() {
     $.ajax({
         url: '/FableFlow/src/server/api/GetProposals.php',
         type: 'GET',
-        data: { chapter_id: getPostId(window.location.href) },
+        data: { chapter_id: getChapterId(window.location.href) },
         dataType: 'json',
         success: function(data) {
-            console.log(data);
             if (data.length > 0) {
                 var proposalsContainer = $('#proposals-container');
                 data.forEach(function(proposal) {
@@ -103,7 +102,7 @@ function getTimeAgo(mysqlDatetime) {
 }
 
 // Get the id of the post from the URL
-function getPostId(currentURL) {
+function getChapterId(currentURL) {
     var match = currentURL.match(/id=([^&]*)/);
     return match ? match[1] : null;
 }

@@ -43,7 +43,8 @@
             $likes = $likes[0]['COUNT(*)'];
             $comments = $db->count(['comment_id' => $chapter['chapter_id']], Tables::Comments);
             $comments = $comments[0]['COUNT(*)'];
-            $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $chapter['picture'], $likes, $chapter['content']);
+            $liked = $db->chapterStatus($chapter['chapter_id'], $_SESSION['username']);
+            $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $chapter['picture'], $likes, $chapter['content'], $liked);
         }
         $db->disconnect();
         $db = null;

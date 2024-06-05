@@ -46,7 +46,7 @@ $routes = [
         '/FableFlow/src/client/post/content/Comments.php' => 'redirect',
         '/FableFlow/src/client/post/content/proposal/CreateProposal.html' => 'redirect',
         '/FableFlow/src/server/api/GetNotifications.php' => 'redirect',
-        '/FableFlow/src/server/api/GetPosts.php' => 'redirect',        
+        '/FableFlow/src/server/api/GetChapters.php' => 'redirect',
         '/FableFlow/src/server/api/GetStory.php' => 'redirect',
         '/FableFlow/src/server/api/GetViewedUser.php' => 'redirect',
         '/FableFlow/src/server/api/GetComments.php' => 'redirect',
@@ -60,6 +60,7 @@ $routes = [
         '/FableFlow/src/server/api/GetProposals.php' => 'redirect',
         '/FableFlow/src/client/post/content/proposal/Proposal.php' => 'redirect',
         '/FableFlow/src/server/api/GetUsers.php' => 'redirect',
+        '/FableFlow/src/server/api/GetChapter.php' => 'redirect',
     ],
     'POST' => [
         '/FableFlow/src/server/api/UpdateBio.php' => 'redirect',
@@ -73,6 +74,7 @@ $routes = [
         '/FableFlow/src/server/api/PostLogin.php' => 'redirect',
         '/FableFlow/src/server/api/PostRegister.php' => 'redirect',
         '/FableFlow/src/server/api/PostProposal.php' => 'redirect',
+        '/FableFlow/src/server/api/UpdateChapterLike.php' => 'redirect',
     ]
 ];
 
