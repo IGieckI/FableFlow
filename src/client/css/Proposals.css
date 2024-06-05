@@ -1,0 +1,67 @@
+#proposals-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.proposal {
+    border: 1px solid #dfe1e5;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    transition: box-shadow 0.3s;
+    max-width: 730px;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding and border are included in the total width */
+}
+
+.proposal:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+}
+
+.time-text {
+    text-align: right;
+}
+
+.proposal-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    padding: 0;
+}
+
+.proposal-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.proposal-content {
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.custom-btn {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.custom-btn:hover {
+    background-color: #e2e6ea;
+}

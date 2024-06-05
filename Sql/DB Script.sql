@@ -14,12 +14,11 @@ CREATE TABLE users (
 );
 
 CREATE TABLE stories (
-    story_id INT PRIMARY KEY,
-    title VARCHAR(30),
-    username VARCHAR(255),
+    story_id INT PRIMARY KEY NOT NULL,
+    title VARCHAR(30) NOT NULL,
+    username VARCHAR(255) NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username)
 );
-
 
 CREATE TABLE tag (
     name VARCHAR(255) PRIMARY KEY
@@ -50,7 +49,7 @@ CREATE TABLE messages (
     sender VARCHAR(255) REFERENCES users(username),
     receiver VARCHAR(255) REFERENCES users(username),
     content VARCHAR(500),
-    message_datetime DATE,
+    message_datetime DATE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT messages PRIMARY KEY(message_id, sender, receiver)
 );
 
@@ -69,25 +68,27 @@ CREATE TABLE options (
 
 CREATE TABLE pools (
     pool_id INT PRIMARY KEY AUTO_INCREMENT,
-    story_id INT REFERENCES stories(story_id),
+    chapter_id INT REFERENCES chapters(chapter_id),
     title VARCHAR (50), 
     content VARCHAR (500),
-    expire_datetime DATE
+    expire_datetime DATETIME NOT NULL
 );
 
 CREATE TABLE chapters(
 	chapter_id INT AUTO_INCREMENT PRIMARY KEY,
     story_id INT NOT NULL,
     chapter_title VARCHAR(255) NOT NULL,
-   	content TEXT,
-    publication_datetime DATETIME NOT NULL
+   	content TEXT NOT NULL,
+    picture VARCHAR(36), /*uuid()*/
+    publication_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE proposals(
 	proposal_id INT AUTO_INCREMENT PRIMARY KEY,
     chapter_id INT NOT NULL,
     username_proposing VARCHAR(255) NOT NULL,
-    publication_datetime DATETIME NOT NULL,
+    publication_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
     FOREIGN KEY (username_proposing) REFERENCES users(username)
@@ -98,7 +99,7 @@ CREATE TABLE comments(
     username VARCHAR(255) NOT NULL,
     chapter_id INT,
     proposal_id INT,
-    comment_datetime DATETIME NOT NULL,
+    comment_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     content TEXT NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
@@ -122,7 +123,7 @@ CREATE TABLE notifications(
     notification_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
-    notification_datetime DATETIME NOT NULL,
+    notification_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (username) REFERENCES users(username)
 );
     
@@ -173,11 +174,11 @@ VALUES
     (3, 'Something Happened 4', 'Chapter 1 content', '2023-03-20 10:45:00');
 
 -- Insert into proposals
-INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, content)
+INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, title, content)
 VALUES
-    (1, 'john_doe', '2023-01-01 12:00:00', 'This is a proposal content.'),
-    (2, 'jane_smith', '2023-01-02 14:30:00', 'Another proposal for a chapter.'),
-    (3, 'bob_jones', '2023-02-15 15:30:00', 'A third proposal for a chapter.');
+    (1, 'john_doe', '2023-01-01 12:00:00', 'Big changes', 'This is a proposal content.'),
+    (2, 'jane_smith', '2023-01-02 14:30:00', 'Incredible news from the deep space', 'Another proposal for a chapter.'),
+    (3, 'bob_jones', '2023-02-15 15:30:00', 'Black mage has arrived', 'A third proposal for a chapter.');
 
 -- Insert into comments
 INSERT INTO comments (username, chapter_id, proposal_id, comment_datetime, content)
@@ -211,11 +212,17 @@ INSERT INTO messages (sender, receiver, content, message_datetime) VALUES
     ('bob_jones', 'john_doe', 'Hey John!', '2023-01-03 15:45:00'),
     ('alice_doe', 'john_doe', 'Hi John, how are you?', '2023-01-04 10:15:00');
 
-INSERT INTO pools (story_id, title, content, expire_datetime) VALUES
-    (1, 'Adventure Pool', 'Exciting adventures await!', '2023-02-28'),
-    (2, 'Mystery Pool', 'Solve the mystery!', '2023-03-15'),
-    (3, 'Fantasy Pool', 'Enter a world of magic!', '2023-04-10'),
-    (4, 'Mystery Pool 2', 'Another mysterious story', '2023-05-20');
+INSERT INTO pools (chapter_id, title, content, expire_datetime) 
+VALUES 
+    (1, 'What Happens Next?', 
+        'In this chapter, our heroes find themselves at a crossroads. Should they venture into the dark forest or take the hidden path along the river? Each choice holds potential danger and unforeseen adventures. Choose wisely!', 
+        '2023-02-28 08:00:00'),
+    (2, 'The Change of Coins', 
+        'A mysterious figure approaches with an offer: a coin that grants wishes. But there is a catch - each wish comes with a price. Will the characters accept the coin and face the consequences or reject it and miss out on their hearts desire?', 
+        '2023-03-15 08:00:00'),
+    (3, 'Path to the Lake', 
+        'The characters have reached a magical lake that is said to grant great power. However, to access this power, they must first solve an ancient riddle and face the guardians of the lake. Will they succeed or fall short?', 
+        '2023-04-10 08:00:00');
 
 INSERT INTO options (pool_id, content) VALUES
     (1, 'Choose your path in the adventurous journey!'),

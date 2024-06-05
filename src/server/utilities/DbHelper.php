@@ -30,7 +30,6 @@
             or die ('Could not connect to the database server' . mysqli_connect_error());
             
             if ($this->db->connect_error) {
-                error_log('$this->db->connect_error');
                 die("Error not expected, please contact the administrator. " . $this->db->connect_error);
             }
         }
@@ -49,8 +48,21 @@
             }
         }
 
-        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table) {
-            $query = "SELECT * FROM $table->value";
+        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table, $join = null, $selectwhat = null) {
+            
+            $query = "SELECT";
+
+            if (null !== $selectwhat) {
+                $query .= " " . implode(',', $selectwhat);
+            } else {
+                $query .= " *";
+            }
+
+            if (null !== $join) {
+                $query .= " FROM $join";
+            } else {
+                $query .= " FROM $table->value";
+            }
         
             if (!empty($criteria)) {
                 $conditions = [];
@@ -151,6 +163,10 @@
             return $this->findBy(['username' => $username], 1, 0, Tables::Users);
         }
 
+        public function getProposals($chapter_id) {
+            return $this->findBy(['chapter_id' => $chapter_id], null, null, Tables::Proposals);
+        }
+
         public function updateLikesDislikes($username, $comment_id, $action) {
             $query = "";
         
@@ -165,14 +181,123 @@
             return $this->db->query($query);
         }
 
-        public function postComment($username, $chapter_id, $content, $datetime) {
-            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content, comment_datetime) VALUES ('$username', '$chapter_id', '$content', '$datetime');";
+        public function postStory($username, $title) {
+            $query = "INSERT INTO " . Tables::Stories->value . " (title, username) VALUES ('$title', '$username')";
             return $this->db->query($query);
+        }
+
+        public function postChapter($storyId, $chapterTitle, $content, $picture) {
+            $query = "INSERT INTO " . Tables::Chapters->value . " (story_id, chapter_title, content, picture) VALUES ('$storyId', '$chapterTitle', '$content', '$picture')";
+            return $this->db->query($query);
+        }
+
+        public function postComment($username, $chapter_id, $content) {
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content) VALUES ('$username', '$chapter_id', '$content');";
+            return $this->db->query($query);
+        }
+
+        public function postProposal($chapter_id, $username, $title, $content) {
+            $query = "INSERT INTO " . Tables::Proposals->value . " (chapter_id, username_proposing, title, content) VALUES (?, ?, ?, ?)";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("isss", $chapter_id, $username, $title, $content);  // "isss" indicates the types of the parameters: integer, string, string, string
+            
+            return $stmt->execute();
         }
         
         public function insertUser($username, $password) {
             $query = "INSERT INTO " . Tables::Users->value . " (username, password, icon, description) VALUES ('$username', '$password', 'NULL', 'NULL')";
             return $this->db->query($query);
         }
+
+        public function insertInto($values, Tables $table) {
+            $query = "INSERT INTO " . $table->value . " VALUES (";
+            $this->db->query($query . implode(',', $values). ')');
+        }
+
+        public function update($updates, $conditions, Tables $table) {
+            $query = "UPDATE " . $table->value;
+
+            if (!empty($updates)) {
+                $updatesImploded = [];
+                foreach ($updates as $col=>$value) {
+                    $updatesImploded[] = "$col = $value";
+                }
+                $query .= " SET " . implode(',', $updatesImploded);
+            }
+            
+            if (!empty($conditions)) {
+                $conditionsImploded = [];
+                foreach ($conditions as $col => $value) {
+                    $conditionsImploded[] = "$col = $value";
+                }
+                $query .= " WHERE " . implode(' AND ', $conditionsImploded);
+            }   
+            $this->db->query($query);
+        }
+
+        public function generateNotification($username, $content) {
+            $query = "INSERT INTO " . Tables::Notifications->value . " (username, content) VALUES ('$username', '$content')";
+            return $this->db->query($query);
+        }
+
+        public function follow($followed, $follower) {
+            $query = "INSERT INTO " . Tables::Followers->value . " (followed, follower) VALUES ('$followed', '$follower')";
+            return $this->db->query($query);
+        }
+
+        public function unfollow($followed, $follower) {
+            $query = "DELETE FROM " . Tables::Followers->value . " WHERE followed = '$followed' AND follower = '$follower'";
+            return $this->db->query($query);
+        }
+
+        // This function return 0 if the user has not liked or disliked the comment, 1 if the user has liked the comment, and -1 if the user has disliked the comment
+        public function commentStatus($commentId, $username) {
+            $query = "SELECT is_dislike FROM " . Tables::Likes->value . " WHERE comment_id = ? AND username = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $commentId, $username);
+            $stmt->execute();
+            $stmt->bind_result($is_dislike);
+            
+            if ($stmt->fetch()) {
+                return $is_dislike ? -1 : 1;
+            } else {
+                return 0;
+            }
+        }
+
+        // This function return 0 if the user has not liked or disliked the proposal, 1 if the user has liked the proposal, and -1 if the user has disliked the proposal
+        public function proposalStatus($proposalId, $username) {
+            $query = "SELECT is_dislike FROM " . Tables::Likes->value . " WHERE proposal_id = ? AND username = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $proposalId, $username);
+            $stmt->execute();
+            $stmt->bind_result($is_dislike);
+            
+            if ($stmt->fetch()) {
+                return $is_dislike ? -1 : 1;
+            } else {
+                return 0;
+            }
+        }
+
+        // This function return 0 if the user has not liked or disliked the chapter, 1 if the user has liked the chapter, and -1 if the user has disliked the chapter
+        public function chapterStatus($chapterId, $username) {
+            $query = "SELECT is_dislike FROM " . Tables::Likes->value . " WHERE chapter_id = ? AND username = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $chapterId, $username);
+            $stmt->execute();
+            $stmt->bind_result($is_dislike);
+            
+            if ($stmt->fetch()) {
+                return $is_dislike ? -1 : 1;
+            } else {
+                return 0;
+            }
+        }
+        
     }
 ?>

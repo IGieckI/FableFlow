@@ -1,12 +1,12 @@
 <?php
-require __DIR__ . '/../utilities/DbHelper.php';
-require __DIR__ . '/../models/Post.php';
+    require __DIR__ . '/../utilities/DbHelper.php';
+    require __DIR__ . '/../models/Post.php';
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
-$db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
 $username = $_POST['username'];
 $password = $_POST['password'];

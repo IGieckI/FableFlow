@@ -3,25 +3,18 @@
         session_start();
     }
 
-    array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/Comments.css');
-    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/PostPage.js', '/FableFlow/src/client/js/Comments.js');
+    array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/Comments.css', '/FableFlow/src/client/css/Proposals.css', '/FableFlow/src/client/css/Proposal.css');
+    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/PostPage.js', '/FableFlow/src/client/js/Comments.js', '/FableFlow/src/client/js/Proposals.js','/FableFlow/src/client/js/Proposal.js');
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    //error_log("---POST PAGE---->" . $_GET['id'] . "<-----------");
-
     $chapter = $db->getChapter($_GET['id']);
     $story = $db->getStory($chapter[0]['story_id']);
     $author = $db->getUser($story[0]['username']);
     $likes = $db->count(['chapter_id' => $chapter[0]['chapter_id']], Tables::Likes);
-
-    /*print_r($chapter);
-    print_r($story);
-    print_r($author);
-    print_r($likes);*/
 ?>
 
 <div class="container">
@@ -35,22 +28,22 @@
         <div class="col-2">
             <span><i class="bi bi-fire"></i><?php echo $likes[0]['COUNT(*)']; ?></span>
         </div>
-        <div class="col-2">
+        <div id="user_icon" username=<?php echo $author[0]['username']?> class="col-2">
             <img src="<?php echo $author[0]['icon']; ?>" alt="User Icon" width="30" height="30">
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <button class="btn btn-block" onclick="loadContent('story', <?php echo $_GET["id"]; ?>); loadSendButton();">Story</button>
+            <button id="load-story-button" class="btn btn-block"">Story</button>
         </div>
         <div class="col">
-            <button class="btn btn-block" onclick="loadContent('pools', <?php echo $_GET["id"]; ?>)">Pools</button>
+            <button id="load-pools-button" class="btn btn-block">Pools</button>
         </div>
         <div class="col">
-            <button class="btn btn-block" onclick="loadContent('proposals', <?php echo $_GET["id"]; ?>)">Proposals</button>
+            <button id="load-proposals-button" class="btn btn-block">Proposals</button>
         </div>
         <div class="col">
-            <button class="btn btn-block" onclick="loadContent('comments', <?php echo $_GET["id"]; ?>)">Comments</button>
+            <button id="load-comments-button" class="btn btn-block">Comments</button>
         </div>
     </div>
     <div id="subpageContent" class="row" style="margin: 5%;">

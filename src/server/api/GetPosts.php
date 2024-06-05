@@ -2,6 +2,10 @@
     require __DIR__ . '/../utilities/DbHelper.php';
     require __DIR__ . '/../models/Post.php';
 
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
     // Define the number of posts to load at a time
@@ -15,7 +19,20 @@
     $start = ($page - 1) * POSTS_PER_LOAD;
 
     try {
-        $chapters = $db->findBy([], POSTS_PER_LOAD, $start, Tables::Chapters);
+        if (isset($_GET['user'])) {
+            $chapters = $db->complexQuery('SELECT' . ' ' .
+                                            'c.story_id as story_id,
+                                            c.chapter_id as chapter_id,
+                                            c.content as content,
+                                            c.picture as picture,
+                                            c.publication_datetime as publication_datetime' . ' ' . 
+                                            'FROM chapters as c JOIN stories as s ON c.story_id = s.story_id' . ' ' .
+                                            'JOIN users as u ON s.username = u.username' . ' ' .
+                                            "WHERE s.username='". $_GET['user'] . "'");
+        } else {
+            $chapters = $db->findBy([], POSTS_PER_LOAD, $start, Tables::Chapters);
+        }
+        
         //print_r($chapters);
         foreach ($chapters as $chapter) {
             $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories);
@@ -26,10 +43,10 @@
             $likes = $likes[0]['COUNT(*)'];
             $comments = $db->count(['comment_id' => $chapter['chapter_id']], Tables::Comments);
             $comments = $comments[0]['COUNT(*)'];
-
-            $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $likes, $chapter['content']);
+            $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $chapter['picture'], $likes, $chapter['content']);
         }
         $db->disconnect();
+        $db = null;
         header('Content-Type: application/json');
 
         echo json_encode($result);

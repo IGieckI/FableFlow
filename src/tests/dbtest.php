@@ -7,15 +7,15 @@ require_once('resources/db/config.php');
 final class DbTest extends TestCase {
 
     public function testConnectionToDatabase(): void {
-        $dbhelper = new DbHelper(SERVER, USER, PASS, DB, PORT);
-        $this->assertEquals(TRUE, $dbhelper->isConnectionAlive());
+        $db = new DbHelper(SERVER, USER, PASS, DB, PORT);
+        $this->assertEquals(TRUE, $db->isConnectionAlive());
     }
 
     public function testDisconnectionToDatabase() : void {
-        $dbhelper = new DbHelper(SERVER, USER, PASS, DB, PORT);
-        $dbhelper->disconnect();
+        $db = new DbHelper(SERVER, USER, PASS, DB, PORT);
+        $db->disconnect();
         $this->expectException(Error::class);
-        $dbhelper->isConnectionAlive();
+        $db->isConnectionAlive();
     }
 
 }

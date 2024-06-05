@@ -1,3 +1,42 @@
+var sendCommentButton = document.getElementById('send-button');
+
+setInterval(function(){
+    if (sendCommentButton !== document.getElementById('send-button') && document.getElementById('send-button') !== null) {
+        sendCommentButton = document.getElementById('send-button');
+
+        document.getElementById("send-button").addEventListener('click', function() {
+            var message = $("#message-input").val();
+    
+            if (message.trim() !== "") {
+                $.ajax({
+                    url: "/FableFlow/src/server/api/PostComment.php",
+                    type: "POST",
+                    data: { chapter_id: getPostId(window.location.href), content: message},
+                    dataType: "json",
+                    success: function(response) {
+                        $("#message-input").val("");
+                        
+                        // Clear the comments container
+                        var commentsContainer = $("#comments-container");
+                        commentsContainer.empty();
+    
+                        // Reload the comments or posts (replace this with the appropriate function)
+                        loadComments();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("Error loading comments:", textStatus, errorThrown);
+                        console.log(jqXHR.responseText);
+                    }
+                });
+            }
+        });
+    }
+}, 500);
+
+function initializeComments() {
+    loadComments();    
+}
+
 function loadComments() {
     $.ajax({
         url: '/FableFlow/src/server/api/GetComments.php',
@@ -5,11 +44,19 @@ function loadComments() {
         data: { chapter_id: getPostId(window.location.href) },
         dataType: 'json',
         success: function(data) {
+            console.log(data);
             if (data.length > 0) {
                 var commentsContainer = $('#comments-container');
                 data.forEach(function(comment) {
                     var newCommentHtml = createCommentHtml(comment);
                     commentsContainer.append(newCommentHtml);
+                    
+                    addClickListener(`thumb-up-${comment.comment_id}`, function() {
+                        toggleLike(comment.comment_id);
+                    });
+                    addClickListener(`thumb-down-${comment.comment_id}`, function() {
+                        toggleDislike(comment.comment_id);
+                    });
                 });
             } else {
                 console.log('No more comments');
@@ -46,15 +93,15 @@ function createCommentHtml(comment) {
                 <div class="row action-buttons">
                     <div class="col-6"></div>
                     <div class="col-3">
-                        <span class="like-dislike-btn" onclick="toggleLike('${comment.comment_id}')">
+                        <span class="like-dislike-btn">
                             <span>${comment.nlikes}</span>
-                            <i id="${likeButtonId}" class="bi bi-hand-thumbs-up"></i> Like
+                            <i id="${likeButtonId}" class="${comment.commentStatus == 1 ? "bi bi-hand-thumbs-up-fill" : "bi bi-hand-thumbs-up"}"></i> Like
                         </span>
                     </div>
                     <div class="col-3">
-                        <span class="like-dislike-btn" onclick="toggleDislike('${comment.comment_id}')">
+                        <span class="like-dislike-btn">
                             <span>${comment.ndislikes}</span>
-                            <i id="${dislikeButtonId}" class="bi bi-hand-thumbs-down"></i> Dislike
+                            <i id="${dislikeButtonId}" class="${comment.commentStatus == -1 ? "bi bi-hand-thumbs-down-fill" : "bi bi-hand-thumbs-down"}"></i> Dislike
                         </span>
                     </div>
                 </div>
@@ -161,7 +208,6 @@ function updateLikeDislike(username, comment_id, action) {
 
 // Get the id of the post from the URL
 function getPostId(currentURL) {
-    param = currentURL.split("?");
-    param = param[param.length - 1].split("=");
-    return param[param.length - 1];
+    var match = currentURL.match(/id=([^&]*)/);
+    return match ? match[1] : null;
 }

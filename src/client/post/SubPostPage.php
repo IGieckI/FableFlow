@@ -1,7 +1,6 @@
 <?php
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
-        $_SESSION['username'] = 'john_doe';
     }    
 
     if (isset($_GET['subpage']) and isset($_GET['chapter_id'])) {
@@ -25,36 +24,12 @@
                 break;
             case 'comments':
                 $filePath = 'content/Comments.php';
-                echo '<script type="text/JavaScript">  
-                        loadComments();
-
-                        $("#send-button").click(function () {
-                            var message = $("#message-input").val();
-
-                            if (message.trim() !== "") {
-                                $.ajax({
-                                    url: "/FableFlow/src/server/api/PostComment.php",
-                                    type: "POST",
-                                    data: { username: "' . $_SESSION["username"] . '", chapter_id: getPostId(window.location.href), content: message},
-                                    dataType: "json",
-                                    success: function(response) {
-                                        $("#message-input").val("");
-                                        
-                                        // Clear the comments container
-                                        var commentsContainer = $("#comments-container");
-                                        commentsContainer.empty();
-
-                                        // Reload the comments or posts (replace this with the appropriate function)
-                                        loadComments();
-                                    },
-                                    error: function(jqXHR, textStatus, errorThrown) {
-                                        console.error("Error loading comments:", textStatus, errorThrown);
-                                        console.log(jqXHR.responseText);
-                                    }
-                                });
-                            }
-                        });
-                    </script>';
+                break;
+            case 'create-proposal':
+                $filePath = 'content/proposal/CreateProposal.html';
+                break;
+            case 'read-proposal':
+                $filePath = 'content/proposal/Proposal.php';
                 break;
             default:
                 echo "Invalid subpage";

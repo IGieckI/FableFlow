@@ -1,3 +1,4 @@
+/* PAGE NEEDS TO BE DECLARED OUTSIDE, SCOPING RULES??? */
 $(document).ready(function() {
     let page = 0;
     loadPosts(page++);
@@ -21,6 +22,9 @@ function loadPosts(page) {
                 data.forEach(function(post) {
                     var newPostHtml = createPostHtml(post);
                     postsContainer.append(newPostHtml);
+                    document.getElementById(post.chapter_id).addEventListener('click', function() {
+                        redirectToPostPage(post.chapter_id);
+                    });
                 });
             } else {
                 console.log('No more posts');
@@ -40,7 +44,7 @@ function loadPosts(page) {
  */
 function createPostHtml(post) {
     return `
-        <div class="post" onclick="redirectToPostPage(${post.chapter_id});">
+        <div class="post" id="${post.chapter_id}">
             <div class="container-fluid">
                 <div class="row user-info">
                     <div class="col-8">
@@ -61,12 +65,16 @@ function createPostHtml(post) {
                         <span><i class="bi bi-fire"></i>${post.num_likes}</span>
                     </div>
                 </div>
+                
+                ${post.picture ? `<div class="row post-picture"><img src="${post.picture}" alt="Post Image" class="img-fluid"></div>` : ''}
+
                 <div class="row post-content">
                     ${post.post_content}
                 </div>
             </div>
         </div>`;
 }
+
 
 function getTimeAgo(mysqlDatetime) {
     let mysqlDate = new Date(mysqlDatetime);
@@ -91,5 +99,5 @@ function getTimeAgo(mysqlDatetime) {
 }
 
 function redirectToPostPage(chapterId) {
-    window.location.href = `client/post/PostPage.php?id=${chapterId}`;
+    window.location.href = `/FableFlow/src/client/post/PostPage.php?id=${chapterId}`;
 }

@@ -9,18 +9,18 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
         <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    
+        <script src="/FableFlow/src/client/js/jquery-ui/jquery-ui.js"></script>
+
         <!-- CSS files -->
         <?php
             if (isset($_SESSION['cssFiles'])) {
                 foreach ($_SESSION['cssFiles'] as $cssFile) {
-                    error_log("---CSS---> " . $cssFile);
                     echo "<link rel='stylesheet' href='$cssFile'>";
                 }
             }            
@@ -30,7 +30,6 @@
         <?php
             if (isset($_SESSION['jsFiles'])) {
                 foreach ($_SESSION['jsFiles'] as $key=>$jsFile) {
-                    error_log("---JS---> " . $jsFile);
                     echo "<script src='$jsFile'></script>";
                 }
             }            
@@ -67,37 +66,15 @@
                     </div>
                     <div class="offcanvas-body">
                         <div class="input-group">
-                            <input type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
+                            <input id="search_text" type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
                             <button class="btn btn-outline-secondary" type="button" id="searchIcon">
                             <i id="search_icon" class="bi bi-search"></i>
                             </button>
                         </div>
-                        <ul class="nav navbar-nav">
-                            <div class="row">
-                                <i class="bi bi-fire"></i>
-                                <p> Trending </p>
-                                <?php
-                                    $_COOKIE["Trending"] = [];
-                                    foreach ($_COOKIE["Trending"] as $value) {
-                                        echo '<div class="row"><a href="' . $value . '">' . $value . '</a></div>';
-                                }
-                                ?>
-                            </div>
-                            <div class="row">
-                                <hr>
-                            </div>
-                            <div class="row">
-                                <?php
-                                $_COOKIE["latest_research"] = [];
-                                    foreach ($_COOKIE["latest_research"] as $value) {
-                                        echo '<div class="row"><a href="' . $value . '">' . $value . '</a><button type="button">X</button></div>';
-                                }
-                                ?>
-                            </div>
+                        <ul id="users_found" class="nav navbar-nav">
+                            
                         </ul>
                     </div>
                 </div>
             </div>
         </header>
-    </body>
-</html>
