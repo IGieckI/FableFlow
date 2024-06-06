@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     $.ajax({
                         url: "/FableFlow/src/server/api/PostChapterComment.php",
                         type: "POST",
-                        data: { chapter_id: getChapterId(window.location.href), content: message},
+                        data: { chapterId: getChapterId(window.location.href), content: message},
                         dataType: "json",
                         success: function(response) {
                             $("#message-input").val("");
