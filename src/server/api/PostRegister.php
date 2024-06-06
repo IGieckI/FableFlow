@@ -8,27 +8,31 @@
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+$username = $_POST['username'];
+$password = $_POST['password'];
+//$email = $_POST['email'];
 
-    try {
-        if((isset($username) && ($username != "")) && (isset($password) && ($password != ""))){
-            $user = $db->findBy(['username' => $user], null, null, Tables::Users);
-            $user = $user[0];
-            if(count($user) != 0){
-                header("Location: Access.html");
-                exit();
-            }
-            else{
-                $hashed_pass = password_hash($password, PASSWORD_BCRYPT);
-                $n = $db->insertUser($username, $password);
+try {
+    if(!empty($username) && !empty($password)){
+        $user = $db->findBy(['username' => $username], null, null, Tables::Users);
+        if(count($user) != 0){
+            header("Location: FableFlow/src/client/Register.php");
+            exit();
+        }
+        else{
+            $hashed_pass = password_hash($password, PASSWORD_BCRYPT);
+            $insert = $db->insertUser($username, $hashed_pass);
+            if($insert){
                 $_SESSION['username']=$_POST['username'];
-                header("Location: main.js");
+                $_SESSION['LOGGED']=true;
+                header("Location: /FableFlow/src/client/profile/Main.php");
                 exit();
             }
         }
-    } catch (Exception $e) {
-        http_response_code(500);
-        echo json_encode(['error' => $e->getMessage()]);
     }
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
+
 ?>
