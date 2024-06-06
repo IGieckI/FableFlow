@@ -99,5 +99,5 @@ function getTimeAgo(mysqlDatetime) {
 }
 
 function redirectToPostPage(chapterId) {
-    window.location.href = `/FableFlow/src/client/post/PostPage.php?id=${chapterId}`;
+    window.location.href = `/FableFlow/src/client/post/ChapterPage.php?id=${chapterId}`;
 }

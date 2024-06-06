@@ -16,7 +16,7 @@ function loadProposals() {
                     proposalsContainer.append(newProposalHtml);
 
                     addClickListener(proposal.proposalId, function() {
-                        loadContent('read-proposal', proposal.proposalId, function() {
+                        loadContent('read-proposal', function() {
                             // load proposal informations
                             console.log(document.getElementById("proposal-title"));
                             document.getElementById("proposal-title").innerHTML = proposal["title"];

@@ -45,7 +45,7 @@ function uploadImage() {
         dataType: 'json',
         success: function(data) {
             if (data['result']=='notok') {
-                alert("Upload failed");
+                console.log("Upload failed");
             } else {
                 updateUserProfilePicture(data['id']);
             }
@@ -359,7 +359,7 @@ function getTimeAgo(mysqlDatetime) {
 }
 
 function redirectToPostPage(chapterId) {
-    window.location.href = `../post/PostPage.php?id=${chapterId}`;
+    window.location.href = `../post/ChapterPage.php?id=${chapterId}`;
 }
 
 $(window).resize(function() {
