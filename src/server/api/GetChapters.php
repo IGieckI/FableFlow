@@ -18,20 +18,49 @@
     // Calculate the starting point for retrieving posts
     $start = ($page - 1) * POSTS_PER_LOAD;
 
+    $username = $_SESSION['username'];
+
     try {
-        if (isset($_GET['user'])) {
-            $chapters = $db->complexQuery('SELECT' . ' ' .
-                                            'c.story_id as story_id,
-                                            c.chapter_id as chapter_id,
-                                            c.content as content,
-                                            c.picture as picture,
-                                            c.publication_datetime as publication_datetime' . ' ' . 
-                                            'FROM chapters as c JOIN stories as s ON c.story_id = s.story_id' . ' ' .
-                                            'JOIN users as u ON s.username = u.username' . ' ' .
-                                            "WHERE s.username='". $_GET['user'] . "'");
-        } else {
-            $chapters = $db->findBy([], POSTS_PER_LOAD, $start, Tables::Chapters);
-        }
+        $chapters = $db->complexQuery("
+        (
+            SELECT 
+                c.story_id AS story_id,
+                c.chapter_id AS chapter_id,
+                c.content AS content,
+                c.picture AS picture,
+                c.publication_datetime AS publication_datetime
+            FROM chapters AS c
+            JOIN stories AS s ON c.story_id = s.story_id
+            JOIN users AS u ON s.username = u.username
+            WHERE s.username IN (
+                SELECT followed 
+                FROM followers 
+                WHERE follower = '". $username . "'
+            )
+            ORDER BY c.publication_datetime DESC 
+            LIMIT 10
+        )
+        UNION ALL
+        (
+            SELECT 
+                c.story_id AS story_id,
+                c.chapter_id AS chapter_id,
+                c.content AS content,
+                c.picture AS picture,
+                c.publication_datetime AS publication_datetime
+            FROM chapters AS c
+            JOIN stories AS s ON c.story_id = s.story_id
+            JOIN users AS u ON s.username = u.username
+            WHERE s.username NOT IN (
+                SELECT followed 
+                FROM followers 
+                WHERE follower = '". $username . "'
+            )
+            ORDER BY c.publication_datetime DESC 
+            LIMIT 10
+        )
+        LIMIT 10;
+    ");
         
         //print_r($chapters);
         foreach ($chapters as $chapter) {
