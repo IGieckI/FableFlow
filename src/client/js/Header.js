@@ -2,8 +2,8 @@ let names = [];
 
 $(document).ready(function() {
 
-    $('#notification_icon').click(function() {
-        $('#notification_menu').toggle();
+    $('#notification-icon').click(function() {
+        $('#notification-menu').toggle();
     });
 
     // Check for new notifications every 3 seconds
@@ -13,24 +13,24 @@ $(document).ready(function() {
             type: 'GET',
             dataType: 'json',
             success: function(notifications) {
-                $('#notification_list').empty();
+                $('#notification-list').empty();
 
                 if (Array.isArray(notifications)) {
                     
                     notifications.forEach(function(notification) {
-                        $('#notification_list').append('<li data-id=\'' + notification['id'] + '\' class="clickable-text">' + notification.content + ' (' + getTimeAgo(notification.datetime) + ')' + '</li>');
-                        $('#notification_list [data-id="' + notification['id'] + '"]').click(function() {
+                        $('#notification-list').append('<li data-id=\'' + notification['id'] + '\' class="clickable-text">' + notification.content + ' (' + getTimeAgo(notification.datetime) + ')' + '</li>');
+                        $('#notification-list [data-id="' + notification['id'] + '"]').click(function() {
                             deleteNotification(notification['id']);
                         });
                     });
                     
                     // Update the notification icon
                     if (notifications.length > 0) {
-                        $('#notification_icon').removeClass('bi-bell');
-                        $('#notification_icon').addClass('bi-bell-fill');
+                        $('#notification-icon').removeClass('bi-bell');
+                        $('#notification-icon').addClass('bi-bell-fill');
                     } else {
-                        $('#notification_icon').removeClass('bi-bell-fill');
-                        $('#notification_icon').addClass('bi-bell');
+                        $('#notification-icon').removeClass('bi-bell-fill');
+                        $('#notification-icon').addClass('bi-bell');
                 }
                 }
             },
@@ -52,10 +52,10 @@ $(document).ready(function() {
     });
 
     // Event listener for the search input
-    $('#search_text').on('input', function() {
+    $('#search-text').on('input', function() {
         const query = $(this).val();
         if (query.length==0) {
-            $('#users_found').empty();
+            $('#users-found').empty();
         } else {
             searchNames(query);
         }
@@ -72,9 +72,9 @@ function searchNames(query) {
     results.sort((a, b) => a.username.toLowerCase().indexOf(lowerQuery) - b.username.toLowerCase().indexOf(lowerQuery));
 
     // Display results
-    $('#users_found').empty();
+    $('#users-found').empty();
     results.forEach(result => {
-        $('#users_found').append(`<li>
+        $('#users-found').append(`<li>
                                     <a href="/FableFlow/src/client/profile/Profile.php?user_viewing=${result.username}">
                                         <div class="searched_user_container">
                                             <span>

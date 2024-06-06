@@ -1,6 +1,10 @@
 //Automatically load the content of the story
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector("#user_icon").onclick = goToProfile;
+    // Add event listeners to different elements
+    document.getElementById("user_icon").addEventListener('click', goToProfile);
+    document.getElementById("back-history-button").addEventListener('click', function() {
+        history.back();
+    });
     
     addClickListener('load-story-button', function(chapterId) {
         loadContent('story', function() { 

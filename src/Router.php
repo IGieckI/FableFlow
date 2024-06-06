@@ -40,7 +40,7 @@ $routes = [
             if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/client/profile/Profile.php');
             redirect('/FableFlow/src/Access.php');
         },
-        '/FableFlow/src/client/post/PostPage.php' => 'redirect',
+        '/FableFlow/src/client/post/ChapterPage.php' => 'redirect',
         '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
         '/FableFlow/src/client/post/content/Story.php' => 'redirect',
         '/FableFlow/src/client/post/content/Comments.php' => 'redirect',
