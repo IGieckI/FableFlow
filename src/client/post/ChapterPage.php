@@ -3,33 +3,28 @@
         session_start();
     }
 
-    array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/Comments.css', '/FableFlow/src/client/css/Proposals.css', '/FableFlow/src/client/css/Proposal.css');
-    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/PostPage.js', '/FableFlow/src/client/js/Comments.js', '/FableFlow/src/client/js/Proposals.js','/FableFlow/src/client/js/Proposal.js');
+    array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/PostPage.css', '/FableFlow/src/client/css/Comments.css', '/FableFlow/src/client/css/Proposals.css', '/FableFlow/src/client/css/Proposal.css');
+    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/Utilities.js', '/FableFlow/src/client/js/ChapterPage.js', '/FableFlow/src/client/js/Comments.js', '/FableFlow/src/client/js/Proposals.js','/FableFlow/src/client/js/Proposal.js', '/FableFlow/src/client/js/Story.js');
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';
-
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-    $chapter = $db->getChapter($_GET['id']);
-    $story = $db->getStory($chapter[0]['story_id']);
-    $author = $db->getUser($story[0]['username']);
-    $likes = $db->count(['chapter_id' => $chapter[0]['chapter_id']], Tables::Likes);
 ?>
 
 <div class="container">
     <div class="row">
         <div class="col-1">
-            <i class="bi bi-chevron-left align-middle" onclick="history.back()"></i>
+            <i id="back-history-button" class="bi bi-chevron-left align-middle"></i>
         </div>
         <div class="col">
-            <h5 class="font-weight-bold"><?php echo $chapter[0]['chapter_title']; ?></h5>
+            <h5 id="chapter-title" class="font-weight-bold"></h5>
         </div>
         <div class="col-2">
-            <span><i class="bi bi-fire"></i><?php echo $likes[0]['COUNT(*)']; ?></span>
+            <span><i id="like-icon" class="bi bi-fire"></i></span>
+            <span id="like-span"></span>
         </div>
-        <div id="user_icon" username=<?php echo $author[0]['username']?> class="col-2">
-            <img src="<?php echo $author[0]['icon']; ?>" alt="User Icon" width="30" height="30">
+        <div id="user_icon" username="" class="col-2">
+            <span id="username-span"></span>
+            <img id="user_icon_img" src="" alt="User Icon" width="30" height="30">
         </div>
     </div>
     <div class="row">

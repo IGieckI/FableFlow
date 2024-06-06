@@ -1,11 +1,7 @@
-<?php
-    // Include your database connection file or establish the connection here
-    if (isset($_GET['chapter_id'])) {
-        require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';
+<section id="story-content">
+    <img id="story-img" src="/FableFlow/resources/placeholder.jpg" alt="Story image">
+    <br>
+    <span id="story-content-span">
 
-        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-        $chapter = $db->findBy(['chapter_id' => $_GET['chapter_id']], null, null, Tables::Chapters);
-        echo $chapter[0]['content'];
-    }
-?>
+    </span>
+</section>

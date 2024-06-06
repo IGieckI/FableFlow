@@ -6,12 +6,12 @@
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = $_POST['username'];
+        $username = $_SESSION['username'];
         $comment_id = $_POST['comment_id'];
         $action = $_POST['action'];
 
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-        $db->updateLikesDislikes($username, $comment_id, $action);
+        $db->updateCommentsLikesDislikes($username, $comment_id, $action);
         $db->disconnect();
         $db = null;
     } else {

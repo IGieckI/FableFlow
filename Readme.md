@@ -48,17 +48,18 @@ Mockup da  fare:
 
 Main TO-DO:
 - [X] Design
-- [ ] Registrazione e Login (Ciano)
+- [X] Registrazione e Login (Ciano)
+- [ ] Gestione della sessione corrente (remember me key) (Ciano)
 - [ ] Home con feed di post di utenti seguiti (Giacomo)
 - [ ] Post: Storia (con possibile immagine allegata) (Giacomo)
-- [ ] Post: Pool (Ciano)
-- [ ] Post: Proposals (Giacomo)
-- [ ] Post: Commenti (Giacomo)
-- [ ] Search bar
+- [ ] Post: Pool (Dario)
+- [X] Post: Proposals (Giacomo)
+- [X] Post: Commenti (Giacomo)
+- [X] Search bar
 - [X] Gestione del follow tra utenti (Dario)
 - [X] Profilo utente con post (Dario)
 - [X] Gestione delle immagini (Dario)
-- [ ] Gestione Notifiche (Giacomo)
+- [X] Gestione Notifiche (Giacomo)
 
 Side TO-DO:
 - [X] Javascript variables have to be let and const not var

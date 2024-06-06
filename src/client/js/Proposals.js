@@ -1,22 +1,3 @@
-var newProposalButton = document.getElementById('new-proposal-button');
-var hiddenChapterId = document.getElementById('hidden-chapter-id');
-
-setInterval(function(){
-    if (newProposalButton !== document.getElementById('new-proposal-button') && document.getElementById('new-proposal-button') !== null) {
-        newProposalButton = document.getElementById('new-proposal-button');
-
-        addClickListener('new-proposal-button', function(storyId) {
-            loadContent('create-proposal', storyId);
-        });
-    }
-
-    if (hiddenChapterId !== document.getElementById('hidden-chapter-id') && document.getElementById('hidden-chapter-id') !== null ) {
-        hiddenChapterId = document.getElementById('hidden-chapter-id');
-
-        document.getElementById('hidden-chapter-id').value = getPostId(window.location.href);
-    }
-}, 500);
-
 function initializeProposals() {
     loadProposals();
 }
@@ -25,10 +6,9 @@ function loadProposals() {
     $.ajax({
         url: '/FableFlow/src/server/api/GetProposals.php',
         type: 'GET',
-        data: { chapter_id: getPostId(window.location.href) },
+        data: { chapter_id: getChapterId(window.location.href) },
         dataType: 'json',
         success: function(data) {
-            console.log(data);
             if (data.length > 0) {
                 var proposalsContainer = $('#proposals-container');
                 data.forEach(function(proposal) {
@@ -36,7 +16,45 @@ function loadProposals() {
                     proposalsContainer.append(newProposalHtml);
 
                     addClickListener(proposal.proposalId, function() {
-                        loadContent('read-proposal', proposal.proposalId);
+                        loadContent('read-proposal', function() {
+                            // Load proposal informations
+                            document.getElementById("proposal-title").innerHTML = proposal["title"];
+                            document.getElementById("proposal-time").innerHTML = getTimeAgo(proposal["publicationDatetime"]);
+                            document.getElementById("proposal-like-span").innerHTML = proposal["num_likes"];
+                            document.getElementById("proposal-content").innerHTML = proposal["content"];
+                            document.getElementById("proposal-like-icon").addEventListener('click', function() {
+                                updateProposalLike(proposal["proposalId"]);
+                            });
+                            
+                            // Load comments
+                            loadProposalComments(proposal["proposalId"]);
+                            
+                            document.getElementById("proposal-send-button").addEventListener('click', function() {
+                                var message = $("#proposal-message-input").val();
+                                
+                                $.ajax({
+                                    url: "/FableFlow/src/server/api/PostProposalComment.php",
+                                    type: "POST",
+                                    data: { proposalId: proposal["proposalId"], content: message },
+                                    dataType: "json",
+                                    success: function(response) {
+                                        $("#message-input").val("");
+                                        console.log(response);
+                                        // Clear the comments container
+                                        var commentsContainer = $("#proposal-comments-container");
+                                        commentsContainer.empty();
+
+                                        // Reload the comments
+                                        loadProposalComments(proposal["proposalId"]);
+                                    },
+                                    error: function(error) {
+                                        console.error("Error loading comments:", error);
+                                    }
+                                });
+                            });
+
+                            //document.getElementById("proposal-user-icon").src = proposal["user"]["icon"];                            
+                        });                        
                     });
                 });
             } else {
@@ -80,30 +98,8 @@ function createProposalHtml(proposal) {
     </div>`;
 }
 
-function getTimeAgo(mysqlDatetime) {
-    var mysqlDate = new Date(mysqlDatetime);
-    var currentDate = new Date();
-
-    var timeDifference = currentDate.getTime() - mysqlDate.getTime();
-
-    var seconds = Math.floor(timeDifference / 1000);
-    var minutes = Math.floor(seconds / 60);
-    var hours = Math.floor(minutes / 60);
-    var days = Math.floor(hours / 24);
-
-    if (days > 0) {
-        return days + ' days ago';
-    } else if (hours > 0) {
-        return hours + ' hours ago';
-    } else if (minutes > 0) {
-        return minutes + ' minutes ago';
-    } else {
-        return seconds + ' seconds ago';
-    }
-}
-
 // Get the id of the post from the URL
-function getPostId(currentURL) {
+function getChapterId(currentURL) {
     var match = currentURL.match(/id=([^&]*)/);
     return match ? match[1] : null;
 }

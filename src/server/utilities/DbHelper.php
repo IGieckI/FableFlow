@@ -48,7 +48,7 @@
             }
         }
 
-        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table, $join = null, $selectwhat = null) {
+        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table = null, $join = null, $selectwhat = null) {
             
             $query = "SELECT";
 
@@ -167,7 +167,7 @@
             return $this->findBy(['chapter_id' => $chapter_id], null, null, Tables::Proposals);
         }
 
-        public function updateLikesDislikes($username, $comment_id, $action) {
+        public function updateCommentsLikesDislikes($username, $comment_id, $action) {
             $query = "";
         
             if ($action === 'like') {
@@ -176,6 +176,30 @@
                 $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, comment_id) VALUES ('$username', 1, '$comment_id');";
             } elseif ($action === 'remove') {
                 $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND comment_id = '$comment_id';";
+            }
+
+            return $this->db->query($query);
+        }
+
+        public function updateChapterLikes($username, $chapterId, $action) {
+            $query = "";
+        
+            if ($action === 'like') {
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, chapter_id) VALUES ('$username', 0, $chapterId);";
+            } elseif ($action === 'unlike') {
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND chapter_id = '$chapterId';";
+            }
+
+            return $this->db->query($query);
+        }
+
+        public function updateProposalLikes($username, $proposalId, $action) {
+            $query = "";
+        
+            if ($action === 'like') {
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, proposal_id) VALUES ('$username', 0, $proposalId);";
+            } elseif ($action === 'unlike') {
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND proposal_id = '$proposalId';";
             }
 
             return $this->db->query($query);
@@ -191,16 +215,21 @@
             return $this->db->query($query);
         }
 
-        public function postComment($username, $chapter_id, $content) {
-            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content) VALUES ('$username', '$chapter_id', '$content');";
+        public function postComment($username, $chapterId, $content) {
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content) VALUES ('$username', '$chapterId', '$content');";
             return $this->db->query($query);
         }
 
-        public function postProposal($chapter_id, $username, $title, $content) {
+        public function postProposalComment($username, $proposalId, $content) {
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, proposal_id, content) VALUES ('$username', '$proposalId', '$content');";
+            return $this->db->query($query);
+        }
+
+        public function postProposal($chapterId, $username, $title, $content) {
             $query = "INSERT INTO " . Tables::Proposals->value . " (chapter_id, username_proposing, title, content) VALUES (?, ?, ?, ?)";
             
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param("isss", $chapter_id, $username, $title, $content);  // "isss" indicates the types of the parameters: integer, string, string, string
+            $stmt->bind_param("isss", $chapterId, $username, $title, $content);
             
             return $stmt->execute();
         }
@@ -301,7 +330,6 @@
             }
             $stmt->close();
         }
-        
         function getStoryID($username, $title){
             $query = "SELECT story_id FROM " . Tables::Stories->value . " WHERE username = ? AND title = ?";
             

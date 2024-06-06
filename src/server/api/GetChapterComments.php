@@ -6,11 +6,11 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-    $chapter_id = isset($_GET['chapter_id']) ? (int)$_GET['chapter_id'] : 1;
-
     try {
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+
+        $chapter_id = (int)$_GET['chapter_id'];
+
         $comments = $db->findBy(['chapter_id' => $chapter_id], null, null, Tables::Comments);        
         foreach ($comments as $comment) {
             $user = $db->findBy(['username' => $comment['username']], null, null, Tables::Users);            

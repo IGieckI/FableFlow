@@ -7,21 +7,18 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_SESSION['username'];
-        $chapter_id = $_POST['chapter_id'];
+        $chapterId = $_POST['chapterId'];
         $content = $_POST['content'];
         
-        // Validate and sanitize
-        $content = htmlspecialchars($content);
-
         try {
             $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-            $db->postComment($username, $chapter_id, $content);
+            $db->postComment($username, $chapterId, $content);
 
             // Notify the author of the chapter
-            $chapter = $db->findBy(['id' => $chapter_id], null, null, Tables::Chapters)[0];
-            $story = $db->findBy(['id' => $chapter['story_id']], null, null, Tables::Stories)[0];
+            $chapter = $db->findBy(['chapter_id' => $chapterId], null, null, Tables::Chapters)[0];
+            $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories)[0];
             $author = $db->findBy(['username' => $story['username']], null, null, Tables::Users)[0];
-            $db->generateNotification($author['username'], $username . ' commented on your chapter: ' . $chapter['title']);
+            $db->generateNotification($author['username'], $username . ' commented on your chapter: ' . $chapter['chapter_title']);
             
             echo json_encode(['success' => true]);
         } catch (Exception $e) {

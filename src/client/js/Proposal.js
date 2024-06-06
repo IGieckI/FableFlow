@@ -1,16 +1,30 @@
-function initializeComments() {
-    loadComments();    
+function updateProposalLike(proposalId) {
+    $.ajax({
+        type: "POST",
+        url: "/FableFlow/src/server/api/UpdateProposalLike.php",
+        data: { proposalId: proposalId },
+        success: function(response) {
+            response = JSON.parse(response);            
+            console.log(response);
+            document.getElementById("proposal-like-span").innerHTML = response["likes"];
+            document.getElementById("proposal-like-icon").className = response["status"] == 0 ? "bi bi-fire" : "bi bi-fire like-clicked";
+        },
+        error: function() {
+            console.log("Error updating likes.");
+        }
+    });
 }
 
-function loadComments() {
+function loadProposalComments(proposalId) {
     $.ajax({
-        url: '/FableFlow/src/server/api/GetChapterComments.php',
+        url: '/FableFlow/src/server/api/GetProposalComments.php',
         type: 'GET',
-        data: { chapter_id: getChapterId(window.location.href) },
+        data: { proposalId: proposalId },
         dataType: 'json',
         success: function(data) {
+            console.log(data);
             if (data.length > 0) {
-                var commentsContainer = $('#comments-container');
+                var commentsContainer = $('#proposal-comments-container');
                 data.forEach(function(comment) {
                     var newCommentHtml = createCommentHtml(comment);
                     commentsContainer.append(newCommentHtml);
@@ -36,6 +50,8 @@ function loadComments() {
 function createCommentHtml(comment) {
     const likeButtonId = `thumb-up-${comment.comment_id}`;
     const dislikeButtonId = `thumb-down-${comment.comment_id}`;
+
+    console.log(likeButtonId);
 
     return `
         <div class="container">
@@ -144,10 +160,4 @@ function updateLikeDislike(comment_id, action) {
             console.log(jqXHR.responseText);
         }
     });
-}
-
-// Get the id of the post from the URL
-function getChapterId(currentURL) {
-    var match = currentURL.match(/id=([^&]*)/);
-    return match ? match[1] : null;
 }
