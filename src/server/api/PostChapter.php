@@ -8,10 +8,13 @@
 
     header('Content-Type: application/json');
 
+    $username = $_SESSION['username'];
+    $storyTitle = $_POST['story_title'];
+
     try {
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-        $story_id = intval($_POST['story_id']);
+        $story_id = $db->getStoryID($username, $storyTitle);
         $chapter_title = $_POST['chapter_title'];
         $content = $_POST['content'];
         $picture = isset($_POST['picture']) ? $_POST['picture'] : NULL;

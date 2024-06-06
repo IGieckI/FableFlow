@@ -37,6 +37,7 @@ $routes = [
         '/FableFlow/src/Index.php' => 'redirect',
         '/FableFlow/src/client/Login.php' => 'redirect',
         '/FableFlow/src/client/Register.php' => 'redirect',
+        '/FableFlow/src/client/creation/CreateStory.php' => 'redirect',
         '/FableFlow/src/client/profile/Profile.php' => function($_) {
             if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/client/profile/Profile.php');
             redirect('/FableFlow/src/client/Login.php');

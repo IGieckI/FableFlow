@@ -265,6 +265,7 @@
             } else {
                 return 0;
             }
+            $stmt->close();
         }
 
         // This function return 0 if the user has not liked or disliked the proposal, 1 if the user has liked the proposal, and -1 if the user has disliked the proposal
@@ -281,6 +282,7 @@
             } else {
                 return 0;
             }
+            $stmt->close();
         }
 
         // This function return 0 if the user has not liked or disliked the chapter, 1 if the user has liked the chapter, and -1 if the user has disliked the chapter
@@ -297,7 +299,28 @@
             } else {
                 return 0;
             }
+            $stmt->close();
         }
         
+        function getStoryID($username, $title){
+            $query = "SELECT story_id FROM " . Tables::Stories->value . " WHERE username = ? AND title = ?";
+            
+            $stmt = $this->db->prepare($query);
+    
+            $stmt->bind_param("ss", $username, $title);
+        
+            $stmt->execute();
+        
+            $result = $stmt->get_result();
+        
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                return $row['story_id'];
+            } else {
+                return null;
+            }
+            $stmt->close();
+        }
     }
+
 ?>

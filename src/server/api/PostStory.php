@@ -12,7 +12,7 @@
 
     try {
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
+        
         $title = isset($_POST['title']);
         $username = isset($_POST['username']);
 
