@@ -14,7 +14,7 @@ function initializeStory() {
             if (response["picture"]) {
                 imgElem.setAttribute("src", getChapterImagePath(response["picture"]));
             } else {
-                imgElem.setAttribute("hidden");
+                imgElem.setAttribute("hidden", true);
             }
         },
         error: function(error) {

@@ -16,7 +16,7 @@
                 $filePath = 'content/Story.php';
                 break;
             case 'pools':
-                $filePath = 'content/Pools.php';
+                $filePath = 'content/pool/PoolsOverview.php';
                 break;
             case 'proposals':
                 $filePath = 'content/Proposals.php';

@@ -291,9 +291,9 @@ $(document).ready(function() {
  */
 function loadPosts(page, username) {
     $.ajax({
-        url: '/FableFlow/src/server/api/GetChapters.php',
+        url: '/FableFlow/src/server/api/GetChaptersOfUser.php',
         type: 'GET',
-        data: { page: page, user: username},
+        data: { user: username},
         dataType: 'json',
         success: function(data) {
             if (data.length > 0) {
