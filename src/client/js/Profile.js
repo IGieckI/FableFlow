@@ -15,8 +15,6 @@ function updateBio() {
     }); 
 }
 
-
-
 /* Owner only function, for guests a new image upload will display at reload of page. */
 function updateUserProfilePicture(imageId) {
     $.ajax({

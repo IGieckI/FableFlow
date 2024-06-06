@@ -19,3 +19,11 @@ function getTimeAgo(mysqlDatetime) {
         return seconds + ' seconds ago';
     }
 }
+
+function getChapterImagePath(chapterImageFileName) {
+    return `/FableFlow/resources/images/${chapterImageFileName}`;
+}
+
+function getIconImagePath(iconImageFileName) {
+    return `/FableFlow/resources/icons/${iconImageFileName}`;
+}
