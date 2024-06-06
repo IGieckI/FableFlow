@@ -13,7 +13,7 @@
     if (!isset($_SESSION['username'])) {
         http_response_code(401);
         echo json_encode(['error' => 'You must be logged in to post a proposal']);
-        header('Location: ' . '/FableFlow/src/client/post/PostPage.php?id=' . $chapter_id);
+        header('Location: ' . '/FableFlow/src/client/post/ChapterPage.php?id=' . $chapter_id);
         exit();
     }
 
@@ -29,6 +29,6 @@
     $db->disconnect();
     $db = null;
 
-    header('Location: ' . '/FableFlow/src/client/post/PostPage.php?id=' . $chapter_id);
+    header('Location: ' . '/FableFlow/src/client/post/ChapterPage.php?id=' . $chapter_id);
 ?>
 

@@ -1,0 +1,8 @@
+.like-clicked {
+    color: red; /* Change to your desired color */
+}
+
+#like-icon:hover,
+#back-history-button:hover {
+    cursor: pointer;
+}

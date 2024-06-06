@@ -3,9 +3,8 @@
         session_start();
     }    
 
-    if (isset($_GET['subpage']) and isset($_GET['chapter_id'])) {
+    if (isset($_GET['subpage'])) {
         $subpage = $_GET['subpage'];
-        $chapter_id = $_GET['chapter_id'];
 
         $comments_count = 0;
 

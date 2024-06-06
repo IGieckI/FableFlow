@@ -6,19 +6,20 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-    $chapter_id = isset($_GET['chapter_id']) ? (int)$_GET['chapter_id'] : 1;
-
     try {
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+
+        $chapter_id = (int)$_GET['chapter_id'];
+
         $comments = $db->findBy(['chapter_id' => $chapter_id], null, null, Tables::Comments);        
         foreach ($comments as $comment) {
             $user = $db->findBy(['username' => $comment['username']], null, null, Tables::Users);            
             $likes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 0], Tables::Likes);
             $likes = $likes[0]['COUNT(*)'];
             $dislikes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 1], Tables::Likes);
-            $dislikes = $dislikes[0]['COUNT(*)'];            
-            $result[] = new Comment($comment['comment_id'], $user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes);
+            $dislikes = $dislikes[0]['COUNT(*)'];
+            $commentStatus = $db->commentStatus($comment['comment_id'], $_SESSION['username']);
+            $result[] = new Comment($comment['comment_id'], $user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes, $commentStatus);
         }
         $db->disconnect();
         $db = null;

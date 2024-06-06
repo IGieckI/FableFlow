@@ -4,7 +4,7 @@
     }
 
     array_push($_SESSION['cssFiles'], 'client/css/Main.css');
-    array_push($_SESSION['jsFiles'], 'client/js/Main.js');
+    array_push($_SESSION['jsFiles'], 'client/js/Main.js', 'client/js/Utilities.js');
     
     include 'client/Header.php';
 ?>

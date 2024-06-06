@@ -15,8 +15,6 @@ function updateBio() {
     }); 
 }
 
-
-
 /* Owner only function, for guests a new image upload will display at reload of page. */
 function updateUserProfilePicture(imageId) {
     $.ajax({
@@ -45,7 +43,7 @@ function uploadImage() {
         dataType: 'json',
         success: function(data) {
             if (data['result']=='notok') {
-                alert("Upload failed");
+                console.log("Upload failed");
             } else {
                 updateUserProfilePicture(data['id']);
             }
@@ -293,9 +291,9 @@ $(document).ready(function() {
  */
 function loadPosts(page, username) {
     $.ajax({
-        url: '/FableFlow/src/server/api/GetPosts.php',
+        url: '/FableFlow/src/server/api/GetChaptersOfUser.php',
         type: 'GET',
-        data: { page: page, user: username},
+        data: { user: username},
         dataType: 'json',
         success: function(data) {
             if (data.length > 0) {
@@ -336,30 +334,8 @@ function createPostHtml(post) {
         </div>`;
 }
 
-function getTimeAgo(mysqlDatetime) {
-    let mysqlDate = new Date(mysqlDatetime);
-    let currentDate = new Date();
-
-    let timeDifference = currentDate.getTime() - mysqlDate.getTime();
-
-    let seconds = Math.floor(timeDifference / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    let days = Math.floor(hours / 24);
-
-    if (days > 0) {
-        return days + ' days ago';
-    } else if (hours > 0) {
-        return hours + ' hours ago';
-    } else if (minutes > 0) {
-        return minutes + ' minutes ago';
-    } else {
-        return seconds + ' seconds ago';
-    }
-}
-
 function redirectToPostPage(chapterId) {
-    window.location.href = `../post/PostPage.php?id=${chapterId}`;
+    window.location.href = `../post/ChapterPage.php?id=${chapterId}`;
 }
 
 $(window).resize(function() {

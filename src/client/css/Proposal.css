@@ -1,4 +1,4 @@
-.chapter-content {
+.proposal-content {
     margin: 20px;
 }
 
@@ -8,7 +8,9 @@
 }
 
 .comment-box {
+    margin: 0 auto 20px;
     margin-bottom: 20px;
+    max-width: 70%;
 }
 
 .user-pic {
@@ -23,6 +25,13 @@
 }
 
 .comment-container {
-    max-width: 50%;
     margin: 0 auto 20px;
+}
+
+.like-clicked {
+    color: red; /* Change to your desired color */
+}
+
+#proposal-like-icon:hover {
+    cursor: pointer;
 }

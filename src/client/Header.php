@@ -41,14 +41,11 @@
         <header>
             <div class="container">
                 <div class="row">
-                    <div class="col-1">
-                        <i id="notification_icon" class="bi bi-bell icons"></i>
-                        <div id="notification_menu" class="notification-menu">
-                            <ul id="notification_list"></ul>
+                    <div class="col-2">
+                        <i id="notification-icon" class="bi bi-bell icons"></i>
+                        <div id="notification-menu" class="notification-menu">
+                            <ul id="notification-list"></ul>
                         </div>
-                    </div>
-                    <div class="col-1">
-                        <i id="chat_icon" class="bi bi-chat-dots icons"></i>
                     </div>
                     <div class="col d-flex justify-content-center maintext">
                         Fableflow
@@ -66,12 +63,12 @@
                     </div>
                     <div class="offcanvas-body">
                         <div class="input-group">
-                            <input id="search_text" type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
+                            <input id="search-text" type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
                             <button class="btn btn-outline-secondary" type="button" id="searchIcon">
-                            <i id="search_icon" class="bi bi-search"></i>
+                            <i id="search-icon" class="bi bi-search"></i>
                             </button>
                         </div>
-                        <ul id="users_found" class="nav navbar-nav">
+                        <ul id="users-found" class="nav navbar-nav">
                             
                         </ul>
                     </div>
