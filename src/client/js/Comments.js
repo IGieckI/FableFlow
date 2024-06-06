@@ -4,7 +4,7 @@ function initializeComments() {
 
 function loadComments() {
     $.ajax({
-        url: '/FableFlow/src/server/api/GetComments.php',
+        url: '/FableFlow/src/server/api/GetChapterComments.php',
         type: 'GET',
         data: { chapter_id: getChapterId(window.location.href) },
         dataType: 'json',
@@ -72,30 +72,6 @@ function createCommentHtml(comment) {
             </div>
         </div>`;
 }
-
-function getTimeAgo(mysqlDatetime) {
-    var mysqlDate = new Date(mysqlDatetime);
-    var currentDate = new Date();
-
-    var timeDifference = currentDate.getTime() - mysqlDate.getTime();
-
-    var seconds = Math.floor(timeDifference / 1000);
-    var minutes = Math.floor(seconds / 60);
-    var hours = Math.floor(minutes / 60);
-    var days = Math.floor(hours / 24);
-
-    if (days > 0) {
-        return days + ' days ago';
-    } else if (hours > 0) {
-        return hours + ' hours ago';
-    } else if (minutes > 0) {
-        return minutes + ' minutes ago';
-    } else {
-        return seconds + ' seconds ago';
-    }
-}
-
-// !!! CHANGE NAME TO TOGGLE LIKE/DISLIKE, MUST BE LINKED TO ACCOUNT, ALSO WHEN LOGIN AND PAGE RELOAD SHOULD STILL SEE THE LIKED BUTTON !!!
 
 function toggleLike(comment_id) {
     const likeIcon = document.getElementById("thumb-up-" + comment_id);

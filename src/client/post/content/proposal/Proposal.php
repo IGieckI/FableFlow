@@ -20,28 +20,14 @@
         <div class="comment-box">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Add a comment">
+                    <input id="proposal-message-input" type="text" class="form-control" placeholder="Add a comment">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">Comment</button>
+                        <button id="proposal-send-button" class="btn btn-primary" type="button">Comment</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="comment-container">
-            <div class="container-fluid comment-box">
-                <div class="row user-info justify-content-between">
-                    <div class="col-8 d-flex align-items-center">
-                        <img src="user_icon_url" alt="User Pic" class="user-pic">
-                        <strong>Username</strong>
-                    </div>
-                    <div class="col-4 text-end">
-                        <small>5 minutes ago</small>
-                    </div>
-                </div>
-                <div class="row comment-content">
-                    <p>This is a sample comment content.</p>
-                </div>
-            </div>
+        <div id="proposal-comments-container">
+            
         </div>
-        <!-- Add more comments here -->
     </div>

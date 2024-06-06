@@ -49,7 +49,7 @@ $routes = [
         '/FableFlow/src/server/api/GetChapters.php' => 'redirect',
         '/FableFlow/src/server/api/GetStory.php' => 'redirect',
         '/FableFlow/src/server/api/GetViewedUser.php' => 'redirect',
-        '/FableFlow/src/server/api/GetComments.php' => 'redirect',
+        '/FableFlow/src/server/api/GetChapterComments.php' => 'redirect',
         '/FableFlow/src/server/api/GetNumberOfFollowed.php' => 'redirect',
         '/FableFlow/src/server/api/GetNumberOfFollowers.php' => 'redirect',
         '/FableFlow/src/server/api/GetUserStories.php' => 'redirect',
@@ -61,6 +61,7 @@ $routes = [
         '/FableFlow/src/client/post/content/proposal/Proposal.php' => 'redirect',
         '/FableFlow/src/server/api/GetUsers.php' => 'redirect',
         '/FableFlow/src/server/api/GetChapter.php' => 'redirect',
+        '/FableFlow/src/server/api/GetProposalComments.php' => 'redirect',
     ],
     'POST' => [
         '/FableFlow/src/server/api/UpdateBio.php' => 'redirect',
@@ -69,13 +70,14 @@ $routes = [
         '/FableFlow/src/server/api/UpdateFollowship.php' => 'redirect',
         '/FableFlow/src/server/api/AuthLogin.php' => 'redirect',
         '/FableFlow/src/server/api/DeleteNotification.php' => 'redirect',
-        '/FableFlow/src/server/api/PostComment.php' => 'redirect',
+        '/FableFlow/src/server/api/PostChapterComment.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateCommentsLikesDislikes.php' => 'redirect',
         '/FableFlow/src/server/api/PostLogin.php' => 'redirect',
         '/FableFlow/src/server/api/PostRegister.php' => 'redirect',
         '/FableFlow/src/server/api/PostProposal.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateChapterLike.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateProposalLike.php' => 'redirect',
+        '/FableFlow/src/server/api/PostProposalComment.php' => 'redirect',
     ]
 ];
 

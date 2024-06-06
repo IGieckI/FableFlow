@@ -17,8 +17,7 @@ function loadProposals() {
 
                     addClickListener(proposal.proposalId, function() {
                         loadContent('read-proposal', function() {
-                            // load proposal informations
-                            console.log(document.getElementById("proposal-title"));
+                            // Load proposal informations
                             document.getElementById("proposal-title").innerHTML = proposal["title"];
                             document.getElementById("proposal-time").innerHTML = getTimeAgo(proposal["publicationDatetime"]);
                             document.getElementById("proposal-like-span").innerHTML = proposal["num_likes"];
@@ -27,9 +26,34 @@ function loadProposals() {
                                 updateProposalLike(proposal["proposalId"]);
                             });
                             
+                            // Load comments
+                            loadProposalComments(proposal["proposalId"]);
                             
-                            //document.getElementById("proposal-user-icon").src = proposal["user"]["icon"];
-                            
+                            document.getElementById("proposal-send-button").addEventListener('click', function() {
+                                var message = $("#proposal-message-input").val();
+                                
+                                $.ajax({
+                                    url: "/FableFlow/src/server/api/PostProposalComment.php",
+                                    type: "POST",
+                                    data: { proposalId: proposal["proposalId"], content: message },
+                                    dataType: "json",
+                                    success: function(response) {
+                                        $("#message-input").val("");
+                                        console.log(response);
+                                        // Clear the comments container
+                                        var commentsContainer = $("#proposal-comments-container");
+                                        commentsContainer.empty();
+
+                                        // Reload the comments
+                                        loadProposalComments(proposal["proposalId"]);
+                                    },
+                                    error: function(error) {
+                                        console.error("Error loading comments:", error);
+                                    }
+                                });
+                            });
+
+                            //document.getElementById("proposal-user-icon").src = proposal["user"]["icon"];                            
                         });                        
                     });
                 });
@@ -72,28 +96,6 @@ function createProposalHtml(proposal) {
             </div>
         </div>
     </div>`;
-}
-
-function getTimeAgo(mysqlDatetime) {
-    var mysqlDate = new Date(mysqlDatetime);
-    var currentDate = new Date();
-
-    var timeDifference = currentDate.getTime() - mysqlDate.getTime();
-
-    var seconds = Math.floor(timeDifference / 1000);
-    var minutes = Math.floor(seconds / 60);
-    var hours = Math.floor(minutes / 60);
-    var days = Math.floor(hours / 24);
-
-    if (days > 0) {
-        return days + ' days ago';
-    } else if (hours > 0) {
-        return hours + ' hours ago';
-    } else if (minutes > 0) {
-        return minutes + ' minutes ago';
-    } else {
-        return seconds + ' seconds ago';
-    }
 }
 
 // Get the id of the post from the URL

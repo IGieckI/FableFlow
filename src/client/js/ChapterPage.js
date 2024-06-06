@@ -32,14 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     addClickListener('load-comments-button', function(chapterId) {
         loadContent('comments', function() {
-            sendCommentButton = document.getElementById('send-button');
-
             document.getElementById("send-button").addEventListener('click', function() {
                 var message = $("#message-input").val();
         
                 if (message.trim() !== "") {
                     $.ajax({
-                        url: "/FableFlow/src/server/api/PostComment.php",
+                        url: "/FableFlow/src/server/api/PostChapterComment.php",
                         type: "POST",
                         data: { chapter_id: getChapterId(window.location.href), content: message},
                         dataType: "json",

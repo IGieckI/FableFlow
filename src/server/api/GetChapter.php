@@ -23,17 +23,12 @@
         if (count($chapter) == 0) {
             throw new Exception('Chapter not found');
         }
-        error_log("Chapter: " . print_r($chapter, true));
+        
         $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories)[0];
-        error_log("Story: " . print_r($story, true));
         $user = $db->findBy(['username' => $story['username']], null, null, Tables::Users)[0];
-        error_log("User: " . print_r($user, true));
         $likes = $db->count(['chapter_id' => $chapter['chapter_id']], Tables::Likes)[0]['COUNT(*)'];
-        error_log("Likes: " . print_r($likes, true));
         $comments = $db->count(['comment_id' => $chapter['chapter_id']], Tables::Comments)[0]['COUNT(*)'];
-        error_log("Comments: " . print_r($comments, true));
         $liked = $db->chapterStatus($chapter['chapter_id'], $_SESSION['username']);
-        error_log("Liked: " . print_r($liked, true));
         $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $chapter['picture'], $likes, $chapter['content'], $liked);
         
         $db->disconnect();

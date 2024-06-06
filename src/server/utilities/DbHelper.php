@@ -215,16 +215,21 @@
             return $this->db->query($query);
         }
 
-        public function postComment($username, $chapter_id, $content) {
-            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content) VALUES ('$username', '$chapter_id', '$content');";
+        public function postComment($username, $chapterId, $content) {
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content) VALUES ('$username', '$chapterId', '$content');";
             return $this->db->query($query);
         }
 
-        public function postProposal($chapter_id, $username, $title, $content) {
+        public function postProposalComment($username, $proposalId, $content) {
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, proposal_id, content) VALUES ('$username', '$proposalId', '$content');";
+            return $this->db->query($query);
+        }
+
+        public function postProposal($chapterId, $username, $title, $content) {
             $query = "INSERT INTO " . Tables::Proposals->value . " (chapter_id, username_proposing, title, content) VALUES (?, ?, ?, ?)";
             
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param("isss", $chapter_id, $username, $title, $content);  // "isss" indicates the types of the parameters: integer, string, string, string
+            $stmt->bind_param("isss", $chapterId, $username, $title, $content);
             
             return $stmt->execute();
         }
