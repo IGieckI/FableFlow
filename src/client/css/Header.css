@@ -71,10 +71,6 @@ header > * {
     padding: 0;
 }
 
-#notification-icon:hover {
-    cursor: pointer;
-}
-
 .clickable-text {
     text-decoration: none;
     cursor: pointer;

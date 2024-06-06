@@ -11,11 +11,13 @@
 
     try{
         $stories = $db->findBy(['username' => $username], null, null, Tables::Stories);
-        if(count($stories) != 0){
-            foreach($stories as $story){
-                $title[] = $story["title"];
-            }
+
+        $titles = [];
+        
+        foreach($stories as $story){
+            $titles[] = $story["title"];
         }
+
         echo json_encode(['titles' => $titles]);
     } catch(Exception $e){
         http_response_code(500);

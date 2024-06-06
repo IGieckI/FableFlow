@@ -12,7 +12,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE stories (
-    story_id INT PRIMARY KEY NOT NULL,
+    story_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     title VARCHAR(30) NOT NULL,
     username VARCHAR(255) NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username)
@@ -77,7 +77,7 @@ CREATE TABLE chapters(
     story_id INT NOT NULL,
     chapter_title VARCHAR(255) NOT NULL,
    	content TEXT NOT NULL,
-    picture VARCHAR(36), /*uuid()*/
+    picture VARCHAR(36) DEFAULT NULL, /*uuid()*/
     publication_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 

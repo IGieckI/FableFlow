@@ -27,7 +27,7 @@ function redirect($page_requested) {
 
 /* Here add variables that are needed in all pages */
 $_SESSION['cssFiles'] = array("/FableFlow/src/client/css/Footer.css", "/FableFlow/src/client/css/Header.css");
-$_SESSION['jsFiles'] = array("/FableFlow/src/client/js/Footer.js", "/FableFlow/src/client/js/Header.js");
+$_SESSION['jsFiles'] = array("/FableFlow/src/client/js/Footer.js", "/FableFlow/src/client/js/Header.js", '/FableFlow/src/client/js/Utilities.js');
 
 $request = $_GET['url'];
 $ip = $_SESSION['REMOTE_ADDR'] ?? $_SERVER['REMOTE_ADDR'];
@@ -66,6 +66,8 @@ $routes = [
         '/FableFlow/src/server/api/GetChapter.php' => 'redirect',
         '/FableFlow/src/server/api/GetProposalComments.php' => 'redirect',
         '/FableFlow/src/server/api/GetChaptersOfUser' => 'redirect',
+        '/FableFlow/src/client/creation/CreateChapter.php' => 'redirect',
+        '/FableFlow/src/server/api/GetOwnerStories.php' => 'redirect',
     ],
     'POST' => [
         '/FableFlow/src/server/api/UpdateBio.php' => 'redirect',
@@ -82,6 +84,8 @@ $routes = [
         '/FableFlow/src/server/api/UpdateChapterLike.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateProposalLike.php' => 'redirect',
         '/FableFlow/src/server/api/PostProposalComment.php' => 'redirect',
+        '/FableFlow/src/server/api/PostChapter.php' => 'redirect',
+        '/FableFlow/src/server/api/PostStory.php' => 'redirect',
     ]
 ];
 

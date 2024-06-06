@@ -1,19 +1,18 @@
 $(document).ready(function() {
     $.ajax({
-        url: '/FableFlow/src/server/api/GetOwnerStories.php', // Sostituisci con il percorso corretto al tuo file PHP
+        url: '/FableFlow/src/server/api/GetOwnerStories.php',
         type: 'GET',
         dataType: 'json',
         success: function(response) {
+            
+            const titles = response["titles"];
 
-            function firstTwoLetters(stringa) {
-                return stringa.substring(0, 2);
-            }
-
-            const titles = Object.keys($title);
-            const select = document.getElementById("story_title");
+            //const titles = Object.keys($title);
+            const select = document.getElementById("story-title");
+            
             let row = "";
-            for(let i = 0; i < $title.length; i++){
-                row += '<option value="${firstTwoLetters(titles[i])}">${titles[i]}</option>';
+            for(let i = 0; i < titles.length; i++){
+                row += "<option value=\"" + titles[i] + "\">" + titles[i] + "</option>";
             }
             select.innerHTML +=row;
         },

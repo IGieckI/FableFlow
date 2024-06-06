@@ -207,6 +207,7 @@
 
         public function postStory($username, $title) {
             $query = "INSERT INTO " . Tables::Stories->value . " (title, username) VALUES ('$title', '$username')";
+            error_log($query);
             return $this->db->query($query);
         }
 
@@ -235,7 +236,7 @@
         }
         
         public function insertUser($username, $password) {
-            $query = "INSERT INTO " . Tables::Users->value . " (username, password, icon, description) VALUES ('$username', '$password', 'NULL', 'NULL')";
+            $query = "INSERT INTO " . Tables::Users->value . " (username, password) VALUES ('$username', '$password')";
             return $this->db->query($query);
         }
 
@@ -333,10 +334,8 @@
         function getStoryID($username, $title){
             $query = "SELECT story_id FROM " . Tables::Stories->value . " WHERE username = ? AND title = ?";
             
-            $stmt = $this->db->prepare($query);
-    
-            $stmt->bind_param("ss", $username, $title);
-        
+            $stmt = $this->db->prepare($query);    
+            $stmt->bind_param("ss", $username, $title);        
             $stmt->execute();
         
             $result = $stmt->get_result();

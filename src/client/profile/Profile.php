@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 array_push($_SESSION['cssFiles'],  './../css/Profile.css');
-array_push($_SESSION['jsFiles'], './../js/Profile.js', '/FableFlow/src/client/js/Utilities.js');
+array_push($_SESSION['jsFiles'], './../js/Profile.js');
 array_push($_SESSION['jsFiles'], 'https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"');
 require __DIR__. '/../Header.php';
 
