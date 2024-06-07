@@ -1,5 +1,10 @@
 function loadPoolCreation(chapterId) {
 
+    document.querySelector('#pool-creation-form').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          // do nothing
+        }
+    });
     $("#expiration_datetime").datepicker({
         dateFormat: "yy-mm-dd",
         timeFormat: "HH:mm:ss"
@@ -8,13 +13,13 @@ function loadPoolCreation(chapterId) {
     document.getElementById('clearButton').addEventListener('click', function() {
         $('#title').val("");
         $('#text').val("");
+        $('#expiration_datetime').val("");
         document.querySelectorAll('.confirmed-option').forEach(function(el) {
             el.remove();
         });
     });
 
     $('#pool-creation-form').submit(function(e) {
-        console.log( Array.from(document.querySelectorAll('.confirmed-option')).map((el)=>el.innerText));
         e.preventDefault();    
         $.ajax({
             url: '/FableFlow/src/server/api/AddPool.php',
@@ -27,7 +32,9 @@ function loadPoolCreation(chapterId) {
                 expire_datetime: $('#expiration_datetime').val()
             },
             success: function(){
-                
+                loadContent('pools', function(){
+                    initializePoolOverview(chapterId);
+                });
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error adding pool:', textStatus, errorThrown);
@@ -75,7 +82,7 @@ function confirmOption() {
     li.className = 'confirmed-option';
     text.innerText = $('#text_option').val();
     li.appendChild(text);
-    trash.className = "bi bi-trash";
+    trash.className = "delete bi bi-trash";
     trash.addEventListener('click', function() {
         trash.parentNode.remove();
     })

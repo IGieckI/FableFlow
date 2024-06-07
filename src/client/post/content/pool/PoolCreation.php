@@ -15,15 +15,14 @@
             <div class="form-group">
                 <ul id="choices_list" class="choices-list">
                     <li id="input_pool">
-                        <input type="text" id="text_option" name="text_option" placeholder="Text goes here...">
-                        <i class="bi bi-trash"></i>
-                        <i id="add_option" class="bi bi-check"></i>
+                        <input type="text" id="text_option" name="text_option" placeholder="Choice goes here...">
+                        <i style="display:none" id="add_option" class="bi bi-check"></i>
                     </li>
                 </ul>
             </div>
             <div id="pool-create-buttons"class="form-buttons">
-                <button type="submit" id="submitButton">Confirm</button>
-                <button type="button" id="clearButton">Clear</button>
+                <button class="btn custom-btn mb-5" type="submit" id="submitButton">Confirm</button>
+                <button class="btn custom-btn mb-5" type="button" id="clearButton">Clear</button>
             </div>
         </form>
     </div>
