@@ -3,6 +3,7 @@ function initializePoolOverview() {
 }
 
 function loadPools() {
+    /* Request to see if i can create a pool for this chapter*/
     $.ajax({
         type: "GET",
         url: '/FableFlow/src/server/api/GetAuthor.php',

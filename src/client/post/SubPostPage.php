@@ -19,7 +19,7 @@
                 $filePath = 'content/pool/PoolsOverview.php';
                 break;
             case 'create-pool':
-                $filePath = 'content/pool/PoolsCreation.php';
+                $filePath = 'content/pool/PoolCreation.php';
                 break;
             case 'proposals':
                 $filePath = 'content/Proposals.php';
