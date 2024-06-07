@@ -17,7 +17,7 @@
                                         c.publication_datetime as publication_datetime' . ' ' . 
                                         'FROM chapters as c JOIN stories as s ON c.story_id = s.story_id' . ' ' .
                                         'JOIN users as u ON s.username = u.username' . ' ' .
-                                        "WHERE s.username='". $_GET['user'] . "'");
+                                        "WHERE s.username=?", [$_GET['user']], ['s']);
 
         foreach ($chapters as $chapter) {
             $story = $db->findBy(['story_id' => $chapter['story_id']], ['story_id' => 'i'], null, null, Tables::Stories);

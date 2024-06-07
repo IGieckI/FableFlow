@@ -35,7 +35,7 @@
             WHERE s.username IN (
                 SELECT followed 
                 FROM followers 
-                WHERE follower = '". $username . "'
+                WHERE follower = ?
             )
             ORDER BY c.publication_datetime DESC 
             LIMIT 10
@@ -54,13 +54,13 @@
             WHERE s.username NOT IN (
                 SELECT followed 
                 FROM followers 
-                WHERE follower = '". $username . "'
+                WHERE follower = ?
             )
             ORDER BY c.publication_datetime DESC 
             LIMIT 10
         )
         LIMIT 10;
-    ");
+    ", [$username, $username], ['s', 's']);
         
         //print_r($chapters);
         foreach ($chapters as $chapter) {

@@ -10,15 +10,15 @@
     try {        
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
     
-        $chapter = $db->complexQuery('SELECT ' .
-                                    'c.story_id as story_id,
+        $chapter = $db->complexQuery("SELECT 
+                                    c.story_id as story_id,
                                     c.chapter_id as chapter_id,
                                     c.content as content,
                                     c.picture as picture,
                                     c.publication_datetime as publication_datetime
                                     FROM chapters as c JOIN stories as s ON c.story_id = s.story_id
                                     JOIN users as u ON s.username = u.username
-                                    WHERE (c.chapter_id='. $_GET['chapterId'] . ')');
+                                    WHERE (c.chapter_id=?)", [$_GET['chapterId']], ['i']);
         $chapter = $chapter[0];
         if (count($chapter) == 0) {
             throw new Exception('Chapter not found');

@@ -175,17 +175,30 @@
             return $data['COUNT(*)'];
         }
         
-
-        public function complexQuery($query) {
-            $result = $this->db->query($query);
+        // This function is used to execute an arbitrary query
+        public function complexQuery($query, array $params, array $types) {
+            $statement = $this->db->prepare($query);
+            if (!$statement) {
+                throw new Exception("Failed to prepare statement: " . $this->db->error);
+            }
+        
+            // Bind the parameters
+            if (!empty($params)) {
+                $statement->bind_param(implode('', $types), ...$params);
+            }
+        
+            $statement->execute();
+            $result = $statement->get_result();
         
             $data = [];
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;
             }
         
+            $statement->close();        
             return $data;
         }
+        
 
         public function getStory($story_id) {
             return $this->findBy(['story_id' => $story_id], ['story_id' => 'i'], 1, 0, Tables::Stories);

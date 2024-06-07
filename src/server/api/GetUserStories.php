@@ -15,7 +15,7 @@
     foreach ($stories as $story) {
 
         $likes = $db->complexQuery("SELECT count(*) as likes FROM likes as l JOIN chapters as c ON
-                                    l.chapter_id=c.chapter_id WHERE c.story_id = ".$story['story_id']."")[0]['likes'];
+                                    l.chapter_id=c.chapter_id WHERE c.story_id = ?", [$_GET['story_id']], ['i'])[0]['likes'];
 
 
         $output[] = array("id"=>$story['story_id'], "title"=>$story['title'], "likes"=>$likes);
