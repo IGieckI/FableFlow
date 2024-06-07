@@ -9,9 +9,8 @@ if (session_status() == PHP_SESSION_NONE) {
 $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
 /* the r stands for record */
-$pools_r = $db->findBy(['chapter_id'=>$_GET['chapterId']], null, null, Tables::Pools);
+$pools_r = $db->findBy(['chapter_id'=>$_GET['chapterId']],['chapter_id'=>'i'], null, null, Tables::Pools);
 
-error_log("AAAAAAAAAAAAAAAAAAAAAAA");
 
 $db->disconnect();
 
