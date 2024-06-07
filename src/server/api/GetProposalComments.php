@@ -10,8 +10,9 @@
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
         $proposalId = (int)$_GET['proposalId'];
-
         $comments = $db->findBy(['proposal_id' => $proposalId], ['proposal_id' => 'i'], null, null, Tables::Comments);        
+        $result = [];
+
         foreach ($comments as $comment) {
             $user = $db->findBy(['username' => $comment['username']], ['username' => 's'], null, null, Tables::Users);            
             $likes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 0], ['comment_id' => 'i', 'is_dislike' => 'i'], Tables::Likes);

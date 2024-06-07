@@ -39,7 +39,6 @@ function loadProposals() {
                                     dataType: "json",
                                     success: function(response) {
                                         $("#message-input").val("");
-                                        console.log(response);
                                         // Clear the comments container
                                         var commentsContainer = $("#proposal-comments-container");
                                         commentsContainer.empty();

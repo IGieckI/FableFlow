@@ -6,13 +6,13 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-    $chapter_id = $_GET['chapter_id'];
-
     try {
-        $proposals = $db->getProposals($chapter_id);
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
+        $chapter_id = $_GET['chapter_id'];
+        $proposals = $db->getProposals($chapter_id);
+        $result = [];
+        
         foreach ($proposals as $proposal) {
             $proposalId = $proposal['proposal_id'];
             $chapterId = $proposal['chapter_id'];

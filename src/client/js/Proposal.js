@@ -4,8 +4,7 @@ function updateProposalLike(proposalId) {
         url: "/FableFlow/src/server/api/UpdateProposalLike.php",
         data: { proposalId: proposalId },
         success: function(response) {
-            response = JSON.parse(response);            
-            console.log(response);
+            response = JSON.parse(response);
             document.getElementById("proposal-like-span").innerHTML = response["likes"];
             document.getElementById("proposal-like-icon").className = response["status"] == 0 ? "bi bi-fire" : "bi bi-fire like-clicked";
         },
@@ -22,7 +21,6 @@ function loadProposalComments(proposalId) {
         data: { proposalId: proposalId },
         dataType: 'json',
         success: function(data) {
-            console.log(data);
             if (data.length > 0) {
                 var commentsContainer = $('#proposal-comments-container');
                 data.forEach(function(comment) {
@@ -50,8 +48,6 @@ function loadProposalComments(proposalId) {
 function createCommentHtml(comment) {
     const likeButtonId = `thumb-up-${comment.comment_id}`;
     const dislikeButtonId = `thumb-down-${comment.comment_id}`;
-
-    console.log(likeButtonId);
 
     return `
         <div class="container">
