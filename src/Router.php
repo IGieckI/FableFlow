@@ -43,7 +43,7 @@ $routes = [
             redirect('/FableFlow/src/client/Login.php');
         },
         '/FableFlow/src/client/post/ChapterPage.php' => 'redirect',
-        '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
+        '/FableFlow/src/client/post/SubChapterPage.php' => 'redirect',
         '/FableFlow/src/client/post/content/Story.php' => 'redirect',
         '/FableFlow/src/client/post/content/Comments.php' => 'redirect',
         '/FableFlow/src/client/post/content/proposal/CreateProposal.html' => 'redirect',

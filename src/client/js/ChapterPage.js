@@ -109,7 +109,7 @@ function addClickListener(elementId, callback) {
 function loadContent(subpage, callback=function() {}) {
     $.ajax({
         type: "GET",
-        url: "SubPostPage.php",
+        url: "SubChapterPage.php",
         data: { subpage: subpage },
         success: function(response) {
             $("#subpageContent").html(response);
