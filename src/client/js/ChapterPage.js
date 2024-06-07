@@ -1,7 +1,9 @@
 //Automatically load the content of the story
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners to different elements
-    document.getElementById("user_icon").addEventListener('click', goToProfile);
+    document.getElementById("user_icon").addEventListener('click', function() {
+        goToProfile(document.getElementById("username-span").textContent);
+    });
     document.getElementById("back-history-button").addEventListener('click', function() {
         history.back();
     });
@@ -119,11 +121,6 @@ function loadContent(subpage, callback=function() {}) {
             console.log("Error loading subpage content.");
         }
     });
-}
-
-function goToProfile() {
-    let username = this.getAttribute("username");
-    window.location.assign('/FableFlow/src/client/profile/Profile.php?user_viewing='+username);
 }
 
 function updateChapterLike(chapterId) {

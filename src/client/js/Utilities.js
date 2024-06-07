@@ -27,3 +27,7 @@ function getChapterImagePath(chapterImageFileName) {
 function getIconImagePath(iconImageFileName) {
     return `/FableFlow/resources/icons/${iconImageFileName}`;
 }
+
+function goToProfile(username) {
+    window.location.assign('/FableFlow/src/client/profile/Profile.php?user_viewing=' + username);
+}

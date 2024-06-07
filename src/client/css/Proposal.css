@@ -28,8 +28,8 @@
     margin: 0 auto 20px;
 }
 
-.like-clicked {
-    color: red; /* Change to your desired color */
+.liked {
+    color: red;
 }
 
 #proposal-like-icon:hover {

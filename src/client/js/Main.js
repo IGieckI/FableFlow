@@ -16,6 +16,7 @@ function loadPosts(page) {
         data: { page: page },
         dataType: 'json',
         success: function(data) {
+            console.log('Posts loaded:', data);
             if (data.length > 0) {
                 // Append new posts to the container
                 var postsContainer = $('#posts-container');
@@ -25,6 +26,15 @@ function loadPosts(page) {
                     document.getElementById(post.chapter_id).addEventListener('click', function() {
                         redirectToPostPage(post.chapter_id);
                     });
+
+                    // Add click event listener for the username span
+                    var usernameSpan = document.getElementById("username-span-" + post.chapter_id);
+                    if (usernameSpan) {
+                        usernameSpan.addEventListener('click', function() {
+                            goToProfile(post.username);
+                            console.log('Clicked on username:', post.username);
+                        });
+                    }
                 });
             } else {
                 console.log('No more posts');
@@ -48,8 +58,8 @@ function createPostHtml(post) {
             <div class="container-fluid">
                 <div class="row user-info">
                     <div class="col-8">
-                        <img src="${post.user_icon}" alt="User Icon" width="30" height="30">
-                        <span>${post.username}</span>
+                        <img id="user-image" src="${post.user_icon}" alt="User Icon" width="30" height="30">
+                        <span id="username-span-${post.chapter_id}">${post.username}</span>
                     </div>
                     <div class="col-4 time-text">
                         <span>${getTimeAgo(post.time)}</span>
@@ -62,7 +72,7 @@ function createPostHtml(post) {
                     </div>        
                     <div class="col-2 post-details">
                         <span><i class="bi bi-chat-dots"></i>${post.num_comments}</span>
-                        <span><i class="bi bi-fire"></i>${post.num_likes}</span>
+                        <span><i class="${post.liked == 0 ? "bi bi-fire" : "bi bi-fire liked"}"></i>${post.num_likes}</span>
                     </div>
                 </div>
                 
