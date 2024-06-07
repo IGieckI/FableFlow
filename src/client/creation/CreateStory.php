@@ -25,7 +25,7 @@
                         </div>
                     </form>
                     <div class="mt-3 d-flex justify-content-center">
-                        <a href="CreateChapter.php" class="btn btn-secondary">Go to Create Chapter</a>
+                        <a href="CreateChapter.php" class="btn btn-secondary">Create a New Chapter</a>
                     </div>
                 </div>
             </div>

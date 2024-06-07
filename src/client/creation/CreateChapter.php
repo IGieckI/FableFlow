@@ -31,6 +31,10 @@
                             <input type="text" id="chapter-title" name="chapter-title" class="form-control" required>
                         </div>
                         <div class="form-group">
+                            <label for="chapter-image">Upload Image</label>
+                            <input type="file" id="chapter-image" name="chapter-image" class="form-control-file" accept="image/*">
+                        </div>
+                        <div class="form-group">
                             <label for="content">Content</label>
                             <textarea id="content" name="content" class="form-control" rows="5" required></textarea>
                         </div>
