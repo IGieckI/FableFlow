@@ -1,3 +1,8 @@
+#main-content {
+    display: grid;
+    justify-content:center;
+}
+
 .profile-pic {
     grid-row: span 2;
     margin-right: 20px;
@@ -10,6 +15,8 @@
 
 #bio {
     margin: 10px 0px 10px 0px;
+    grid-row: 3;
+    grid-column: span 3;
 }
 
 .resume {
@@ -87,6 +94,16 @@
     grid-row: 2;
     grid-column: 2;
     text-align: right;
+}
+
+.custom-btn {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.custom-btn:hover {
+    background-color: #e2e6ea;
 }
 
 @media only screen and (max-width: 700px) {

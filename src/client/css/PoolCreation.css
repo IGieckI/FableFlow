@@ -21,8 +21,32 @@
     float: right;
 }
 
+#pool-creation-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
 
 #pool-create-buttons {
     display: flex;
     justify-content: right;
+    column-gap: 10px;
 }
+
+#add_option:hover {
+    color: white;
+    background-color: black;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+}
+
+.delete:hover {
+    color: white;
+    background-color: black;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+

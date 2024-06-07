@@ -1,4 +1,33 @@
 .pool-link {
     border: solid;
     padding: 2px;
+    border-radius: 11px;
+    margin-bottom: 20px;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+}
+
+#pool-list {
+    list-style: none;
+}
+
+.pool-expiration {
+    float: right;
+    font-weight: bold;
+}
+
+#create-pool {
+    justify-content: center;
+    display: flex;
+    
+}
+
+.create-pool {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.create-pool:hover {
+    background-color: #e2e6ea;
 }
