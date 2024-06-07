@@ -6,7 +6,6 @@
         session_start();
     }
 
-
     try {
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
         // Define the number of posts to load at a time
@@ -38,7 +37,7 @@
                 WHERE follower = ?
             )
             ORDER BY c.publication_datetime DESC 
-            LIMIT 10
+            LIMIT ?, ?
         )
         UNION ALL
         (
@@ -58,12 +57,11 @@
                 WHERE follower = ?
             )
             ORDER BY c.publication_datetime DESC 
-            LIMIT 10
+            LIMIT ?, ?
         )
-        LIMIT 10;
-    ", [$username, $username], ['s', 's']);
+        LIMIT ?, ?
+        ", [$username, $start, POSTS_PER_LOAD, $username, $start, POSTS_PER_LOAD, $start, POSTS_PER_LOAD], ['s', 'i', 'i', 's', 'i', 'i', 'i', 'i']);
         
-        //print_r($chapters);
         foreach ($chapters as $chapter) {
             $story = $db->findBy(['story_id' => $chapter['story_id']], ['story_id' => 'i'], null, null, Tables::Stories);
             $story = $story[0];
