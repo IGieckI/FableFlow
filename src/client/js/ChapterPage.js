@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     addClickListener('load-pools-button', function(chapterId) {
         loadContent('pools', function(){
-            initializePoolOverview();
+            initializePoolOverview(chapterId);
         });
     });
     

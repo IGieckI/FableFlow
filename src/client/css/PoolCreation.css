@@ -1,0 +1,28 @@
+#form-container {
+    display: flex;
+    justify-content: center;
+}
+
+#choices_list {
+    list-style: none;
+    padding: 0;
+}
+
+#title {
+    width: 100%;
+}
+
+#text {
+    width: 100%;
+    resize: none;
+}
+
+.confirmed-option > i {
+    float: right;
+}
+
+
+#pool-create-buttons {
+    display: flex;
+    justify-content: right;
+}

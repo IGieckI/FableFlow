@@ -88,6 +88,7 @@ $routes = [
         '/FableFlow/src/server/api/PostProposalComment.php' => 'redirect',
         '/FableFlow/src/server/api/PostChapter.php' => 'redirect',
         '/FableFlow/src/server/api/PostStory.php' => 'redirect',
+        '/FableFlow/src/server/api/AddPool.php' => 'redirect',
     ]
 ];
 

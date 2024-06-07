@@ -325,10 +325,13 @@
             $stmt->close();
         }
 
-        // General function for insert something in the db
-        public function insertInto($values, Tables $table) {
-            $query = "INSERT INTO " . $table->value . " VALUES (";
-            $this->db->query($query . implode(',', $values). ')');
+        public function insertInto($values, Tables $table, $attributes=null) {
+            $query = "INSERT INTO " . $table->value . " ";
+            if($attributes !== null) {
+                $query .= "(".implode(',', $attributes).")";
+            }
+            $query = $query . " VALUES (".implode(',', $values).')';
+            $this->db->query($query);
         }
 
         // General function for update something in the db
