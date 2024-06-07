@@ -188,15 +188,31 @@
             }
         
             $statement->execute();
-            $result = $statement->get_result();
-        
-            $data = [];
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
+            
+            // Check if the query is a SELECT, to fetch results
+            $queryType = strtoupper(strtok(trim($query), " "));
+            if ($queryType === 'SELECT') {
+                $result = $statement->get_result();
+                if (!$result) {
+                    throw new Exception("Failed to get result: " . $statement->error);
+                }
+
+                $data = [];
+                while ($row = $result->fetch_assoc()) {
+                    if ($row === null && $this->db->error) {
+                        throw new Exception("Failed to fetch row: " . $this->db->error);
+                    }
+                    $data[] = $row;
+                }
+
+                $statement->close();
+                return $data;
+            } else {
+                // For non-SELECT queries, return affected rows
+                $affectedRows = $statement->affected_rows;
+                $statement->close();
+                return $affectedRows;
             }
-        
-            $statement->close();        
-            return $data;
         }
         
 
@@ -380,6 +396,7 @@
             }
             $stmt->close();
         }
+        
         function getStoryID($username, $title){
             $query = "SELECT story_id FROM " . Tables::Stories->value . " WHERE username = ? AND title = ?";
             
@@ -396,6 +413,24 @@
                 return null;
             }
             $stmt->close();
+        }
+
+        function postUserPoolChoice($username, $optionId) {
+            $query = "INSERT INTO " . Tables::OptionChoices->value . " (username, option_id) VALUES (?, ?)";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("si", $username, $optionId);
+            
+            return $stmt->execute();
+        }
+        
+        function removeUserPoolChoice($username, $optionId) {
+            $query = "REMOVE FROM " . Tables::OptionChoices->value . " WHERE username = ? AND option_id = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("si", $username, $optionId);
+            
+            return $stmt->execute();
         }
     }
 

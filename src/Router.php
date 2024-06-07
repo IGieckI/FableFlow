@@ -71,6 +71,7 @@ $routes = [
         '/FableFlow/src/server/api/GetAuthor.php' => 'redirect',
         '/FableFlow/src/client/creation/CreateChapter.php' => 'redirect',
         '/FableFlow/src/server/api/GetOwnerStories.php' => 'redirect',
+        '/FableFlow/src/server/api/GetPoolInformations.php' => 'redirect',
     ],
     'POST' => [
         '/FableFlow/src/server/api/UpdateBio.php' => 'redirect',
@@ -89,6 +90,8 @@ $routes = [
         '/FableFlow/src/server/api/PostProposalComment.php' => 'redirect',
         '/FableFlow/src/server/api/PostChapter.php' => 'redirect',
         '/FableFlow/src/server/api/PostStory.php' => 'redirect',
+        '/FableFlow/src/server/api/PostUserPoolChoice.php' => 'redirect',
+        '/FableFlow/src/server/api/RemoveUserPoolChoice.php' => 'redirect',
     ]
 ];
 
