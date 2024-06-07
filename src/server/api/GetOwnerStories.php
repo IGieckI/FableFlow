@@ -10,7 +10,7 @@
     $username = $_SESSION['username'];
 
     try{
-        $stories = $db->findBy(['username' => $username], null, null, Tables::Stories);
+        $stories = $db->findBy(['username' => $username], ['username' => 's'], null, null, Tables::Stories);
 
         $titles = [];
         

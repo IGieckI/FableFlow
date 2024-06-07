@@ -24,8 +24,8 @@
             throw new Exception('Chapter not found');
         }
         
-        $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories)[0];
-        $user = $db->findBy(['username' => $story['username']], null, null, Tables::Users)[0];
+        $story = $db->findBy(['story_id' => $chapter['story_id']], ['story_id' => 'i'], null, null, Tables::Stories)[0];
+        $user = $db->findBy(['username' => $story['username']], ['username' => 's'], null, null, Tables::Users)[0];
         $likes = $db->count(['chapter_id' => $chapter['chapter_id']], Tables::Likes)[0]['COUNT(*)'];
         $comments = $db->count(['comment_id' => $chapter['chapter_id']], Tables::Comments)[0]['COUNT(*)'];
         $liked = $db->chapterStatus($chapter['chapter_id'], $_SESSION['username']);

@@ -7,7 +7,7 @@
     
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
     
-    $storyContent = $db->findBy(['chapter_id' => $_GET['chapterId']], null, null, Tables::Chapters)[0]['content'];
+    $storyContent = $db->findBy(['chapter_id' => $_GET['chapterId']], ['chapter_id' => 'i'], null, null, Tables::Chapters)[0]['content'];
 
     $db->disconnect();
     

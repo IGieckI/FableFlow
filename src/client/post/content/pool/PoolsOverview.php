@@ -20,7 +20,7 @@ $html = '<div class="main-container">
         <ul>';
 
 /* the r stands for record */
-$pools_r = $db->findBy(['chapter_id'=>$_GET['chapter_id']], null, null, Tables::Pools);
+$pools_r = $db->findBy(['chapter_id'=>$_GET['chapter_id']], ['chapter_id' => 'i'], null, null, Tables::Pools);
 
 $db->disconnect();
 

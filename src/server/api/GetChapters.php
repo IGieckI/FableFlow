@@ -64,9 +64,9 @@
         
         //print_r($chapters);
         foreach ($chapters as $chapter) {
-            $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories);
+            $story = $db->findBy(['story_id' => $chapter['story_id']], ['story_id' => 'i'], null, null, Tables::Stories);
             $story = $story[0];
-            $user = $db->findBy(['username' => $story['username']], null, null, Tables::Users);
+            $user = $db->findBy(['username' => $story['username']], ['username' => 's'], null, null, Tables::Users);
             $user = $user[0];
             $likes = $db->count(['chapter_id' => $chapter['chapter_id']], Tables::Likes);
             $likes = $likes[0]['COUNT(*)'];

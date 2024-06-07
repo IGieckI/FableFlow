@@ -11,9 +11,9 @@
 
         $proposalId = (int)$_GET['proposalId'];
 
-        $comments = $db->findBy(['proposal_id' => $proposalId], null, null, Tables::Comments);        
+        $comments = $db->findBy(['proposal_id' => $proposalId], ['proposal_id' => 'i'], null, null, Tables::Comments);        
         foreach ($comments as $comment) {
-            $user = $db->findBy(['username' => $comment['username']], null, null, Tables::Users);            
+            $user = $db->findBy(['username' => $comment['username']], ['username' => 's'], null, null, Tables::Users);            
             $likes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 0], Tables::Likes);
             $likes = $likes[0]['COUNT(*)'];
             $dislikes = $db->count(['comment_id' => $comment['comment_id'], 'is_dislike' => 1], Tables::Likes);

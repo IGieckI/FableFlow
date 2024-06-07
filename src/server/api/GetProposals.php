@@ -16,7 +16,7 @@
         foreach ($proposals as $proposal) {
             $proposalId = $proposal['proposal_id'];
             $chapterId = $proposal['chapter_id'];
-            $user = $db->findBy(['username' => $proposal['username_proposing']], null, null, Tables::Users);
+            $user = $db->findBy(['username' => $proposal['username_proposing']], ['username' => 's'], null, null, Tables::Users);
             $user = $user[0];
             $title = $proposal['title'];
             $publicationDatetime = $proposal['publication_datetime'];

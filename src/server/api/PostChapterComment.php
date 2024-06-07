@@ -15,9 +15,9 @@
             $db->postComment($username, $chapterId, $content);
 
             // Notify the author of the chapter
-            $chapter = $db->findBy(['chapter_id' => $chapterId], null, null, Tables::Chapters)[0];
-            $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories)[0];
-            $author = $db->findBy(['username' => $story['username']], null, null, Tables::Users)[0];
+            $chapter = $db->findBy(['chapter_id' => $chapterId], ['chapter_id' => 'i'], null, null, Tables::Chapters)[0];
+            $story = $db->findBy(['story_id' => $chapter['story_id']], ['story_id' => 'i'], null, null, Tables::Stories)[0];
+            $author = $db->findBy(['username' => $story['username']], ['username' => 's'], null, null, Tables::Users)[0];
             $db->generateNotification($author['username'], $username . ' commented on your chapter: ' . $chapter['chapter_title']);
             
             echo json_encode(['success' => true]);

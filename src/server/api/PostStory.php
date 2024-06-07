@@ -19,7 +19,7 @@
         $reponse = $db->postStory($username, $title);
 
         // Send a notification to all of the followers
-        $followers = $db->findBy(['followed' => $username], null, null, Tables::Followers);
+        $followers = $db->findBy(['followed' => $username], ['followed' => 's'], null, null, Tables::Followers);
         for ($i = 0; $i < count($followers); $i++) {
             $follower = $followers[$i];
             $db->generateNotification($follower, $username . 'posted a new story: ' . $title);

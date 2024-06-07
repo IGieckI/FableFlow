@@ -48,46 +48,63 @@
             }
         }
 
-        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table = null, $join = null, $selectwhat = null) {
-            
+        public function findBy(array $criteria, array $types, $limit = null, $offset = null, Tables $table = null, $join = null, $selectwhat = null) {
             $query = "SELECT";
-
+        
             if (null !== $selectwhat) {
                 $query .= " " . implode(',', $selectwhat);
             } else {
                 $query .= " *";
             }
-
+        
             if (null !== $join) {
                 $query .= " FROM $join";
             } else {
-                $query .= " FROM $table->value";
+                $query .= " FROM " . $table->value;
             }
+        
+            $params = [];
+            $param_types = '';
         
             if (!empty($criteria)) {
                 $conditions = [];
                 foreach ($criteria as $col => $value) {
-                    $conditions[] = "$col = '$value'";
+                    $conditions[] = "$col = ?";
+                    $params[] = $value;
+                    $param_types .= $types[$col];
                 }
                 $query .= " WHERE " . implode(' AND ', $conditions);
             }
         
             if (null !== $limit) {
-                $query .= " LIMIT $limit";
+                $query .= " LIMIT ?";
+                $params[] = $limit;
+                $param_types .= 'i';
             }
         
             if (null !== $offset) {
-                $query .= " OFFSET $offset";
+                $query .= " OFFSET ?";
+                $params[] = $offset;
+                $param_types .= 'i';
             }
-            
-            $result = $this->db->query($query);
+        
+            // Manange parameters
+            $stmt = $this->db->prepare($query);
+            if (!empty($params)) {
+                $stmt->bind_param($param_types, ...$params);
+            }        
+            $stmt->execute();        
+            $result = $stmt->get_result();
         
             $data = [];
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;
             }
+        
+            $stmt->close();        
             return $data;
         }
+        
 
         public function deleteBy(array $criteria, Tables $table) {
             $query = "DELETE FROM $table->value";
@@ -152,19 +169,19 @@
         }
 
         public function getStory($story_id) {
-            return $this->findBy(['story_id' => $story_id], 1, 0, Tables::Stories);
+            return $this->findBy(['story_id' => $story_id], ['story_id' => 'i'], 1, 0, Tables::Stories);
         }
 
         public function getChapter($chapter_id) {
-            return $this->findBy(['chapter_id' => $chapter_id], 1, 0, Tables::Chapters);
+            return $this->findBy(['chapter_id' => $chapter_id], ['chapter_id' => 'i'], 1, 0, Tables::Chapters);
         }
         
         public function getUser($username) {
-            return $this->findBy(['username' => $username], 1, 0, Tables::Users);
+            return $this->findBy(['username' => $username], ['username' => 's'], 1, 0, Tables::Users);
         }
 
         public function getProposals($chapter_id) {
-            return $this->findBy(['chapter_id' => $chapter_id], null, null, Tables::Proposals);
+            return $this->findBy(['chapter_id' => $chapter_id], ['chapter_id' => 'i'], null, null, Tables::Proposals);
         }
 
         public function updateCommentsLikesDislikes($username, $comment_id, $action) {

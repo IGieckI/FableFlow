@@ -14,7 +14,7 @@ $password = $_POST['password'];
 
 try {
     if(!empty($username) && !empty($password)){
-        $user = $db->findBy(['username' => $username], null, null, Tables::Users);
+        $user = $db->findBy(['username' => $username], ['username' => 's'], null, null, Tables::Users);
         if(count($user) != 0){
             header("Location: FableFlow/src/client/Register.php");
             exit();

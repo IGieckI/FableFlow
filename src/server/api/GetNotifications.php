@@ -19,7 +19,7 @@
 
     // Retrieve all the notifications for the user
     try {
-        $notifications = $db->findBy(['username' => $username], null, null, Tables::Notifications);
+        $notifications = $db->findBy(['username' => $username], ['username' => 's'], null, null, Tables::Notifications);
         $result = [];
         foreach ($notifications as $notification) {
             array_push($result, new Notification($notification['notification_id'], $notification['username'], $notification['notification_datetime'], $notification['content']));

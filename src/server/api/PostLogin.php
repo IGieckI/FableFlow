@@ -14,7 +14,7 @@ $password = $_POST['password'];
 
 try{
     if(!empty($username) && !empty($password)){
-        $users = $db->findBy(['username' => $username], null, null, Tables::Users);
+        $users = $db->findBy(['username' => $username], ['username' => 's'] , null, null, Tables::Users);
         if(count($users) != 0){
             $user = $users[0];
             $hashed_pass = $user['password'];

@@ -15,10 +15,10 @@
             $db->postProposalComment($username, $proposalId, $content);
             
             // Notify the author of the chapter
-            $proposal = $db->findBy(['proposal_id' => $proposalId], null, null, Tables::Proposals)[0];
-            $chapter = $db->findBy(['chapter_id' => $proposal['chapter_id']], null, null, Tables::Chapters)[0];
-            $story = $db->findBy(['story_id' => $chapter['story_id']], null, null, Tables::Stories)[0];
-            $author = $db->findBy(['username' => $story['username']], null, null, Tables::Users)[0];
+            $proposal = $db->findBy(['proposal_id' => $proposalId], ['proposal_id' => 'i'], null, null, Tables::Proposals)[0];
+            $chapter = $db->findBy(['chapter_id' => $proposal['chapter_id']], ['chapter_id' => 'i'], null, null, Tables::Chapters)[0];
+            $story = $db->findBy(['story_id' => $chapter['story_id']], ['story_id' => 'i'], null, null, Tables::Stories)[0];
+            $author = $db->findBy(['username' => $story['username']], ['username' => 's'], null, null, Tables::Users)[0];
             $db->generateNotification($author['username'], $username . ' commented on your proposal: ' . $proposal['title']);
             error_log("PHASE 4");
             echo json_encode(['success' => true]);
