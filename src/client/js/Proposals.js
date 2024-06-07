@@ -10,9 +10,9 @@ function loadProposals() {
         dataType: 'json',
         success: function(data) {
             if (data.length > 0) {
-                var proposalsContainer = $('#proposals-container');
+                let proposalsContainer = $('#proposals-container');
                 data.forEach(function(proposal) {
-                    var newProposalHtml = createProposalHtml(proposal);
+                    let newProposalHtml = createProposalHtml(proposal);
                     proposalsContainer.append(newProposalHtml);
 
                     addClickListener(proposal.proposalId, function() {
@@ -30,7 +30,7 @@ function loadProposals() {
                             loadProposalComments(proposal["proposalId"]);
                             
                             document.getElementById("proposal-send-button").addEventListener('click', function() {
-                                var message = $("#proposal-message-input").val();
+                                let message = $("#proposal-message-input").val();
                                 
                                 $.ajax({
                                     url: "/FableFlow/src/server/api/PostProposalComment.php",
@@ -40,7 +40,7 @@ function loadProposals() {
                                     success: function(response) {
                                         $("#message-input").val("");
                                         // Clear the comments container
-                                        var commentsContainer = $("#proposal-comments-container");
+                                        let commentsContainer = $("#proposal-comments-container");
                                         commentsContainer.empty();
 
                                         // Reload the comments
@@ -100,6 +100,6 @@ function createProposalHtml(proposal) {
 
 // Get the id of the post from the URL
 function getChapterId(currentURL) {
-    var match = currentURL.match(/id=([^&]*)/);
+    let match = currentURL.match(/id=([^&]*)/);
     return match ? match[1] : null;
 }

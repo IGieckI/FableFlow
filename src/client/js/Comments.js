@@ -10,9 +10,9 @@ function loadComments() {
         dataType: 'json',
         success: function(data) {
             if (data.length > 0) {
-                var commentsContainer = $('#comments-container');
+                let commentsContainer = $('#comments-container');
                 data.forEach(function(comment) {
-                    var newCommentHtml = createCommentHtml(comment);
+                    let newCommentHtml = createCommentHtml(comment);
                     commentsContainer.append(newCommentHtml);
                     
                     addClickListener(`thumb-up-${comment.comment_id}`, function() {
@@ -148,6 +148,6 @@ function updateLikeDislike(comment_id, action) {
 
 // Get the id of the post from the URL
 function getChapterId(currentURL) {
-    var match = currentURL.match(/id=([^&]*)/);
+    let match = currentURL.match(/id=([^&]*)/);
     return match ? match[1] : null;
 }

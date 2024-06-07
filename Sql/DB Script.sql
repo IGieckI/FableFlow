@@ -73,16 +73,16 @@ CREATE TABLE pools (
 );
 
 CREATE TABLE chapters(
-	chapter_id INT AUTO_INCREMENT PRIMARY KEY,
+    chapter_id INT AUTO_INCREMENT PRIMARY KEY,
     story_id INT NOT NULL,
     chapter_title VARCHAR(255) NOT NULL,
-   	content TEXT NOT NULL,
+    content TEXT NOT NULL,
     picture VARCHAR(36) DEFAULT NULL, /*uuid()*/
     publication_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE proposals(
-	proposal_id INT AUTO_INCREMENT PRIMARY KEY,
+    proposal_id INT AUTO_INCREMENT PRIMARY KEY,
     chapter_id INT NOT NULL,
     username_proposing VARCHAR(255) NOT NULL,
     publication_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -93,7 +93,7 @@ CREATE TABLE proposals(
 );
 
 CREATE TABLE comments(
-	comment_id INT AUTO_INCREMENT PRIMARY KEY,
+    comment_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     chapter_id INT,
     proposal_id INT,
@@ -115,7 +115,7 @@ CREATE TABLE likes(
     FOREIGN KEY (chapter_id) REFERENCES chapters(chapter_id),
     FOREIGN KEY (proposal_id) REFERENCES proposals(proposal_id),
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
-    );
+);
 
 CREATE TABLE notifications(
     notification_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -124,70 +124,66 @@ CREATE TABLE notifications(
     notification_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (username) REFERENCES users(username)
 );
-    
+
+-- Insert into tag
 INSERT INTO tag (name) 
-VALUES ('Drama'),
-('Fantasy'),
-('Science'),
-('Adventure'),
-('Crime'),
-('Religion'),
+VALUES ('Adventure'),
 ('Mystery'),
-('Horror'),
+('Sci-Fi'),
+('Fantasy'),
 ('Mythology');
 
+-- Insert into users
 INSERT INTO users (username, password, icon, description) VALUES
-    ('john_doe', '$2y$10$NfU6MhtZw6ONGpPmz2QV7eG6MUMZHJUJo0QYZ1v/heKhY0GfPGF/e', '4F45C6A3-45D4-2F2B-1C1E-9876543210AB', 'User account for John Doe'),
-    ('jane_smith', '$2y$10$bH0hnwVncXh1Qmlz5HTR3u5CiHeuLXgiLBn2SSCUFJMT/aTwpqkDi', '8A2B1C0D-3E4F-5A6B-9C8D-76543210FEDC',NULL),
-    ('bob_jones', '$2y$10$MsA7mFS.MPqmZFa5zQzKVO4necIDYR14h6Xb5JILWgcEPFvWTIDP6', '1B2C3D4E-5F6A-7B8C-9D0E-123456789ABC', 'User account for Bob Jones');
+    ('john_doe', '$2y$10$NfU6MhtZw6ONGpPmz2QV7eG6MUMZHJUJo0QYZ1v/heKhY0GfPGF/e', '4F45C6A3-45D4-2F2B-1C1E-9876543210AB', 'Adventure enthusiast and writer'),
+    ('jane_smith', '$2y$10$bH0hnwVncXh1Qmlz5HTR3u5CiHeuLXgiLBn2SSCUFJMT/aTwpqkDi', '8A2B1C0D-3E4F-5A6B-9C8D-76543210FEDC', 'Mystery lover and budding author'),
+    ('bob_jones', '$2y$10$MsA7mFS.MPqmZFa5zQzKVO4necIDYR14h6Xb5JILWgcEPFvWTIDP6', '1B2C3D4E-5F6A-7B8C-9D0E-123456789ABC', 'Fantasy and sci-fi writer');
 
-INSERT INTO stories (story_id, title, username)
-VALUES
-    (1, 'The Adventure Begins', 'john_doe'),
-    (2, 'Mystery of the Lost City', 'jane_smith'),
-    (3, 'A Tale of Two Worlds', 'bob_jones'),
-    (4, 'Echoes from the Past', 'john_doe'),
-    (5, 'Legends of the Hidden Realm', 'jane_smith');
+-- Insert into stories
+INSERT INTO stories (story_id, title, username) VALUES
+    (1, 'The Lost Expedition', 'john_doe'),
+    (2, 'The Enigma of Ravenwood Manor', 'jane_smith'),
+    (3, 'The Cosmic Voyage', 'bob_jones'),
+    (4, 'Whispers of the Ancients', 'john_doe'),
+    (5, 'Secrets of the Arcane', 'jane_smith');
 
-
+-- Insert into stories_tag
 INSERT INTO stories_tag (name, story_id) VALUES
     ('Adventure', 1),
-    ('Mystery', 1),
-    ('Fantasy', 3),
+    ('Mystery', 2),
+    ('Sci-Fi', 3),
     ('Mystery', 4);
 
+-- Insert into user_tag
 INSERT INTO user_tag (name, username) VALUES
     ('Adventure', 'john_doe'),
     ('Mystery', 'jane_smith'),
-    ('Fantasy', 'bob_jones'),
-    ('Crime', 'john_doe'),
+    ('Sci-Fi', 'bob_jones'),
+    ('Fantasy', 'john_doe'),
     ('Mythology', 'jane_smith');
 
 -- Insert into chapters
-INSERT INTO chapters (story_id, chapter_title, content, publication_datetime)
-VALUES
-    (1, 'Something Happened', 'Chapter 1 content', '2023-01-01 12:00:00'),
-    (1, 'Something Happened 2', 'Chapter 2 content', '2023-01-02 14:30:00'),
-    (2, 'Something Happened 3', 'Chapter 1 content', '2023-02-15 15:30:00'),
-    (3, 'Something Happened 4', 'Chapter 1 content', '2023-03-20 10:45:00');
+INSERT INTO chapters (story_id, chapter_title, content, publication_datetime) VALUES
+    (1, 'The Unexpected Journey', 'As the sun set behind the mountains, the adventurers prepared for their unexpected journey.', '2023-01-01 12:00:00'),
+    (1, 'Into the Unknown', 'Venturing deeper into the forest, they faced challenges they never imagined.', '2023-01-02 14:30:00'),
+    (2, 'The Haunting Begins', 'Strange occurrences began to plague the residents of Ravenwood Manor.', '2023-02-15 15:30:00'),
+    (3, 'A New World', 'The spaceship touched down on an unknown planet, full of mysteries waiting to be discovered.', '2023-03-20 10:45:00');
 
 -- Insert into proposals
-INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, title, content)
-VALUES
-    (1, 'john_doe', '2023-01-01 12:00:00', 'Big changes', 'This is a proposal content.'),
-    (2, 'jane_smith', '2023-01-02 14:30:00', 'Incredible news from the deep space', 'Another proposal for a chapter.'),
-    (3, 'bob_jones', '2023-02-15 15:30:00', 'Black mage has arrived', 'A third proposal for a chapter.');
+INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, title, content) VALUES
+    (1, 'john_doe', '2023-01-01 12:00:00', 'A Dangerous Path', 'The adventurers must choose between a perilous path through the mountains or a safer route along the river.'),
+    (2, 'jane_smith', '2023-01-02 14:30:00', 'The Hidden Room', 'While exploring the manor, they discover a hidden room filled with secrets.'),
+    (3, 'bob_jones', '2023-02-15 15:30:00', 'The Alien Encounter', 'An alien species approaches with unknown intentions.');
 
 -- Insert into comments
-INSERT INTO comments (username, chapter_id, proposal_id, comment_datetime, content)
-VALUES
-    ('john_doe', 1, NULL, '2023-01-02 14:10:00', 'This is a comment on a chapter.'),
-    ('jane_smith', NULL, 1, '2023-01-03 09:20:00', 'A comment on the first proposal.'),
-    ('bob_jones', 2, NULL, '2023-02-16 18:05:00', 'Commenting on a different chapter.'),
-    ('john_doe', NULL, 3, '2023-03-21 11:30:00', 'Comment on the third proposal.');
+INSERT INTO comments (username, chapter_id, proposal_id, comment_datetime, content) VALUES
+    ('john_doe', 1, NULL, '2023-01-02 14:10:00', 'Exciting start! Can’t wait to see what happens next.'),
+    ('jane_smith', NULL, 1, '2023-01-03 09:20:00', 'Great proposal! The mountain path sounds thrilling.'),
+    ('bob_jones', 2, NULL, '2023-02-16 18:05:00', 'Ravenwood Manor is getting creepier by the chapter!'),
+    ('john_doe', NULL, 3, '2023-03-21 11:30:00', 'An alien encounter could take this story in an amazing direction!');
 
-INSERT INTO likes (username, chapter_id, proposal_id, comment_id, is_dislike)
-VALUES
+-- Insert into likes
+INSERT INTO likes (username, chapter_id, proposal_id, comment_id, is_dislike) VALUES
     ('jane_smith', 1, NULL, NULL, 0),
     ('bob_jones', NULL, 2, NULL, 1),
     ('john_doe', NULL, NULL, 2, 0),
@@ -197,51 +193,47 @@ VALUES
     ('jane_smith', 3, NULL, NULL, 0),
     ('bob_jones', NULL, NULL, 4, 1);
 
-
+-- Insert into followers
 INSERT INTO followers (followed, follower) VALUES
     ('john_doe', 'jane_smith'),
     ('jane_smith', 'bob_jones'),
     ('bob_jones', 'john_doe'),
-    ('alice_doe', 'john_doe');
+    ('jane_smith', 'john_doe');
 
+-- Insert into messages
 INSERT INTO messages (sender, receiver, content, message_datetime) VALUES
-    ('john_doe', 'jane_smith', 'Hello Jane!', '2023-01-01 08:00:00'),
-    ('jane_smith', 'bob_jones', 'Hi Bob!', '2023-01-02 12:30:00'),
-    ('bob_jones', 'john_doe', 'Hey John!', '2023-01-03 15:45:00'),
-    ('alice_doe', 'john_doe', 'Hi John, how are you?', '2023-01-04 10:15:00');
+    ('john_doe', 'jane_smith', 'Loved your latest chapter!', '2023-01-01 08:00:00'),
+    ('jane_smith', 'bob_jones', 'Can’t wait to see where your story goes next!', '2023-01-02 12:30:00'),
+    ('bob_jones', 'john_doe', 'Your new proposal is intriguing!', '2023-01-03 15:45:00'),
+    ('jane_smith', 'john_doe', 'Great plot twist in the latest chapter!', '2023-01-04 10:15:00');
 
-INSERT INTO pools (chapter_id, title, content, expire_datetime) 
-VALUES 
-    (1, 'What Happens Next?', 
-        'In this chapter, our heroes find themselves at a crossroads. Should they venture into the dark forest or take the hidden path along the river? Each choice holds potential danger and unforeseen adventures. Choose wisely!', 
-        '2023-02-28 08:00:00'),
-    (2, 'The Change of Coins', 
-        'A mysterious figure approaches with an offer: a coin that grants wishes. But there is a catch - each wish comes with a price. Will the characters accept the coin and face the consequences or reject it and miss out on their hearts desire?', 
-        '2023-03-15 08:00:00'),
-    (3, 'Path to the Lake', 
-        'The characters have reached a magical lake that is said to grant great power. However, to access this power, they must first solve an ancient riddle and face the guardians of the lake. Will they succeed or fall short?', 
-        '2023-04-10 08:00:00');
+-- Insert into pools
+INSERT INTO pools (chapter_id, title, content, expire_datetime) VALUES
+    (1, 'The Path Ahead', 'Which path should the adventurers take? The dangerous mountain trail or the safe river route?', '2023-02-28 08:00:00'),
+    (2, 'The Wish Coin', 'Should the characters accept the mysterious coin that grants wishes with a price?', '2023-03-15 08:00:00'),
+    (3, 'The Riddle of the Lake', 'Will the characters solve the ancient riddle to gain the power of the magical lake?', '2023-04-10 08:00:00');
 
+-- Insert into options
 INSERT INTO options (pool_id, content) VALUES
-    (1, 'Choose your path in the adventurous journey!'),
-    (1, 'Face challenging puzzles and make crucial decisions'),
-    (2, 'Unravel the mystery with careful choices'),
-    (3, 'Interact with magical creatures and explore enchanted lands'),
-    (3, 'Embark on a quest to save the fantasy realm'),
-    (4, 'Investigate a new set of mysterious events'),
-    (4, 'Decide the fate of the characters in the story');
+    (1, 'Take the mountain trail'),
+    (1, 'Follow the river route'),
+    (2, 'Accept the coin'),
+    (2, 'Reject the coin'),
+    (3, 'Solve the riddle'),
+    (3, 'Ignore the lake');
 
+-- Insert into option_choices
 INSERT INTO option_choices (option_id, username) VALUES
     (1, 'john_doe'),
     (2, 'jane_smith'),
     (3, 'bob_jones'),
     (4, 'john_doe'),
     (5, 'jane_smith'),
-    (6, 'bob_jones'),
-    (7, 'john_doe');
-    
-INSERT INTO notifications (notification_id, username, content, notification_datetime) VALUES
-    (1, 'john_doe', 'Andrea created a new Story', '2024-05-05 10:30:00'),
-    (2, 'john_doe', 'Andrea followed you!', '2024-05-05 14:00:00'),
-    (3, 'jane_smith', 'Andrea upvoted your story!', '2024-05-05 18:00:00'),
-    (4, 'bob_jones', 'New Pool of "Finding Andrea" has come out', '2024-05-05 11:45:00');
+    (6, 'bob_jones');
+
+-- Insert into notifications
+INSERT INTO notifications (username, content, notification_datetime) VALUES
+    ('john_doe', 'A new chapter has been added to your story.', '2024-05-05 10:30:00'),
+    ('jane_smith', 'You have a new follower!', '2024-05-05 14:00:00'),
+    ('bob_jones', 'Someone liked your proposal.', '2024-05-05 18:00:00'),
+    ('john_doe', 'Your story has received new comments.', '2024-05-05 11:45:00');

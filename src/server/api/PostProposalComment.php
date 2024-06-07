@@ -22,11 +22,11 @@
             $db->generateNotification($author['username'], $username . ' commented on your proposal: ' . $proposal['title']);
             error_log("PHASE 4");
             echo json_encode(['success' => true]);
+            $db->disconnect();
+            $db = null;
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode(['error' => $e->getMessage()]);
         }
-        $db->disconnect();
-        $db = null;
     }
 ?>

@@ -23,9 +23,9 @@ function loadProposalComments(proposalId) {
         dataType: 'json',
         success: function(data) {
             if (data.length > 0) {
-                var commentsContainer = $('#proposal-comments-container');
+                let commentsContainer = $('#proposal-comments-container');
                 data.forEach(function(comment) {
-                    var newCommentHtml = createCommentHtml(comment);
+                    let newCommentHtml = createCommentHtml(comment);
                     commentsContainer.append(newCommentHtml);
                     
                     addClickListener(`thumb-up-${comment.comment_id}`, function() {

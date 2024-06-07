@@ -6,19 +6,19 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-    // Check for the API parameter correctness
-    if (isset($_SESSION['username'])) {
-        $username = $_SESSION['username'];
-    } else {
-        $username = "";
-        http_response_code(400);
-        echo json_encode(['error' => "You must be logged in to view notifications."]);
-    }
-
     // Retrieve all the notifications for the user
     try {
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+
+        // Check for the API parameter correctness
+        if (isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+        } else {
+            $username = "";
+            http_response_code(400);
+            echo json_encode(['error' => "You must be logged in to view notifications."]);
+        }
+
         $notifications = $db->findBy(['username' => $username], ['username' => 's'], null, null, Tables::Notifications);
         $result = [];
         foreach ($notifications as $notification) {

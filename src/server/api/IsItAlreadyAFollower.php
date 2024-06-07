@@ -5,12 +5,16 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+    try{
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    $result = $db->findBy(['followed'=>$_GET['followed'], 'follower'=>$_GET['follower']], ['followed' => 's', 'follower' => 's'], 1, 0, Tables::Followers);
+        $result = $db->findBy(['followed'=>$_GET['followed'], 'follower'=>$_GET['follower']], ['followed' => 's', 'follower' => 's'], 1, 0, Tables::Followers);
 
-    $db->disconnect();
-            $db = null;
-
+        $db->disconnect();
+        $db = null;
     echo json_encode(['result'=>(sizeof($result)==0)?FALSE:TRUE]);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
+    }
 ?>

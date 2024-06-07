@@ -6,21 +6,20 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-    // Define the number of posts to load at a time
-    define('POSTS_PER_LOAD', 10);
-
-    // Number of page to retrieve
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $page = max(1, $page);
-
-    // Calculate the starting point for retrieving posts
-    $start = ($page - 1) * POSTS_PER_LOAD;
-
-    $username = $_SESSION['username'];
 
     try {
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+        // Define the number of posts to load at a time
+        define('POSTS_PER_LOAD', 10);
+
+        // Number of page to retrieve
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $page = max(1, $page);
+
+        // Calculate the starting point for retrieving posts
+        $start = ($page - 1) * POSTS_PER_LOAD;
+
+        $username = $_SESSION['username'];
         $chapters = $db->complexQuery("
         (
             SELECT 

@@ -6,10 +6,8 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
     try {
-    
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
         $chapters = $db->complexQuery('SELECT '.
                                         'c.story_id as story_id,
                                         c.chapter_id as chapter_id,

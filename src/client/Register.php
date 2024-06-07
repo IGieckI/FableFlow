@@ -58,7 +58,7 @@ if (session_status() == PHP_SESSION_NONE) {
                   </div>
                   <div class="col-12">
                     <div class="d-grid my-3">
-                      <button class="btn btn-primary btn-lg" type="submit">Sign up</button>
+                      <button class="btn btn-primary btn-lg" id="signup" type="submit">Sign up</button>
                     </div>
                   </div>
                   <div class="col-12">
@@ -72,6 +72,7 @@ if (session_status() == PHP_SESSION_NONE) {
       </div>
     </div>
   </section>
+  <!--Lib JQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

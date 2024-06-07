@@ -3,6 +3,11 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$_SESSION['username'] = "";
-$_SESSION['LOGGED'] = false;
+try{
+    $_SESSION['username'] = "";
+    $_SESSION['LOGGED'] = false;
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+}
 ?>

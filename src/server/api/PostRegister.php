@@ -6,13 +6,12 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-$username = $_POST['username'];
-$password = $_POST['password'];
-//$email = $_POST['email'];
-
 try {
+    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    //$email = $_POST['email'];
+    
     if(!empty($username) && !empty($password)){
         $user = $db->findBy(['username' => $username], ['username' => 's'], null, null, Tables::Users);
         if(count($user) != 0){

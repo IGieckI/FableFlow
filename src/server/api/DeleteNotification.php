@@ -5,18 +5,17 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+    try {
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    // Check for the API parameter correctness
-    if (isset($_POST['notificationId'])) {
+        // Check for the API parameter correctness
+        if (isset($_POST['notificationId'])) {
         $notificationId = $_POST['notificationId'];
-    } else {
+        } else {
         http_response_code(500);
         echo json_encode(['error' => 'Notification ID not provided']);
         exit(0);
-    }
-
-    try {
+        }
         // Delete the notification with the given ID
         $deleted = $db->deleteBy(['notification_id' => $notificationId], ['notification_id' => 'i'], Tables::Notifications);
         

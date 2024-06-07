@@ -22,7 +22,7 @@ $html = '<div class="main-container">
 error_log($_GET['id']);
 
 /* the r stands for record */
-$pools_r = $db->findBy(['chapter_id'=>$_GET['id']], null, null, Tables::Pools);
+$pools_r = $db->findBy(['chapter_id'=>$_GET['id']], ['chapter_id' => 'i'], null, Tables::Pools);
 
 $db->disconnect();
 
