@@ -5,6 +5,50 @@ function initializePoolOverview() {
 function loadPools() {
     $.ajax({
         type: "GET",
+        url: '/FableFlow/src/server/api/GetAuthor.php',
+        data: { chapter_id: getChapterId(window.location.href) },
+        dataType: 'json',
+        success: function(response) {
+            if (response['author']!=null) {
+                $.ajax({
+                    url: '/FableFlow/src/server/api/GetLoggedUsername.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(response['author']);
+                        console.log(data['result']);
+                        if (response['author']==data['result']) {
+                            let createButton = document.createElement('button');
+                            createButton.className = 'create-pool'
+                            createButton.addEventListener('click', function() {
+                                loadContent('create-pool', function(){
+                                    loadPoolCreation();
+                                });
+                            });
+                            document.querySelector('#create-pool').appendChild(createButton);
+                            console.log("BBBBBBB");
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Failed AJAX call in logging checking: ', textStatus, errorThrown);
+                        console.log(jqXHR.responseText);
+                    }
+                });
+                
+            } else {
+                // Manually reject the promise to trigger the error callback
+                $.Deferred().reject('Author not found').promise().fail(function() {
+                    console.log("Error in author detection script");
+                });
+            }
+        },
+        error: function() {
+            console.log("Error in author detection script");
+        }
+    });
+
+    $.ajax({
+        type: "GET",
         url: "/FableFlow/src/server/api/GetPools.php",
         data: { chapterId: getChapterId(window.location.href) },
         dataType: 'json',
@@ -12,11 +56,16 @@ function loadPools() {
             response['pools'].forEach(pool => {
                 let item = document.createElement('li');
                 createPool(item, pool);
+                item.addEventListener('click', function() {
+                    loadContent('pool-view', function(){
+                        //add here the call to the pool-view js file initializator
+                    });
+                })
                 document.querySelector('#pool-list').appendChild(item);
             });
         },
         error: function() {
-            console.log("Error loading page content.");
+            console.log("Error loading pools");
         }
     });
 }
