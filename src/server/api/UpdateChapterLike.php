@@ -22,7 +22,7 @@
         $chapterStatus = $db->chapterStatus($chapterId, $username);
 
         // Use the count function to get the number of likes of the chapter
-        $likes = $db->count(['chapter_id' => $chapterId], Tables::Likes)[0]['COUNT(*)'];
+        $likes = $db->count(['chapter_id' => $chapterId], ['chapter_id' => 'i'], Tables::Likes);
 
         $db->disconnect();
         $db = null;

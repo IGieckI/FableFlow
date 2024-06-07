@@ -21,10 +21,8 @@
             $title = $proposal['title'];
             $publicationDatetime = $proposal['publication_datetime'];
             $content = $proposal['content'];
-            $num_likes = $db->count(['proposal_id' => $proposalId, 'is_dislike' => 0], Tables::Likes);
-            $num_likes = $num_likes[0]['COUNT(*)'];
-            $num_comments = $db->count(['proposal_id' => $proposalId], Tables::Comments);
-            $num_comments = $num_comments[0]['COUNT(*)'];
+            $num_likes = $db->count(['proposal_id' => $proposalId, 'is_dislike' => 0], ['proposal_id' => 'i', 'is_dislike' => 'i'], Tables::Likes);
+            $num_comments = $db->count(['proposal_id' => $proposalId], ['proposal_id' => 'i'], Tables::Comments);
             $result[] = new Proposal($proposalId, $chapterId, $user, $title, $publicationDatetime, $content, $num_likes, $num_comments);
         }
         $db->disconnect();

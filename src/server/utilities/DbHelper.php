@@ -48,6 +48,7 @@
             }
         }
 
+        // This function is used to find rows in a table based on the given criteria
         public function findBy(array $criteria, array $types, $limit = null, $offset = null, Tables $table = null, $join = null, $selectwhat = null) {
             $query = "SELECT";
         
@@ -105,57 +106,75 @@
             return $data;
         }
         
-
-        public function deleteBy(array $criteria, Tables $table) {
-            $query = "DELETE FROM $table->value";
+        // This function is used to delete a row from a table based on the given criteria
+        public function deleteBy(array $criteria, array $types, Tables $table) {
+            $query = "DELETE FROM " . $table->value;
             $params = [];
-            
+            $param_types = '';
+        
             if (!empty($criteria)) {
                 $conditions = [];
                 foreach ($criteria as $col => $value) {
                     $conditions[] = "$col = ?";
                     $params[] = $value;
+                    $param_types .= $types[$col];
                 }
                 $query .= " WHERE " . implode(' AND ', $conditions);
             }
-            
+        
             $statement = $this->db->prepare($query);
             if (!$statement) {
                 throw new Exception("Failed to prepare statement: " . $this->db->error);
             }
-            
+        
             if (!empty($params)) {
-                $types = str_repeat('s', count($params));
-                $statement->bind_param($types, ...$params);
+                $statement->bind_param($param_types, ...$params);
             }
-            
+        
             $statement->execute();
-            
-            return $statement->affected_rows > 0;
+        
+            $affected_rows = $statement->affected_rows;
+        
+            $statement->close();
+        
+            return $affected_rows > 0;
         }
-        
-        
 
-        public function count(array $criteria, Tables $table) {
-            $query = "SELECT COUNT(*) FROM $table->value";
+        // This function is used to count the number of rows in a table based on the given criteria
+        public function count(array $criteria, array $types, Tables $table) {
+            $query = "SELECT COUNT(*) FROM " . $table->value;
+            $params = [];
+            $param_types = '';
         
             if (!empty($criteria)) {
                 $conditions = [];
                 foreach ($criteria as $col => $value) {
-                    $conditions[] = "$col = '$value'";
+                    $conditions[] = "$col = ?";
+                    $params[] = $value;
+                    $param_types .= $types[$col];
                 }
                 $query .= " WHERE " . implode(' AND ', $conditions);
             }
         
-            $result = $this->db->query($query);
-        
-            $data = [];
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
+            $statement = $this->db->prepare($query);
+            if (!$statement) {
+                throw new Exception("Failed to prepare statement: " . $this->db->error);
             }
         
-            return $data;
+            if (!empty($params)) {
+                $statement->bind_param($param_types, ...$params);
+            }
+        
+            $statement->execute();
+        
+            $result = $statement->get_result();
+            $data = $result->fetch_assoc();
+        
+            $statement->close();
+        
+            return $data['COUNT(*)'];
         }
+        
 
         public function complexQuery($query) {
             $result = $this->db->query($query);

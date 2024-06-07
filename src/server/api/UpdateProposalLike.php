@@ -22,7 +22,7 @@
         $proposalStatus = $db->proposalStatus($proposalId, $username);
 
         // Use the count function to get the number of likes of the proposal
-        $likes = $db->count(['proposal_id' => $proposalId], Tables::Likes)[0]['COUNT(*)'];
+        $likes = $db->count(['proposal_id' => $proposalId], ['proposal_id' => 'i'], Tables::Likes);
 
         $db->disconnect();
         $db = null;
