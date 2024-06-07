@@ -12,7 +12,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE stories (
-    story_id INT PRIMARY KEY NOT NULL,
+    story_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     title VARCHAR(30) NOT NULL,
     username VARCHAR(255) NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username)
@@ -77,7 +77,7 @@ CREATE TABLE chapters(
     story_id INT NOT NULL,
     chapter_title VARCHAR(255) NOT NULL,
    	content TEXT NOT NULL,
-    picture VARCHAR(36), /*uuid()*/
+    picture VARCHAR(36) DEFAULT NULL, /*uuid()*/
     publication_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -137,9 +137,9 @@ VALUES ('Drama'),
 ('Mythology');
 
 INSERT INTO users (username, password, icon, description) VALUES
-    ('john_doe', 'password123', '4F45C6A3-45D4-2F2B-1C1E-9876543210AB', 'User account for John Doe'),
-    ('jane_smith', 'pass456', '8A2B1C0D-3E4F-5A6B-9C8D-76543210FEDC',NULL),
-    ('bob_jones', 'secretPass', '1B2C3D4E-5F6A-7B8C-9D0E-123456789ABC', 'User account for Bob Jones');
+    ('john_doe', '$2y$10$NfU6MhtZw6ONGpPmz2QV7eG6MUMZHJUJo0QYZ1v/heKhY0GfPGF/e', '4F45C6A3-45D4-2F2B-1C1E-9876543210AB', 'User account for John Doe'),
+    ('jane_smith', '$2y$10$bH0hnwVncXh1Qmlz5HTR3u5CiHeuLXgiLBn2SSCUFJMT/aTwpqkDi', '8A2B1C0D-3E4F-5A6B-9C8D-76543210FEDC',NULL),
+    ('bob_jones', '$2y$10$MsA7mFS.MPqmZFa5zQzKVO4necIDYR14h6Xb5JILWgcEPFvWTIDP6', '1B2C3D4E-5F6A-7B8C-9D0E-123456789ABC', 'User account for Bob Jones');
 
 INSERT INTO stories (story_id, title, username)
 VALUES

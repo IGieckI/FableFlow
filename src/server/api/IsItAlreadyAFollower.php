@@ -7,7 +7,7 @@
 
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
-    $result = $db->findBy(['followed'=>$_GET['followed'], 'follower'=>$_GET['follower']], 1, 0, Tables::Followers);
+    $result = $db->findBy(['followed'=>$_GET['followed'], 'follower'=>$_GET['follower']], ['followed' => 's', 'follower' => 's'], 1, 0, Tables::Followers);
 
     $db->disconnect();
             $db = null;

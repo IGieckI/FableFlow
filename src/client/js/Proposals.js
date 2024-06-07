@@ -39,7 +39,6 @@ function loadProposals() {
                                     dataType: "json",
                                     success: function(response) {
                                         $("#message-input").val("");
-                                        console.log(response);
                                         // Clear the comments container
                                         var commentsContainer = $("#proposal-comments-container");
                                         commentsContainer.empty();
@@ -69,6 +68,7 @@ function loadProposals() {
 }
 
 function createProposalHtml(proposal) {
+    console.log(proposal);
     return `
     <div id="${proposal.proposalId}" class="proposal">
         <div class="container-fluid">
@@ -88,7 +88,7 @@ function createProposalHtml(proposal) {
                 </div>        
                 <div class="col-2 proposal-details">
                     <span><i class="bi bi-chat-dots"></i>${proposal.num_comments}</span>
-                    <span><i class="bi bi-fire"></i>${proposal.num_likes}</span>
+                    <span><i class="${proposal.liked == 0 ? "bi bi-fire" : "bi bi-fire liked"}"></i>${proposal.num_likes}</span>
                 </div>
             </div>
             <div class="row proposal-content">

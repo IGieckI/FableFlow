@@ -3,6 +3,7 @@
         session_start();
     }
 
+<<<<<<< HEAD
     array_push($_SESSION['cssFiles'],
                                     '/FableFlow/src/client/css/PostPage.css',
                                     '/FableFlow/src/client/css/Comments.css',
@@ -19,6 +20,10 @@
                                     '/FableFlow/src/client/js/Story.js',
                                     '/FableFlow/src/client/js/PoolOverview.js',
                                     '/FableFlow/src/client/js/PoolCreation.js');
+=======
+    array_push($_SESSION['cssFiles'], '/FableFlow/src/client/css/PostPage.css', '/FableFlow/src/client/css/Comments.css', '/FableFlow/src/client/css/Proposals.css', '/FableFlow/src/client/css/Proposal.css');
+    array_push($_SESSION['jsFiles'], '/FableFlow/src/client/js/ChapterPage.js', '/FableFlow/src/client/js/Comments.js', '/FableFlow/src/client/js/Proposals.js','/FableFlow/src/client/js/Proposal.js', '/FableFlow/src/client/js/Story.js');
+>>>>>>> 0d278aa2946eb33ef39baa55580e80ad0675dd0b
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';

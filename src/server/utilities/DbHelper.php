@@ -48,123 +48,172 @@
             }
         }
 
-        public function findBy(array $criteria, $limit = null, $offset = null, Tables $table = null, $join = null, $selectwhat = null) {
-            
+        // This function is used to find rows in a table based on the given criteria
+        public function findBy(array $criteria, array $types, $limit = null, $offset = null, Tables $table = null, $join = null, $selectwhat = null) {
             $query = "SELECT";
-
+        
             if (null !== $selectwhat) {
                 $query .= " " . implode(',', $selectwhat);
             } else {
                 $query .= " *";
             }
-
+        
             if (null !== $join) {
                 $query .= " FROM $join";
             } else {
-                $query .= " FROM $table->value";
+                $query .= " FROM " . $table->value;
             }
         
-            if (!empty($criteria)) {
-                $conditions = [];
-                foreach ($criteria as $col => $value) {
-                    $conditions[] = "$col = '$value'";
-                }
-                $query .= " WHERE " . implode(' AND ', $conditions);
-            }
-        
-            if (null !== $limit) {
-                $query .= " LIMIT $limit";
-            }
-        
-            if (null !== $offset) {
-                $query .= " OFFSET $offset";
-            }
-            
-            $result = $this->db->query($query);
-        
-            $data = [];
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-
-        public function deleteBy(array $criteria, Tables $table) {
-            $query = "DELETE FROM $table->value";
             $params = [];
-            
+            $param_types = '';
+        
             if (!empty($criteria)) {
                 $conditions = [];
                 foreach ($criteria as $col => $value) {
                     $conditions[] = "$col = ?";
                     $params[] = $value;
+                    $param_types .= $types[$col];
                 }
                 $query .= " WHERE " . implode(' AND ', $conditions);
             }
-            
-            $statement = $this->db->prepare($query);
-            if (!$statement) {
-                throw new Exception("Failed to prepare statement: " . $this->db->error);
+        
+            if (null !== $limit) {
+                $query .= " LIMIT ?";
+                $params[] = $limit;
+                $param_types .= 'i';
             }
-            
+        
+            if (null !== $offset) {
+                $query .= " OFFSET ?";
+                $params[] = $offset;
+                $param_types .= 'i';
+            }
+        
+            // Manange parameters
+            $stmt = $this->db->prepare($query);
             if (!empty($params)) {
-                $types = str_repeat('s', count($params));
-                $statement->bind_param($types, ...$params);
+                $stmt->bind_param($param_types, ...$params);
+            }        
+            $stmt->execute();        
+            $result = $stmt->get_result();
+        
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
             }
-            
-            $statement->execute();
-            
-            return $statement->affected_rows > 0;
+        
+            $stmt->close();        
+            return $data;
         }
         
-        
-
-        public function count(array $criteria, Tables $table) {
-            $query = "SELECT COUNT(*) FROM $table->value";
+        // This function is used to delete a row from a table based on the given criteria
+        public function deleteBy(array $criteria, array $types, Tables $table) {
+            $query = "DELETE FROM " . $table->value;
+            $params = [];
+            $param_types = '';
         
             if (!empty($criteria)) {
                 $conditions = [];
                 foreach ($criteria as $col => $value) {
-                    $conditions[] = "$col = '$value'";
+                    $conditions[] = "$col = ?";
+                    $params[] = $value;
+                    $param_types .= $types[$col];
                 }
                 $query .= " WHERE " . implode(' AND ', $conditions);
             }
         
-            $result = $this->db->query($query);
-        
-            $data = [];
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
+            $statement = $this->db->prepare($query);
+            if (!$statement) {
+                throw new Exception("Failed to prepare statement: " . $this->db->error);
             }
         
-            return $data;
+            if (!empty($params)) {
+                $statement->bind_param($param_types, ...$params);
+            }
+        
+            $statement->execute();
+        
+            $affected_rows = $statement->affected_rows;
+        
+            $statement->close();
+        
+            return $affected_rows > 0;
         }
 
-        public function complexQuery($query) {
-            $result = $this->db->query($query);
+        // This function is used to count the number of rows in a table based on the given criteria
+        public function count(array $criteria, array $types, Tables $table) {
+            $query = "SELECT COUNT(*) FROM " . $table->value;
+            $params = [];
+            $param_types = '';
+        
+            if (!empty($criteria)) {
+                $conditions = [];
+                foreach ($criteria as $col => $value) {
+                    $conditions[] = "$col = ?";
+                    $params[] = $value;
+                    $param_types .= $types[$col];
+                }
+                $query .= " WHERE " . implode(' AND ', $conditions);
+            }
+        
+            $statement = $this->db->prepare($query);
+            if (!$statement) {
+                throw new Exception("Failed to prepare statement: " . $this->db->error);
+            }
+        
+            if (!empty($params)) {
+                $statement->bind_param($param_types, ...$params);
+            }
+        
+            $statement->execute();
+        
+            $result = $statement->get_result();
+            $data = $result->fetch_assoc();
+        
+            $statement->close();
+        
+            return $data['COUNT(*)'];
+        }
+        
+        // This function is used to execute an arbitrary query
+        public function complexQuery($query, array $params, array $types) {
+            $statement = $this->db->prepare($query);
+            if (!$statement) {
+                throw new Exception("Failed to prepare statement: " . $this->db->error);
+            }
+        
+            // Bind the parameters
+            if (!empty($params)) {
+                $statement->bind_param(implode('', $types), ...$params);
+            }
+        
+            $statement->execute();
+            $result = $statement->get_result();
         
             $data = [];
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;
             }
         
+            $statement->close();        
             return $data;
         }
+        
 
         public function getStory($story_id) {
-            return $this->findBy(['story_id' => $story_id], 1, 0, Tables::Stories);
+            return $this->findBy(['story_id' => $story_id], ['story_id' => 'i'], 1, 0, Tables::Stories);
         }
 
         public function getChapter($chapter_id) {
-            return $this->findBy(['chapter_id' => $chapter_id], 1, 0, Tables::Chapters);
+            return $this->findBy(['chapter_id' => $chapter_id], ['chapter_id' => 'i'], 1, 0, Tables::Chapters);
         }
         
         public function getUser($username) {
-            return $this->findBy(['username' => $username], 1, 0, Tables::Users);
+            return $this->findBy(['username' => $username], ['username' => 's'], 1, 0, Tables::Users);
         }
 
         public function getProposals($chapter_id) {
-            return $this->findBy(['chapter_id' => $chapter_id], null, null, Tables::Proposals);
+            return $this->findBy(['chapter_id' => $chapter_id], ['chapter_id' => 'i'], null, null, Tables::Proposals);
         }
 
         public function updateCommentsLikesDislikes($username, $comment_id, $action) {
@@ -207,6 +256,7 @@
 
         public function postStory($username, $title) {
             $query = "INSERT INTO " . Tables::Stories->value . " (title, username) VALUES ('$title', '$username')";
+            error_log($query);
             return $this->db->query($query);
         }
 
@@ -235,7 +285,7 @@
         }
         
         public function insertUser($username, $password) {
-            $query = "INSERT INTO " . Tables::Users->value . " (username, password, icon, description) VALUES ('$username', '$password', 'NULL', 'NULL')";
+            $query = "INSERT INTO " . Tables::Users->value . " (username, password) VALUES ('$username', '$password')";
             return $this->db->query($query);
         }
 
@@ -294,6 +344,7 @@
             } else {
                 return 0;
             }
+            $stmt->close();
         }
 
         // This function return 0 if the user has not liked or disliked the proposal, 1 if the user has liked the proposal, and -1 if the user has disliked the proposal
@@ -310,6 +361,7 @@
             } else {
                 return 0;
             }
+            $stmt->close();
         }
 
         // This function return 0 if the user has not liked or disliked the chapter, 1 if the user has liked the chapter, and -1 if the user has disliked the chapter
@@ -326,6 +378,25 @@
             } else {
                 return 0;
             }
+            $stmt->close();
+        }
+        function getStoryID($username, $title){
+            $query = "SELECT story_id FROM " . Tables::Stories->value . " WHERE username = ? AND title = ?";
+            
+            $stmt = $this->db->prepare($query);    
+            $stmt->bind_param("ss", $username, $title);        
+            $stmt->execute();
+        
+            $result = $stmt->get_result();
+        
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                return $row['story_id'];
+            } else {
+                return null;
+            }
+            $stmt->close();
         }
     }
+
 ?>

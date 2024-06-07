@@ -18,7 +18,7 @@
 
     try {
         // Delete the notification with the given ID
-        $deleted = $db->deleteBy(['notification_id' => $notificationId], Tables::Notifications);
+        $deleted = $db->deleteBy(['notification_id' => $notificationId], ['notification_id' => 'i'], Tables::Notifications);
         
         if ($deleted) {
             echo json_encode(['success' => 'Notification deleted successfully']);

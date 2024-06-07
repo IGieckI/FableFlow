@@ -27,7 +27,7 @@ function redirect($page_requested) {
 
 /* Here add variables that are needed in all pages */
 $_SESSION['cssFiles'] = array("/FableFlow/src/client/css/Footer.css", "/FableFlow/src/client/css/Header.css");
-$_SESSION['jsFiles'] = array("/FableFlow/src/client/js/Footer.js", "/FableFlow/src/client/js/Header.js");
+$_SESSION['jsFiles'] = array("/FableFlow/src/client/js/Footer.js", "/FableFlow/src/client/js/Header.js", '/FableFlow/src/client/js/Utilities.js');
 
 $request = $_GET['url'];
 $ip = $_SESSION['REMOTE_ADDR'] ?? $_SERVER['REMOTE_ADDR'];
@@ -35,13 +35,15 @@ $ip = $_SESSION['REMOTE_ADDR'] ?? $_SERVER['REMOTE_ADDR'];
 $routes = [
     'GET' => [
         '/FableFlow/src/Index.php' => 'redirect',
-        '/FableFlow/src/Access.php' => 'redirect',
+        '/FableFlow/src/client/Login.php' => 'redirect',
+        '/FableFlow/src/client/Register.php' => 'redirect',
+        '/FableFlow/src/client/creation/CreateStory.php' => 'redirect',
         '/FableFlow/src/client/profile/Profile.php' => function($_) {
             if (isset($_SESSION['LOGGED'])) redirect('/FableFlow/src/client/profile/Profile.php');
-            redirect('/FableFlow/src/Access.php');
+            redirect('/FableFlow/src/client/Login.php');
         },
         '/FableFlow/src/client/post/ChapterPage.php' => 'redirect',
-        '/FableFlow/src/client/post/SubPostPage.php' => 'redirect',
+        '/FableFlow/src/client/post/SubChapterPage.php' => 'redirect',
         '/FableFlow/src/client/post/content/Story.php' => 'redirect',
         '/FableFlow/src/client/post/content/Comments.php' => 'redirect',
         '/FableFlow/src/client/post/content/proposal/CreateProposal.html' => 'redirect',
@@ -66,6 +68,8 @@ $routes = [
         '/FableFlow/src/server/api/GetChaptersOfUser.php' => 'redirect',
         '/FableFlow/src/server/api/GetPools.php' => 'redirect',
         '/FableFlow/src/server/api/GetAuthor.php' => 'redirect',
+        '/FableFlow/src/client/creation/CreateChapter.php' => 'redirect',
+        '/FableFlow/src/server/api/GetOwnerStories.php' => 'redirect',
     ],
     'POST' => [
         '/FableFlow/src/server/api/UpdateBio.php' => 'redirect',
@@ -82,6 +86,8 @@ $routes = [
         '/FableFlow/src/server/api/UpdateChapterLike.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateProposalLike.php' => 'redirect',
         '/FableFlow/src/server/api/PostProposalComment.php' => 'redirect',
+        '/FableFlow/src/server/api/PostChapter.php' => 'redirect',
+        '/FableFlow/src/server/api/PostStory.php' => 'redirect',
     ]
 ];
 
@@ -90,7 +96,15 @@ $request_method = $_SERVER['REQUEST_METHOD'];
 if (isset($routes[$request_method][$request])) {
     $action = $routes[$request_method][$request];
     if (is_callable($action)) {
-        $action($request);
+        /*if(isset($_POST['risultato'])) {
+            $risultato = $_POST['risultato']
+            if($risultato == true){
+                redirect('/FableFlow/Index.php')
+            }
+            else{
+                redirect('/FableFlow/src/client/Login.html')
+            }*/
+            $action($request);
     } else {
         redirect('/FableFlow/src/404.php');
     }

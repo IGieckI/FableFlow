@@ -1,22 +1,24 @@
 <?php
-    require 'DbHelper.php';
-    require 'Config.php';
+    require __DIR__ . '/../utilities/DbHelper.php';
 
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-
+    
     header('Content-Type: application/json');
+
+    $username = $_SESSION['username'];
+    $storyTitle = $_POST['story-title'];
 
     try {
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-        $story_id = intval($_POST['story_id']);
-        $chapter_title = $_POST['chapter_title'];
+        
+        $story_id = $db->getStoryID($username, $storyTitle);
+        $chapterTitle = $_POST['chapter-title'];
         $content = $_POST['content'];
         $picture = isset($_POST['picture']) ? $_POST['picture'] : NULL;
 
-        $db->postChapter($story_id, $chapter_title, $content, $picture);
+        $response = $db->postChapter($story_id, $chapterTitle, $content, $picture);
 
         echo json_encode($response);
     } catch (Exception $e) {
@@ -26,4 +28,6 @@
 
     $db->disconnect();
     $db = null;
+
+    header("Location: /FableFlow/src/client/creation/CreateChapter.php");
 ?>

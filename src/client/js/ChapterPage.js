@@ -1,7 +1,9 @@
 //Automatically load the content of the story
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners to different elements
-    document.getElementById("user_icon").addEventListener('click', goToProfile);
+    document.getElementById("user_icon").addEventListener('click', function() {
+        goToProfile(document.getElementById("username-span").textContent);
+    });
     document.getElementById("back-history-button").addEventListener('click', function() {
         history.back();
     });
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     $.ajax({
                         url: "/FableFlow/src/server/api/PostChapterComment.php",
                         type: "POST",
-                        data: { chapter_id: getChapterId(window.location.href), content: message},
+                        data: { chapterId: getChapterId(window.location.href), content: message},
                         dataType: "json",
                         success: function(response) {
                             $("#message-input").val("");
@@ -111,7 +113,7 @@ function addClickListener(elementId, callback) {
 function loadContent(subpage, callback=function() {}) {
     $.ajax({
         type: "GET",
-        url: "SubPostPage.php",
+        url: "SubChapterPage.php",
         data: { subpage: subpage },
         success: function(response) {
             $("#subpageContent").html(response);
@@ -121,11 +123,6 @@ function loadContent(subpage, callback=function() {}) {
             console.log("Error loading subpage content.");
         }
     });
-}
-
-function goToProfile() {
-    let username = this.getAttribute("username");
-    window.location.assign('/FableFlow/src/client/profile/Profile.php?user_viewing='+username);
 }
 
 function updateChapterLike(chapterId) {

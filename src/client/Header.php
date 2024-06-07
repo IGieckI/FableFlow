@@ -62,6 +62,7 @@
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>          
                     </div>
                     <div class="offcanvas-body">
+                        <h3>Search for users!</h3>
                         <div class="input-group">
                             <input id="search-text" type="text" class="form-control border-secondary" placeholder="Search..." aria-label="Search" aria-describedby="searchIcon">
                             <button class="btn btn-outline-secondary" type="button" id="searchIcon">
