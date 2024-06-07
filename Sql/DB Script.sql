@@ -135,9 +135,9 @@ VALUES ('Adventure'),
 
 -- Insert into users
 INSERT INTO users (username, password, icon, description) VALUES
-    ('john_doe', '$2y$10$NfU6MhtZw6ONGpPmz2QV7eG6MUMZHJUJo0QYZ1v/heKhY0GfPGF/e', '4F45C6A3-45D4-2F2B-1C1E-9876543210AB', 'Adventure enthusiast and writer'),
-    ('jane_smith', '$2y$10$bH0hnwVncXh1Qmlz5HTR3u5CiHeuLXgiLBn2SSCUFJMT/aTwpqkDi', '8A2B1C0D-3E4F-5A6B-9C8D-76543210FEDC', 'Mystery lover and budding author'),
-    ('bob_jones', '$2y$10$MsA7mFS.MPqmZFa5zQzKVO4necIDYR14h6Xb5JILWgcEPFvWTIDP6', '1B2C3D4E-5F6A-7B8C-9D0E-123456789ABC', 'Fantasy and sci-fi writer');
+    ('john_doe', '$2y$10$NfU6MhtZw6ONGpPmz2QV7eG6MUMZHJUJo0QYZ1v/heKhY0GfPGF/e', NULL, 'Adventure enthusiast and writer'),
+    ('jane_smith', '$2y$10$bH0hnwVncXh1Qmlz5HTR3u5CiHeuLXgiLBn2SSCUFJMT/aTwpqkDi', NULL, 'Mystery lover and budding author'),
+    ('bob_jones', '$2y$10$MsA7mFS.MPqmZFa5zQzKVO4necIDYR14h6Xb5JILWgcEPFvWTIDP6', NULL, 'Fantasy and sci-fi writer');
 
 -- Insert into stories
 INSERT INTO stories (story_id, title, username) VALUES
@@ -163,11 +163,11 @@ INSERT INTO user_tag (name, username) VALUES
     ('Mythology', 'jane_smith');
 
 -- Insert into chapters
-INSERT INTO chapters (story_id, chapter_title, content, publication_datetime) VALUES
-    (1, 'The Unexpected Journey', 'As the sun set behind the mountains, the adventurers prepared for their unexpected journey.', '2023-01-01 12:00:00'),
-    (1, 'Into the Unknown', 'Venturing deeper into the forest, they faced challenges they never imagined.', '2023-01-02 14:30:00'),
-    (2, 'The Haunting Begins', 'Strange occurrences began to plague the residents of Ravenwood Manor.', '2023-02-15 15:30:00'),
-    (3, 'A New World', 'The spaceship touched down on an unknown planet, full of mysteries waiting to be discovered.', '2023-03-20 10:45:00');
+INSERT INTO chapters (story_id, chapter_title, content, picture, publication_datetime) VALUES
+    (1, 'The Unexpected Journey', 'As the sun set behind the mountains, the adventurers prepared for their unexpected journey.', '66636e19702c8.jpg', '2023-01-01 12:00:00'),
+    (1, 'Into the Unknown', 'Venturing deeper into the forest, they faced challenges they never imagined.', NULL, '2023-01-02 14:30:00'),
+    (2, 'The Haunting Begins', 'Strange occurrences began to plague the residents of Ravenwood Manor.', '66636e11b2b57.png', '2023-02-15 15:30:00'),
+    (3, 'A New World', 'The spaceship touched down on an unknown planet, full of mysteries waiting to be discovered.', '66636e15b6f3c.jpg', '2023-03-20 10:45:00');
 
 -- Insert into proposals
 INSERT INTO proposals (chapter_id, username_proposing, publication_datetime, title, content) VALUES
