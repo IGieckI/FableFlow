@@ -19,4 +19,15 @@
 #create-pool {
     justify-content: center;
     display: flex;
+    
+}
+
+.create-pool {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.create-pool:hover {
+    background-color: #e2e6ea;
 }

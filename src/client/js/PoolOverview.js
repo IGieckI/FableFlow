@@ -21,6 +21,7 @@ function loadPools(chapterId) {
                             let createButton = document.createElement('button');
                             createButton.className = 'create-pool'
                             createButton.innerText = "Create a new pool!";
+                            createButton.className += ' btn custom-btn mb-5';
                             createButton.addEventListener('click', function() {
                                 loadContent('create-pool', function(){
                                     loadPoolCreation(chapterId);
@@ -75,7 +76,7 @@ function createPool(li, pool) {
                     <article class="pool-link">
                         <span class="pool-title">${pool['title']}
                         </span>
-                        <span class="pool-expiration">${howMuchTimeLeft(pool['expire_datetime'])}</span>
+                        <span class="pool-expiration ">${howMuchTimeLeft(pool['expire_datetime'])}</span>
                     </article>
                     `;
 }
