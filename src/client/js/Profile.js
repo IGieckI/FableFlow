@@ -159,12 +159,11 @@ $(document).ready(function() {
         data: {user_viewing: window.location.search.substring(1).split('&')[0].split('=')[1]},
         success: function(GetViewedUserOutput) {
             let viewer = getLoggedUsername();
-            $('#profile-pic').attr("src", "/FableFlow/resources/icons/"+GetViewedUserOutput['user'].pic_uri);
-            $('.username').html(GetViewedUserOutput['user'].username);
-            $('#bio').html(GetViewedUserOutput['user'].description);
+            $('.username').text(GetViewedUserOutput['user'].username);
+            $('#bio').text(GetViewedUserOutput['user'].description);
             loadFollowings(GetViewedUserOutput['user'].username);
             loadFollowers(GetViewedUserOutput['user'].username);
-
+            $('#profile-pic').attr("src", "/FableFlow/resources/icons/"+GetViewedUserOutput['user'].pic_uri);
             /* Owner code */
             if (GetViewedUserOutput['myprofile']) {
                 
