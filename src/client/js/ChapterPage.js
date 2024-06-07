@@ -81,17 +81,19 @@ document.addEventListener('DOMContentLoaded', function() {
         url: "/FableFlow/src/server/api/GetChapter.php",
         data: { chapterId: getChapterId(window.location.href) },
         success: function(response) {
+            console.log(response);
             response = response[0];
 
-            document.getElementById("chapter-title").innerHTML = response["post_title"];
+            document.getElementById("chapter-title").innerHTML = response["post_title"] + ": " + response["story_title"];
             document.getElementById("like-span").innerHTML = response["num_likes"];
             document.getElementById("like-icon").className = response["liked"] == 0 ? "bi bi-fire" : "bi bi-fire like-clicked";
             document.getElementById("user_icon").username = response["username"];
             document.getElementById("username-span").innerHTML = response["username"];
             document.getElementById("user_icon_img").src = response["user_icon"];
         },
-        error: function() {
+        error: function(error) {
             console.log("Error loading page content.");
+            console.log(error);
         }
     });
 });

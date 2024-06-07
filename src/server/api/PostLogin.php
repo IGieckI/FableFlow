@@ -31,7 +31,7 @@ try{
                 }*/
                 $_SESSION['username'] = $username;
                 $_SESSION['LOGGED']=true;
-                header("Location: /FableFlow/src/client/profile/Main.php");
+                header("Location: /FableFlow/src/Index.php");
             }
             else{
                 header("Location: /FableFlow/src/client/Login.php");

@@ -13,6 +13,7 @@
         $chapter = $db->complexQuery("SELECT 
                                     c.story_id as story_id,
                                     c.chapter_id as chapter_id,
+                                    c.chapter_title as chapter_title,
                                     c.content as content,
                                     c.picture as picture,
                                     c.publication_datetime as publication_datetime
@@ -30,7 +31,7 @@
         $likes = $db->count(['chapter_id' => $chapter['chapter_id']], ['chapter_id' => 'i'], Tables::Likes);
         $comments = $db->count(['chapter_id' => $chapter['chapter_id']], ['chapter_id' => 'i'], Tables::Comments);
         $liked = $db->chapterStatus($chapter['chapter_id'], $_SESSION['username']);
-        $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $chapter['picture'], $likes, $chapter['content'], $liked);
+        $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $chapter["chapter_title"], $comments, $chapter['picture'], $likes, $chapter['content'], $liked);
         
         $db->disconnect();
         $db = null;

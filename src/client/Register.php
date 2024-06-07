@@ -24,7 +24,7 @@ if (session_status() == PHP_SESSION_NONE) {
           <div class="card border border-light-subtle rounded-3 shadow-sm">
             <div class="card-body p-3 p-md-4 p-xl-5">
               <div class="text-center mb-3">
-                <img src="/FableFlow/FF.jpg" alt="FableFlow" width="100" height="100">
+                <img src="/FableFlow/resources/logos/FableFlowLogo.png" alt="FableFlow" width="300" height=auto>
               </div>
               <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign up your account</h2>
               <form id="register"action="/FableFlow/src/server/api/PostRegister.php" method="post">

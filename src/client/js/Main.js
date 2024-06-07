@@ -68,7 +68,7 @@ function createPostHtml(post) {
 
                 <div class="row post-title">
                     <div class="col-10">
-                        ${post.post_title}
+                        ${post.story_title}
                     </div>        
                     <div class="col-2 post-details">
                         <span><i class="bi bi-chat-dots"></i>${post.num_comments}</span>

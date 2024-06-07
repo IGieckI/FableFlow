@@ -93,12 +93,16 @@ $routes = [
         '/FableFlow/src/server/api/PostUserPoolChoice.php' => 'redirect',
         '/FableFlow/src/server/api/RemoveUserPoolChoice.php' => 'redirect',
         '/FableFlow/src/server/api/AddPool.php' => 'redirect',
+        '/FableFlow/src/server/api/Logout.php' => 'redirect',
     ]
 ];
 
 $request_method = $_SERVER['REQUEST_METHOD'];
 
-if (isset($routes[$request_method][$request])) {
+
+if (!isset($_SESSION["username"]) && $request != '/FableFlow/src/client/Login.php' && $request != '/FableFlow/src/client/Register.php' && $request != '/FableFlow/src/server/api/PostLogin.php' && $request != '/FableFlow/src/server/api/PostRegister.php' && $request != '/FableFlow/src/server/api/AuthLogin.php' && $request != '/FableFlow/src/server/api/Logout.php' && $request != '/FableFlow/src/400.php' && $request != '/FableFlow/src/404.php' && $request != '/FableFlow/src/500.php' && $request != '/FableFlow/src/client/creation/CreateStory.php' && $request != '/FableFlow/src/client/creation/CreateChapter.php' && $request != '/FableFlow/src/client/creation/CreatePool.php' && $request != '/FableFlow/src/client/creation/CreateProposal.php' && $request != '/FableFlow/src/client/creation/CreateSubChapter.php' && $request != '/FableFlow/src/server/api/PostRegister.php') {
+    redirect('/FableFlow/src/client/Login.php');
+} elseif (isset($routes[$request_method][$request])) {
     $action = $routes[$request_method][$request];
     if (is_callable($action)) {
         /*if(isset($_POST['risultato'])) {

@@ -25,6 +25,7 @@
             SELECT 
                 c.story_id AS story_id,
                 c.chapter_id AS chapter_id,
+                c.chapter_title AS chapter_title,
                 c.content AS content,
                 c.picture AS picture,
                 c.publication_datetime AS publication_datetime
@@ -44,6 +45,7 @@
             SELECT 
                 c.story_id AS story_id,
                 c.chapter_id AS chapter_id,
+                c.chapter_title AS chapter_title,
                 c.content AS content,
                 c.picture AS picture,
                 c.publication_datetime AS publication_datetime
@@ -70,7 +72,7 @@
             $likes = $db->count(['chapter_id' => $chapter['chapter_id']], ['chapter_id' => 'i'], Tables::Likes);
             $comments = $db->count(['chapter_id' => $chapter['chapter_id']], ['chapter_id' => 'i'], Tables::Comments);
             $liked = $db->chapterStatus($chapter['chapter_id'], $_SESSION['username']);
-            $result[] = new Post($chapter['chapter_id'],$user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $comments, $chapter['picture'], $likes, $chapter['content'], $liked);
+            $result[] = new Post($chapter['chapter_id'], $user['icon'], $user['username'], $chapter['publication_datetime'], $story['title'], $chapter["chapter_title"], $comments, $chapter['picture'], $likes, $chapter['content'], $liked);
         }
         $db->disconnect();
         $db = null;

@@ -6,18 +6,11 @@
     }
 
     try{
-
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+        $db->update(['icon'=>"'".$_POST['imageId']."'"], ['username'=>"'".$_SESSION['username']."'"], Tables::Users);
+        $db->disconnect();
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
     }
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-    if (isset($_SESSION['LOGGED'])) {
-        $db->update(['icon'=>"'".$_POST['imageId']."'"],
-                    ['username'=>"'".$_SESSION['username']."'"],
-                    Tables::Users);
-    }
-
-    $db->disconnect();
 ?>

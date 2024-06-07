@@ -336,7 +336,7 @@
 
         // General function for update something in the db
         public function update($updates, $conditions, Tables $table) {
-            $query = "UPDATE " . $table->value;
+            $query = "UPDATE " . $table->value . " ";
 
             if (!empty($updates)) {
                 $updatesImploded = [];
@@ -352,7 +352,9 @@
                     $conditionsImploded[] = "$col = $value";
                 }
                 $query .= " WHERE " . implode(' AND ', $conditionsImploded);
-            }   
+            }
+
+            error_log($query);
             $this->db->query($query);
         }
 

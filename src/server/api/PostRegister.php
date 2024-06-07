@@ -17,14 +17,13 @@ try {
         if(count($user) != 0){
             header("Location: FableFlow/src/client/Register.php");
             exit();
-        }
-        else{
+        } else {
             $hashed_pass = password_hash($password, PASSWORD_BCRYPT);
             $insert = $db->insertUser($username, $hashed_pass);
             if($insert){
-                $_SESSION['username']=$_POST['username'];
+                $_SESSION['username'] = $_POST['username'];
                 $_SESSION['LOGGED']=true;
-                header("Location: /FableFlow/src/client/profile/Main.php");
+                header("Location: /FableFlow/src/Index.php");
                 exit();
             }
         }

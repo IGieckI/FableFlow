@@ -40,8 +40,11 @@ function uploadImage() {
         data: new FormData($('#upload_form')[0]), 
         processData: false,
         contentType: false,
-        dataType: 'json',
         success: function(data) {
+            const jsonRegex = /{.*}/s;
+            data = data.match(jsonRegex)[0];
+            data = JSON.parse(data);
+            
             if (data['result']=='notok') {
                 console.log("Upload failed");
             } else {
@@ -278,7 +281,7 @@ $(document).ready(function() {
                 $("#logout").click(function() {
                     $.ajax({
                         url: "/FableFlow/src/server/api/Logout.php",
-                        type: "DELETE",
+                        type: "POST",
                         success: function(response) {
                             window.location.href = '/FableFlow/src/client/Login.php';
                         },
