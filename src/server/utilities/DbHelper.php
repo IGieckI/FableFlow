@@ -289,9 +289,13 @@
             return $this->db->query($query);
         }
 
-        public function insertInto($values, Tables $table) {
-            $query = "INSERT INTO " . $table->value . " VALUES (";
-            $this->db->query($query . implode(',', $values). ')');
+        public function insertInto($values, Tables $table, $attributes=null) {
+            $query = "INSERT INTO " . $table->value . " ";
+            if($attributes !== null) {
+                $query .= "(".implode(',', $attributes).")";
+            }
+            $query = $query . " VALUES (".implode(',', $values).')';
+            $this->db->query($query);
         }
 
         public function update($updates, $conditions, Tables $table) {

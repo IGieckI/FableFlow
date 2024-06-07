@@ -14,7 +14,8 @@ if (isset($_GET['pool_id'])) {
     echo json_encode(['author'=>$author[0]]);
 } elseif (isset($_GET['chapter_id'])){
     $author = $db->findBy(['c.chapter_id'=>$_GET['chapter_id']],['c.chapter_id' => 'i'], 1, null, null, 'chapters as c JOIN stories as s ON
-                                                                                s.story_id = c.story_id', ['s.username as author']);
+                            s.story_id = c.story_id', ['s.username as author']);
+    error_log("chapter id is " . $_GET['chapter_id']);
     echo json_encode(['author'=>$author[0]['author']]);
 } elseif  (isset($_GET['story_id'])) {
     // add here
