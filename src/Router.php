@@ -63,6 +63,7 @@ $routes = [
         '/FableFlow/src/client/post/content/proposal/Proposal.php' => 'redirect',
         '/FableFlow/src/server/api/GetUsers.php' => 'redirect',
         '/FableFlow/src/client/post/content/pool/Pool.php' => 'redirect',
+        '/FableFlow/src/client/post/content/pool/PoolUserView.php' => 'redirect',
         '/FableFlow/src/server/api/GetChapter.php' => 'redirect',
         '/FableFlow/src/server/api/GetProposalComments.php' => 'redirect',
         '/FableFlow/src/server/api/GetChaptersOfUser' => 'redirect',
