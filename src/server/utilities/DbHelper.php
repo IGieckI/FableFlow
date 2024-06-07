@@ -184,19 +184,21 @@
             }
         
             if (!empty($params)) {
+                if (count($params) !== count($types)) {
+                    throw new Exception("Number of parameters and types do not match.");
+                }
                 $statement->bind_param(implode('', $types), ...$params);
             }
         
             $statement->execute();
-            
-            // Check if the query is a SELECT, to fetch results
+        
             $queryType = strtoupper(strtok(trim($query), " "));
             if ($queryType === 'SELECT') {
                 $result = $statement->get_result();
                 if (!$result) {
                     throw new Exception("Failed to get result: " . $statement->error);
                 }
-
+        
                 $data = [];
                 while ($row = $result->fetch_assoc()) {
                     if ($row === null && $this->db->error) {
@@ -204,16 +206,16 @@
                     }
                     $data[] = $row;
                 }
-
+        
                 $statement->close();
                 return $data;
             } else {
-                // For non-SELECT queries, return affected rows
                 $affectedRows = $statement->affected_rows;
                 $statement->close();
                 return $affectedRows;
             }
         }
+        
         
 
         public function getStory($story_id) {

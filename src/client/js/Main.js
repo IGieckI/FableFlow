@@ -75,8 +75,6 @@ function createPostHtml(post) {
                         <span><i class="${post.liked == 0 ? "bi bi-fire" : "bi bi-fire liked"}"></i>${post.num_likes}</span>
                     </div>
                 </div>
-                
-                ${post.picture ? `<div class="row post-picture"><img src="${post.picture}" alt="Post Image" class="img-fluid"></div>` : ''}
 
                 <div class="row post-content">
                     ${post.post_content}
