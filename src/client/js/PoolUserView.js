@@ -17,7 +17,7 @@ function poolUserViewInitialization(pool) {
                 optionsContainer.innerHTML = '';
 
                 daysLeft = timeLeftFromNow(response.expireDatetime);
-                timeLeft = ""
+                timeLeft = "";
                 if (daysLeft < 0) {
                     timeLeft = "Pool has expired";
                 } else if (daysLeft == 0) {
@@ -35,12 +35,12 @@ function poolUserViewInitialization(pool) {
                     optionElement.innerHTML = `
                         <input class="form-check-input"${option.option_id == response.userChosenOption.option_id ? "checked=true," : ""} type="radio" name="poolOption" id="pool-option-${index}" value="${option.content}" ${daysLeft < 0 ? "disabled" : ""}>
                         <label class="form-check-label" for="poolOption${index}">
-                            ${option.content}
+                            ${option.content} (${option.vote_count} votes)
                         </label>`;
                     
-                    document.getElementById('pool-form').appendChild(optionElement);
+                    optionsContainer.appendChild(optionElement);
                                         
-                    document.getElementById("pool-option-"+index).addEventListener('click', function() {
+                    document.getElementById("pool-option-" + index).addEventListener('click', function() {
                         handleChoice(this, option.option_id);
                     });
                 });
@@ -58,7 +58,6 @@ function poolUserViewInitialization(pool) {
     });
 }
 
-
 function handleChoice(element, optionId) {
     if (lastSelectedOption === element) {
         element.checked = false;
@@ -66,7 +65,7 @@ function handleChoice(element, optionId) {
         removeSelection(optionId);
     } else {
         lastSelectedOption = element;
-        addSelection(optionId,  element.value);
+        addSelection(optionId, element.value);
     }
 }
 
@@ -90,8 +89,8 @@ function removeSelection(optionId) {
         url: "/FableFlow/src/server/api/RemoveUserPoolChoice.php",
         data: { optionId: optionId },
         success: function(response) {
-            
-        },
+
+          },
         error: function(error) {
             console.log(error);
         }

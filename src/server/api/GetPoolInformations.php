@@ -39,12 +39,21 @@
 
         $userChosenOption = $userChoice;
 
+        // Retrieve the vote count for each option
+        $optionsWithVotes = [];
+        foreach ($options as $option) {
+            $optionId = $option['option_id'];
+            $voteCount = $db->complexQuery("SELECT COUNT(*) as vote_count FROM option_choices WHERE option_id = ?", [$optionId], ['i'])[0]['vote_count'];
+            $option['vote_count'] = $voteCount;
+            $optionsWithVotes[] = $option;
+        }
+
         echo json_encode([
             'poolId' => $poolId,
             'poolTitle' => $poolTitle,
             'poolContent' => $poolContent,
             'expireDatetime' => $expireDatetime,
-            'options' => $options,
+            'options' => $optionsWithVotes,
             'userChosenOption' => $userChosenOption
         ]);
     } catch (Exception $e) {
