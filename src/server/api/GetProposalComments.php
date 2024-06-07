@@ -10,7 +10,7 @@
         $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
         $proposalId = (int)$_GET['proposalId'];
-        $comments = $db->findBy(['proposal_id' => $proposalId], ['proposal_id' => 'i'], null, null, Tables::Comments);        
+        $comments = $db->findBy(['proposal_id' => $proposalId], ['proposal_id' => 'i'], null, null, Tables::Comments);
         $result = [];
 
         foreach ($comments as $comment) {
@@ -20,8 +20,6 @@
             $commentStatus = $db->commentStatus($comment['comment_id'], $_SESSION['username']);
             $result[] = new Comment($comment['comment_id'], $user[0]['icon'], $user[0]['username'], $comment['comment_datetime'], $comment['content'], $likes, $dislikes, $commentStatus);
         }
-        $db->disconnect();
-        $db = null;
         header('Content-Type: application/json');
         
         echo json_encode($result);
@@ -29,4 +27,7 @@
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
     }
+    
+    $db->disconnect();
+    $db = null;
 ?>

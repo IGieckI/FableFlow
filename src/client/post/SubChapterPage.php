@@ -33,6 +33,9 @@
             case 'read-proposal':
                 $filePath = 'content/proposal/Proposal.php';
                 break;
+            case 'pool-view':
+                $filePath = 'content/pool/PoolUserView.php';
+                break;
             default:
                 echo "Invalid subpage";
                 exit;

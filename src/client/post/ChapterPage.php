@@ -18,7 +18,8 @@
                                     '/FableFlow/src/client/js/Proposal.js',
                                     '/FableFlow/src/client/js/Story.js',
                                     '/FableFlow/src/client/js/PoolOverview.js',
-                                    '/FableFlow/src/client/js/PoolCreation.js');
+                                    '/FableFlow/src/client/js/PoolCreation.js',
+                                    '/FableFlow/src/client/js/PoolUserView.js');
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';

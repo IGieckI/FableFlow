@@ -59,7 +59,7 @@ function loadPools(chapterId) {
                 createPool(item, pool);
                 item.addEventListener('click', function() {
                     loadContent('pool-view', function(){
-                        //add here the call to the pool-view js file initializator
+                        poolUserViewInitialization(pool);
                     });
                 })
                 document.querySelector('#pool-list').appendChild(item);

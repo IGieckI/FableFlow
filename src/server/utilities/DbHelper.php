@@ -200,7 +200,7 @@
             return $data;
         }
         
-        // This function is used to get the story ID based on the given criteria
+
         public function getStory($story_id) {
             return $this->findBy(['story_id' => $story_id], ['story_id' => 'i'], 1, 0, Tables::Stories);
         }
@@ -433,8 +433,7 @@
             }
             $stmt->close();
         }
-
-        // This function is used to get the ID story based on the given criteria
+        
         function getStoryID($username, $title){
             $query = "SELECT story_id FROM " . Tables::Stories->value . " WHERE username = ? AND title = ?";
             
@@ -451,6 +450,24 @@
                 return null;
             }
             $stmt->close();
+        }
+
+        function postUserPoolChoice($username, $optionId) {
+            $query = "INSERT INTO " . Tables::OptionChoices->value . " (username, option_id) VALUES (?, ?)";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("si", $username, $optionId);
+            
+            return $stmt->execute();
+        }
+        
+        function removeUserPoolChoice($username, $optionId) {
+            $query = "REMOVE FROM " . Tables::OptionChoices->value . " WHERE username = ? AND option_id = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("si", $username, $optionId);
+            
+            return $stmt->execute();
         }
     }
 
