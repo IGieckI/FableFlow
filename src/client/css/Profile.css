@@ -1,3 +1,8 @@
+#main-content {
+    display: grid;
+    justify-content:center;
+}
+
 .profile-pic {
     grid-row: span 2;
     margin-right: 20px;

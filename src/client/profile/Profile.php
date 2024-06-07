@@ -11,7 +11,7 @@ require __DIR__. '/../Header.php';
 
 ?>
 
-<div style="display: grid; justify-content:center;">
+<div id="main-content">
     <section class="resume">
         <figure class="profile-pic">
             <img id="profile-pic" alt="profile picture">
