@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     addClickListener('load-pools-button', function(chapterId) {
-        loadContent('pools');
+        loadContent('pools', function(){
+            initializePoolOverview();
+        });
     });
     
     addClickListener('load-proposals-button', function(chapterId) {
