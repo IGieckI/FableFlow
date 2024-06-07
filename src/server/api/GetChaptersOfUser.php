@@ -10,7 +10,7 @@
 
     try {
     
-        $chapters = $db->complexQuery('SELECT' . ' ' .
+        $chapters = $db->complexQuery('SELECT '.
                                         'c.story_id as story_id,
                                         c.chapter_id as chapter_id,
                                         c.content as content,
@@ -32,7 +32,6 @@
         $db->disconnect();
         $db = null;
         header('Content-Type: application/json');
-        error_log("aaaaaaaaaaaaaaaaaaaaaaaaaa");
         echo json_encode($result);
     } catch (Exception $e) {
         http_response_code(500);

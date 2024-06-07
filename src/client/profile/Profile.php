@@ -18,8 +18,8 @@ require __DIR__. '/../Header.php';
         </figure> 
         <span class="username" id="username"></span>
         <button id="logout">Logout</button>
-        <script src="/FableFlow/src/client/js/Logout.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!--<script src="/FableFlow/src/client/js/Logout.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
         <span class="followers-display" id="followers-display" ></span>
         <span class="followed-display" id="followed-display"></span>
         <p class="bio"></p>
