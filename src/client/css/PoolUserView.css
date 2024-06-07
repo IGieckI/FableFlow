@@ -1,0 +1,24 @@
+#pool-view-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#pool-view-container > .d-flex {
+    margin-bottom: 20px;
+}
+
+#pool-title {
+    margin-bottom: 10px;
+}
+
+#pool-time {
+    margin-left: 10px;
+}
+
+#pool-content {
+    margin-top: 10px;
+}
+
+#pool-form {
+    margin-top: 20px;
+}

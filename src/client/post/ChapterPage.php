@@ -9,7 +9,8 @@
                                     '/FableFlow/src/client/css/Proposals.css',
                                     '/FableFlow/src/client/css/Proposal.css',
                                     '/FableFlow/src/client/css/PoolOverview.css',
-                                    '/FableFlow/src/client/css/PoolCreation.css');
+                                    '/FableFlow/src/client/css/PoolCreation.css',
+                                    '/FableFlow/src/client/css/PoolUserView.css');
     array_push($_SESSION['jsFiles'], 
                                     '/FableFlow/src/client/js/Utilities.js',
                                     '/FableFlow/src/client/js/ChapterPage.js',
