@@ -5,11 +5,10 @@
         session_start();
     }
 
-    $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-
-    $username = $_SESSION['username'];
-
     try{
+        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+        $username = $_SESSION['username'];
+        
         $stories = $db->findBy(['username' => $username], ['username' => 's'], null, null, Tables::Stories);
 
         $titles = [];

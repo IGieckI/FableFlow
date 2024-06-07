@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     addClickListener('load-pools-button', function(chapterId) {
         loadContent('pools', function(){
-            initializePoolOverview();
+            initializePoolOverview(chapterId);
         });
     });
     
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addClickListener('load-comments-button', function(chapterId) {
         loadContent('comments', function() {
             document.getElementById("send-button").addEventListener('click', function() {
-                var message = $("#message-input").val();
+                let message = $("#message-input").val();
         
                 if (message.trim() !== "") {
                     $.ajax({
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             $("#message-input").val("");
                             
                             // Clear the comments container
-                            var commentsContainer = $("#comments-container");
+                            let commentsContainer = $("#comments-container");
                             commentsContainer.empty();
         
                             // Reload the comments or posts (replace this with the appropriate function)
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add an onclick-event listener to an HTML element
 function addClickListener(elementId, callback) {
-    var element = document.getElementById(elementId);
+    let element = document.getElementById(elementId);
     const chapterId = getChapterId(window.location.href);
     
     if (element) {

@@ -19,16 +19,16 @@ function loadPosts(page) {
             console.log('Posts loaded:', data);
             if (data.length > 0) {
                 // Append new posts to the container
-                var postsContainer = $('#posts-container');
+                let postsContainer = $('#posts-container');
                 data.forEach(function(post) {
-                    var newPostHtml = createPostHtml(post);
+                    let newPostHtml = createPostHtml(post);
                     postsContainer.append(newPostHtml);
                     document.getElementById(post.chapter_id).addEventListener('click', function() {
                         redirectToPostPage(post.chapter_id);
                     });
 
                     // Add click event listener for the username span
-                    var usernameSpan = document.getElementById("username-span-" + post.chapter_id);
+                    let usernameSpan = document.getElementById("username-span-" + post.chapter_id);
                     if (usernameSpan) {
                         usernameSpan.addEventListener('click', function() {
                             goToProfile(post.username);

@@ -4,31 +4,36 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+
+    try{
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $_SESSION['username'];
+            $chapterId = $_POST['chapterId'];
     
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = $_SESSION['username'];
-        $chapterId = $_POST['chapterId'];
-
-        $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
-        
-        $chapterStatus = $db->chapterStatus($chapterId, $username);
-
-        if ($chapterStatus == 0) {
-            $db->updateChapterLikes($username, $chapterId, "like");
+            $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
+            
+            $chapterStatus = $db->chapterStatus($chapterId, $username);
+    
+            if ($chapterStatus == 0) {
+                $db->updateChapterLikes($username, $chapterId, "like");
+            } else {
+                $db->updateChapterLikes($username, $chapterId, "unlike");
+            }
+    
+            $chapterStatus = $db->chapterStatus($chapterId, $username);
+    
+            // Use the count function to get the number of likes of the chapter
+            $likes = $db->count(['chapter_id' => $chapterId], ['chapter_id' => 'i'], Tables::Likes);
+    
+            $db->disconnect();
+            $db = null;
+    
+            echo json_encode(['likes' => $likes, 'status' => $chapterStatus]);
         } else {
-            $db->updateChapterLikes($username, $chapterId, "unlike");
+            echo 'Invalid request method';
         }
-
-        $chapterStatus = $db->chapterStatus($chapterId, $username);
-
-        // Use the count function to get the number of likes of the chapter
-        $likes = $db->count(['chapter_id' => $chapterId], ['chapter_id' => 'i'], Tables::Likes);
-
-        $db->disconnect();
-        $db = null;
-
-        echo json_encode(['likes' => $likes, 'status' => $chapterStatus]);
-    } else {
-        echo 'Invalid request method';
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
     }
 ?>

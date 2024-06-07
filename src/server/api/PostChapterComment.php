@@ -5,12 +5,14 @@
         session_start();
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_SESSION['username'];
-        $chapterId = $_POST['chapterId'];
-        $content = $_POST['content'];
+    
         
         try {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $username = $_SESSION['username'];
+                $chapterId = $_POST['chapterId'];
+                $content = $_POST['content'];
+            }
             $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
             $db->postComment($username, $chapterId, $content);
 
@@ -21,11 +23,11 @@
             $db->generateNotification($author['username'], $username . ' commented on your chapter: ' . $chapter['chapter_title']);
             
             echo json_encode(['success' => true]);
+
+            $db->disconnect();
+            $db = null;
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode(['error' => $e->getMessage()]);
         }
-        $db->disconnect();
-        $db = null;
-    }
 ?>

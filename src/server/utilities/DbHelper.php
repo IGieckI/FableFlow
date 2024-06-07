@@ -24,6 +24,7 @@
 
         private $db;
 
+        //Function for checking if the DB is doing good
         public function __construct($host, $user, $password, $dbname, $port, $socket) {
             
             $this->db = new \mysqli($host, $user, $password, $dbname, $port, $socket)
@@ -188,31 +189,15 @@
             }
         
             $statement->execute();
-            
-            // Check if the query is a SELECT, to fetch results
-            $queryType = strtoupper(strtok(trim($query), " "));
-            if ($queryType === 'SELECT') {
-                $result = $statement->get_result();
-                if (!$result) {
-                    throw new Exception("Failed to get result: " . $statement->error);
-                }
-
-                $data = [];
-                while ($row = $result->fetch_assoc()) {
-                    if ($row === null && $this->db->error) {
-                        throw new Exception("Failed to fetch row: " . $this->db->error);
-                    }
-                    $data[] = $row;
-                }
-
-                $statement->close();
-                return $data;
-            } else {
-                // For non-SELECT queries, return affected rows
-                $affectedRows = $statement->affected_rows;
-                $statement->close();
-                return $affectedRows;
+            $result = $statement->get_result();
+        
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
             }
+        
+            $statement->close();        
+            return $data;
         }
         
 
@@ -220,96 +205,136 @@
             return $this->findBy(['story_id' => $story_id], ['story_id' => 'i'], 1, 0, Tables::Stories);
         }
 
+        // This function is used to get the chapter ID based on the given criteria
         public function getChapter($chapter_id) {
             return $this->findBy(['chapter_id' => $chapter_id], ['chapter_id' => 'i'], 1, 0, Tables::Chapters);
         }
         
+        // This function is used to get the username based on the given criteria
         public function getUser($username) {
             return $this->findBy(['username' => $username], ['username' => 's'], 1, 0, Tables::Users);
         }
 
+        // This function is used to get the proposal based on the given criteria
         public function getProposals($chapter_id) {
             return $this->findBy(['chapter_id' => $chapter_id], ['chapter_id' => 'i'], null, null, Tables::Proposals);
         }
 
+        // This function is used to update the comment likes and dislikes based on the given criteria
         public function updateCommentsLikesDislikes($username, $comment_id, $action) {
             $query = "";
         
             if ($action === 'like') {
-                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, comment_id) VALUES ('$username', 0, $comment_id);";
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, comment_id) VALUES (?, 0, ?);";
             } elseif ($action === 'dislike') {
-                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, comment_id) VALUES ('$username', 1, '$comment_id');";
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, comment_id) VALUES (?, 1, ?);";
             } elseif ($action === 'remove') {
-                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND comment_id = '$comment_id';";
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = ? AND comment_id = ?;";
             }
 
-            return $this->db->query($query);
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("si", $username, $comment_id);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to update the chapter likes and dislikes based on the given criteria
         public function updateChapterLikes($username, $chapterId, $action) {
             $query = "";
         
             if ($action === 'like') {
-                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, chapter_id) VALUES ('$username', 0, $chapterId);";
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, chapter_id) VALUES (?, 0, ?);";
             } elseif ($action === 'unlike') {
-                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND chapter_id = '$chapterId';";
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = ? AND chapter_id = ?;";
             }
 
-            return $this->db->query($query);
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("si", $username, $chapterId);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to update the proposal likes and dislikes based on the given criteria
         public function updateProposalLikes($username, $proposalId, $action) {
             $query = "";
         
             if ($action === 'like') {
-                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, proposal_id) VALUES ('$username', 0, $proposalId);";
+                $query .= "INSERT INTO " . Tables::Likes->value . " (username, is_dislike, proposal_id) VALUES (?, 0, ?);";
             } elseif ($action === 'unlike') {
-                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = '$username' AND proposal_id = '$proposalId';";
+                $query .= "DELETE FROM " . Tables::Likes->value . " WHERE username = ? AND proposal_id = ?;";
             }
 
-            return $this->db->query($query);
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("si", $username, $proposalId);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to post a story based on the given criteria
         public function postStory($username, $title) {
-            $query = "INSERT INTO " . Tables::Stories->value . " (title, username) VALUES ('$title', '$username')";
-            error_log($query);
-            return $this->db->query($query);
+            $query = "INSERT INTO " . Tables::Stories->value . " (title, username) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $title, $username);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to post a chapter based on the given criteria
         public function postChapter($storyId, $chapterTitle, $content, $picture) {
-            $query = "INSERT INTO " . Tables::Chapters->value . " (story_id, chapter_title, content, picture) VALUES ('$storyId', '$chapterTitle', '$content', '$picture')";
-            return $this->db->query($query);
+            $query = "INSERT INTO " . Tables::Chapters->value . " (story_id, chapter_title, content, picture) VALUES (?, ?, ?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("isss", $storyId, $chapterTitle, $content, $picture);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to post a comment based on the given criteria
         public function postComment($username, $chapterId, $content) {
-            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content) VALUES ('$username', '$chapterId', '$content');";
-            return $this->db->query($query);
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, chapter_id, content) VALUES (?, ?, ?);";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("sis", $username, $chapterId, $content);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to post a proposal comment based on the given criteria
         public function postProposalComment($username, $proposalId, $content) {
-            $query = "INSERT INTO " . Tables::Comments->value . " (username, proposal_id, content) VALUES ('$username', '$proposalId', '$content');";
-            return $this->db->query($query);
+            $query = "INSERT INTO " . Tables::Comments->value . " (username, proposal_id, content) VALUES (?, ?, ?);";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("sis", $username, $proposalId, $content);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to post a proposal based on the given criteria
         public function postProposal($chapterId, $username, $title, $content) {
             $query = "INSERT INTO " . Tables::Proposals->value . " (chapter_id, username_proposing, title, content) VALUES (?, ?, ?, ?)";
             
             $stmt = $this->db->prepare($query);
             $stmt->bind_param("isss", $chapterId, $username, $title, $content);
-            
             return $stmt->execute();
+            $stmt->close();
         }
         
+        // This function is used to insert user in the db based on the given criteria
         public function insertUser($username, $password) {
-            $query = "INSERT INTO " . Tables::Users->value . " (username, password) VALUES ('$username', '$password')";
-            return $this->db->query($query);
+            $query = "INSERT INTO " . Tables::Users->value . " (username, password) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $username, $password);
+            return $stmt->execute();
+            $stmt->close();
         }
 
-        public function insertInto($values, Tables $table) {
-            $query = "INSERT INTO " . $table->value . " VALUES (";
-            $this->db->query($query . implode(',', $values). ')');
+        public function insertInto($values, Tables $table, $attributes=null) {
+            $query = "INSERT INTO " . $table->value . " ";
+            if($attributes !== null) {
+                $query .= "(".implode(',', $attributes).")";
+            }
+            $query = $query . " VALUES (".implode(',', $values).')';
+            $this->db->query($query);
         }
 
+        // General function for update something in the db
         public function update($updates, $conditions, Tables $table) {
             $query = "UPDATE " . $table->value;
 
@@ -331,19 +356,31 @@
             $this->db->query($query);
         }
 
+        // This function is used to generate notifications based on the given criteria
         public function generateNotification($username, $content) {
-            $query = "INSERT INTO " . Tables::Notifications->value . " (username, content) VALUES ('$username', '$content')";
-            return $this->db->query($query);
+            $query = "INSERT INTO " . Tables::Notifications->value . " (username, content) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $username, $content);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to generate notifications based on the given criteria
         public function follow($followed, $follower) {
-            $query = "INSERT INTO " . Tables::Followers->value . " (followed, follower) VALUES ('$followed', '$follower')";
-            return $this->db->query($query);
+            $query = "INSERT INTO " . Tables::Followers->value . " (followed, follower) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $followed, $follower);
+            return $stmt->execute();
+            $stmt->close();
         }
 
+        // This function is used to unfollow someone based on the given criteria
         public function unfollow($followed, $follower) {
-            $query = "DELETE FROM " . Tables::Followers->value . " WHERE followed = '$followed' AND follower = '$follower'";
-            return $this->db->query($query);
+            $query = "DELETE FROM " . Tables::Followers->value . " WHERE followed = ? AND follower = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $followed, $follower);
+            return $stmt->execute();
+            $stmt->close();
         }
 
         // This function return 0 if the user has not liked or disliked the comment, 1 if the user has liked the comment, and -1 if the user has disliked the comment

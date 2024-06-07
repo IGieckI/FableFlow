@@ -297,9 +297,9 @@ function loadPosts(page, username) {
         success: function(data) {
             if (data.length > 0) {
                 // Append new posts to the container
-                var postsContainer = $('#posts-container');
+                let postsContainer = $('#posts-container');
                 data.forEach(function(post) {
-                    var newPostHtml = createPostHtml(post);
+                    let newPostHtml = createPostHtml(post);
                     postsContainer.append(newPostHtml);
                 });
             } else {

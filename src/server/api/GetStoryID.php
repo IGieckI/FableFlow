@@ -1,4 +1,5 @@
 <?php
+/*
 require __DIR__ . '/../utilities/DbHelper.php';
 
 function getStoryID($db, $username, $title){
@@ -23,4 +24,5 @@ function getStoryID($db, $username, $title){
         throw new Exception("Errore nella preparazione della query: " . $db->error);
     }
 }
+*/
 ?>

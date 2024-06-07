@@ -5,6 +5,12 @@
         session_start();
     }
 
+    try{
+
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
+    }
     $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
 
     if (isset($_SESSION['LOGGED'])) {

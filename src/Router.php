@@ -92,6 +92,7 @@ $routes = [
         '/FableFlow/src/server/api/PostStory.php' => 'redirect',
         '/FableFlow/src/server/api/PostUserPoolChoice.php' => 'redirect',
         '/FableFlow/src/server/api/RemoveUserPoolChoice.php' => 'redirect',
+        '/FableFlow/src/server/api/AddPool.php' => 'redirect',
     ]
 ];
 

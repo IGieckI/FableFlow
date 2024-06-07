@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <p class="mb-2">Select your story:</p>
                             <select id="story-title" name="story-title" class="form-control">
-                                <!-- Opzioni per le storie verranno aggiunte dinamicamente qui -->
+                                <!--Options of the various stories, will be loaded here from Chapters.js-->
                             </select>
                         </div>
                         <div class="form-group">
