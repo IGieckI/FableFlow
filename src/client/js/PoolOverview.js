@@ -14,19 +14,17 @@ function loadPools() {
                     url: '/FableFlow/src/server/api/GetLoggedUsername.php',
                     type: 'GET',
                     dataType: 'json',
-                    success: function(data) {
-                        console.log(response['author']);
-                        console.log(data['result']);
+                    success: function(data) {  
                         if (response['author']==data['result']) {
                             let createButton = document.createElement('button');
                             createButton.className = 'create-pool'
+                            createButton.innerText = "Create a new pool!";
                             createButton.addEventListener('click', function() {
                                 loadContent('create-pool', function(){
                                     loadPoolCreation();
                                 });
                             });
                             document.querySelector('#create-pool').appendChild(createButton);
-                            console.log("BBBBBBB");
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
