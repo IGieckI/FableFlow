@@ -19,6 +19,7 @@
                                     FROM chapters as c JOIN stories as s ON c.story_id = s.story_id
                                     JOIN users as u ON s.username = u.username
                                     WHERE (c.chapter_id=?)", [$_GET['chapterId']], ['i']);
+        
         $chapter = $chapter[0];
         if (count($chapter) == 0) {
             throw new Exception('Chapter not found');

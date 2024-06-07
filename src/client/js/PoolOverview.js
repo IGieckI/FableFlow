@@ -1,15 +1,17 @@
-function initializePoolOverview() {
-    loadPools();
+function initializePoolOverview(chapterId) {
+    loadPools(chapterId);
 }
 
-function loadPools() {
+function loadPools(chapterId) {
     /* Request to see if i can create a pool for this chapter*/
+
     $.ajax({
         type: "GET",
         url: '/FableFlow/src/server/api/GetAuthor.php',
         data: { chapter_id: getChapterId(window.location.href) },
         dataType: 'json',
         success: function(response) {
+            console.log("CCCCCCCCCCCCCCCCC"+chapterId);
             if (response['author']!=null) {
                 $.ajax({
                     url: '/FableFlow/src/server/api/GetLoggedUsername.php',
@@ -22,7 +24,7 @@ function loadPools() {
                             createButton.innerText = "Create a new pool!";
                             createButton.addEventListener('click', function() {
                                 loadContent('create-pool', function(){
-                                    loadPoolCreation();
+                                    loadPoolCreation(chapterId);
                                 });
                             });
                             document.querySelector('#create-pool').appendChild(createButton);
