@@ -11,7 +11,6 @@ function loadPools(chapterId) {
         data: { chapter_id: getChapterId(window.location.href) },
         dataType: 'json',
         success: function(response) {
-            console.log("CCCCCCCCCCCCCCCCC"+chapterId);
             if (response['author']!=null) {
                 $.ajax({
                     url: '/FableFlow/src/server/api/GetLoggedUsername.php',
