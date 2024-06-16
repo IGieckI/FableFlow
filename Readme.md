@@ -49,10 +49,10 @@ Mockup da  fare:
 Main TO-DO:
 - [X] Design
 - [X] Registrazione e Login (Ciano)
-- [ ] Gestione della sessione corrente (remember me key) (Ciano)
-- [ ] Home con feed di post di utenti seguiti (Giacomo)
-- [ ] Post: Storia (con possibile immagine allegata) (Giacomo)
-- [ ] Post: Pool (Dario)
+- [X] Gestione della sessione corrente (remember me key) (Ciano)
+- [X] Home con feed di post di utenti seguiti (Giacomo)
+- [X] Post: Storia (con possibile immagine allegata) (Giacomo)
+- [X] Post: Pool (Dario)
 - [X] Post: Proposals (Giacomo)
 - [X] Post: Commenti (Giacomo)
 - [X] Search bar
@@ -63,12 +63,12 @@ Main TO-DO:
 
 Side TO-DO:
 - [X] Javascript variables have to be let and const not var
-- [ ] Desktop Mockup
-- [ ] Security sulle DB query
+- [X] Desktop Mockup
+- [X] Security sulle DB query
 - [X] MVC pattern (si farà solo in parte per questioni di tempo)
-- [ ] Check the difference between SQL tables and SQL diagram
-- [ ] Code refactory (check if have been used HTML standard tags where possible) IMPORTANT!!!
-- [ ] Check for redundant JS code, and make an Utilities.js class
+- [X] Check the difference between SQL tables and SQL diagram
+- [X] Code refactory (check if have been used HTML standard tags where possible) IMPORTANT!!!
+- [X] Check for redundant JS code, and make an Utilities.js class
 - [X] Scegliere le palette
 
 Feature da aggiungere potrebbero essere:
