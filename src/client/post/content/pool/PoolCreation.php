@@ -6,11 +6,11 @@
             </div>
             <div class="form-group">
                 <!--<label for="text">Text</label>-->
-                <textarea id="text" name="text" rows="50" cols="50" placeholder="Explain the context..."></textarea>
+                <textarea id="text" name="text" placeholder="Explain the context..."></textarea>
             </div>
             <div class="form-group">
                 <label for="expiration_datetime">Enter the deadline of the pool:</label>
-                <input type="text" id="expiration_datetime" name="expiration_datetime" placeholder="yy-mm-dd HH:mm:ss">
+                <input type="text" id="expiration_datetime" name="expiration_datetime">
             </div>
             <div class="form-group">
                 <ul id="choices_list" class="choices-list">

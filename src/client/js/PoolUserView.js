@@ -8,7 +8,6 @@ function poolUserViewInitialization(pool) {
         success: function(response) {
             try {
                 response = JSON.parse(response);
-                console.log(response);
 
                 // Initialize the pool view
                 document.getElementById("pool-title").textContent = pool.title;

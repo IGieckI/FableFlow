@@ -21,7 +21,6 @@ $db->insertInto([$chapterId, "'$title'","'$content'", "'$exp_date'"], Tables::Po
                                                                                     'expire_datetime']);
 $pool_id = $db->complexQuery('SELECT MAX(pool_id) as pool_id FROM pools', array(), array())[0]['pool_id'];
 
-error_log("ERRRRRAH".$pool_id);
 
 foreach($choices as $choice) {
     $db->insertInto([$pool_id, "'$choice'"], Tables::Options, ['pool_id', 'content']);

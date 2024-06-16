@@ -6,8 +6,13 @@ function loadPoolCreation(chapterId) {
         }
     });
     $("#expiration_datetime").datepicker({
-        dateFormat: "yy-mm-dd",
-        timeFormat: "HH:mm:ss"
+        showOn: "button",
+        timeFormat: "HH:mm:ss",
+        minDate: new Date(),
+        buttonImageOnly: true,
+        buttonImage: "/FableFlow/resources/calendar.png",
+        minTime: new Date().getHours() + ':' + new Date().getMinutes(),
+        dateFormat: "yy-mm-dd"
     });
 
     document.getElementById('clearButton').addEventListener('click', function() {

@@ -57,6 +57,7 @@ header > * {
 
 /* Notifications */
 .notification-menu {
+    border-radius: 25px;
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -97,10 +98,18 @@ header > * {
     align-content: center;
     text-align: left;
     margin-left: 20px;
+    color:black
 }
 
 .searched_user_container > img {
     grid-row: 1;
     grid-column: 1;
     width: 200px;
+}
+
+@media (max-width: 700px) {
+    .searched_user_container > img {
+        width: 100px;
+    }
+    
 }

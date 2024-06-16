@@ -314,7 +314,7 @@ function loadPosts(page, username) {
         data: { user: username},
         dataType: 'json',
         success: function(data) {
-            if (data.length > 0) {
+            if (data != null && data.length > 0) {
                 // Append new posts to the container
                 let postsContainer = $('#posts-container');
                 data.forEach(function(post) {

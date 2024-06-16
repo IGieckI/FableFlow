@@ -1,10 +1,11 @@
 #main-content {
     display: grid;
-    justify-content:center;
+    place-items: center;
 }
 
 .profile-pic {
     grid-row: span 2;
+    width: 90px;
     margin-right: 20px;
 }
 
@@ -20,7 +21,7 @@
 }
 
 .resume {
-    width: 100%;
+    width: fit-content;
     display: grid;
     grid-template-columns: min-content min-content min-content;
 }
@@ -106,17 +107,23 @@
     background-color: #e2e6ea;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 800px) {
     #posts-container {
-        margin-left: 0px;
-        margin-right: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
+
+    
 }
 
 /* Guest styles */
 
 
 /* Owner styles */
+
+#owner-view {
+    width: 320px;
+}
 
 #bio_upload_form {
     display: grid;

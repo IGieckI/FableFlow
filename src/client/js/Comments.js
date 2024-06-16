@@ -42,7 +42,7 @@ function createCommentHtml(comment) {
             <div class="container-fluid comment-box">
                 <div class="row user-info justify-content-between">
                     <div class="col-8">
-                        <img src="${comment.user_icon}" alt="User Pic" class="user-pic">
+                        <img src="/FableFlow/resources/icons/${comment.user_icon}" alt="User Pic" class="user-pic">
                         <strong>${comment.username}</strong><br>
                     </div>
                     <div class="col-4 text-end">

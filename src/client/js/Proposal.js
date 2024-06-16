@@ -5,7 +5,6 @@ function updateProposalLike(proposalId) {
         data: { proposalId: proposalId },
         success: function(response) {            
             response = JSON.parse(response);
-            console.log("Response:", response);
             document.getElementById("proposal-like-span").innerHTML = response.likes;
             document.getElementById("proposal-like-icon").className = response.status == 0 ? "bi bi-fire" : "bi bi-fire liked";
         },
@@ -55,7 +54,7 @@ function createCommentHtml(comment) {
             <div class="container-fluid comment-box">
                 <div class="row user-info justify-content-between">
                     <div class="col-8">
-                        <img src="${comment.user_icon}" alt="User Pic" class="user-pic">
+                        <img src="/FableFlow/resources/icons/${comment.user_icon}" alt="User Pic" class="user-pic">
                         <strong>${comment.username}</strong><br>
                     </div>
                     <div class="col-4 text-end">

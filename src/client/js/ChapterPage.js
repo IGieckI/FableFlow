@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
         url: "/FableFlow/src/server/api/GetChapter.php",
         data: { chapterId: getChapterId(window.location.href) },
         success: function(response) {
-            console.log(response);
             response = response[0];
 
             document.getElementById("chapter-title").innerHTML = response["post_title"] + ": " + response["story_title"];
@@ -89,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("like-icon").className = response["liked"] == 0 ? "bi bi-fire" : "bi bi-fire like-clicked";
             document.getElementById("user_icon").username = response["username"];
             document.getElementById("username-span").innerHTML = response["username"];
-            document.getElementById("user_icon_img").src = response["user_icon"];
+            document.getElementById("user_icon_img").src = "/FableFlow/resources/icons/" + response["user_icon"];
         },
         error: function(error) {
             console.log("Error loading page content.");
@@ -136,6 +135,7 @@ function updateChapterLike(chapterId) {
             response = JSON.parse(response);
             document.getElementById("like-span").innerHTML = response["likes"];
             document.getElementById("like-icon").className = response["status"] == 0 ? "bi bi-fire" : "bi bi-fire like-clicked";
+            
         },
         error: function() {
             console.log("Error updating likes.");

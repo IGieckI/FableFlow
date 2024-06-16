@@ -1,5 +1,6 @@
 <?php
     require __DIR__ . '/../utilities/DbHelper.php';
+    require __DIR__. '/UploadChapterImage.php';
 
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -12,11 +13,19 @@
 
         $username = $_SESSION['username'];
         $storyTitle = $_POST['story-title'];
-        
-        $story_id = $db->getStoryID($username, $storyTitle);
         $chapterTitle = $_POST['chapter-title'];
         $content = $_POST['content'];
-        $picture = isset($_POST['picture']) ? $_POST['picture'] : NULL;
+        if (isset($_FILES['chapter-image'])){
+            $image = $_FILES['chapter-image'];
+            $i[] = uploadChapterImage($image);
+        }
+        $story_id = $db->getStoryID($username, $storyTitle);
+        if(isset($i)){
+            $picture = $i[0]['id'];
+        }
+        else{
+            $picture= NULL;
+        }
 
         $response = $db->postChapter($story_id, $chapterTitle, $content, $picture);
 

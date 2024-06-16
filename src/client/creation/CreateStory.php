@@ -11,7 +11,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
+                    <div class="text-center">
                     <h2>Create a new Story</h2>
+                    </div>
                 </div>
                 <div class="card-body">
                     <form id="proposal-form" action="/FableFlow/src/server/api/PostStory.php" method="post" enctype="multipart/form-data">

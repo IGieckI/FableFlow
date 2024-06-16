@@ -9,13 +9,18 @@
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = $_SESSION['username'];
             $chapterId = $_POST['chapterId'];
-    
+
+
             $db = new DbHelper(HOST, USER, PASS, DB, PORT, SOCKET);
             
             $chapterStatus = $db->chapterStatus($chapterId, $username);
-    
+            
+            $author = $db->complexQuery("SELECT s.username as username
+                                    FROM chapters as c JOIN stories as s ON c.story_id = s.story_id
+                                    WHERE (c.chapter_id=?)", [$chapterId], ['i'])[0]['username'];
             if ($chapterStatus == 0) {
                 $db->updateChapterLikes($username, $chapterId, "like");
+                $db->generateNotification($author, $username . " liked your story!");
             } else {
                 $db->updateChapterLikes($username, $chapterId, "unlike");
             }

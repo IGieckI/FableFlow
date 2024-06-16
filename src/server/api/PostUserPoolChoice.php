@@ -14,16 +14,13 @@
         
         $optionId = $_POST['optionId'];
         $username = $_SESSION['username'];
-        error_log("PARTE 1");
         $del = $db->complexQuery("DELETE oc
                                 FROM option_choices oc
                                 INNER JOIN options o ON oc.option_id = o.option_id
                                 WHERE oc.username = ?
                                 AND o.pool_id = (SELECT pool_id FROM options WHERE option_id = ?)
                                 ", [$username, $optionId], ['s', 'i']);
-        error_log("PARTE 2" . print_r($del, true));
         $reponse = $db->postUserPoolChoice($username, $optionId);
-        error_log("PARTE 3" . print_r($response, true));
         
         echo json_encode($response);
     } catch (Exception $e) {

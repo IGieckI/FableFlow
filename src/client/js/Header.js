@@ -1,7 +1,6 @@
 let names = [];
 
 $(document).ready(function() {
-
     $('#notification-icon').click(function() {
         $('#notification-menu').toggle();
     });

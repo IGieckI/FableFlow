@@ -58,7 +58,7 @@ function createPostHtml(post) {
             <div class="container-fluid">
                 <div class="row user-info">
                     <div class="col-8">
-                        <img id="user-image" src="${post.user_icon}" alt="User Icon" width="30" height="30">
+                        <img id="user-image" src="/FableFlow/resources/icons/${post.user_icon}" alt="User Icon" width="30" height="30">
                         <span id="username-span-${post.chapter_id}">${post.username}</span>
                     </div>
                     <div class="col-4 time-text">

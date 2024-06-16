@@ -189,7 +189,7 @@
                 }
                 $statement->bind_param(implode('', $types), ...$params);
             }
-        
+            
             $statement->execute();
         
             $queryType = strtoupper(strtok(trim($query), " "));
@@ -371,7 +371,6 @@
                 $query .= " WHERE " . implode(' AND ', $conditionsImploded);
             }
 
-            error_log($query);
             $this->db->query($query);
         }
 

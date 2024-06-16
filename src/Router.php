@@ -75,6 +75,7 @@ $routes = [
     ],
     'POST' => [
         '/FableFlow/src/server/api/UpdateBio.php' => 'redirect',
+        '/FableFlow/src/server/api/UploadChapterImage.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateUserImage.php' => 'redirect',
         '/FableFlow/src/server/api/UploadImage.php' => 'redirect',
         '/FableFlow/src/server/api/UpdateFollowship.php' => 'redirect',

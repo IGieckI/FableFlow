@@ -6,3 +6,32 @@
 #back-history-button:hover {
     cursor: pointer;
 }
+
+.banner {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.banner > .col {
+    display: flex;
+    justify-content: center;
+}
+
+.category:hover {
+    background-color: black;
+    color: white;
+    transition-duration: 1s;
+}
+
+#user_icon {
+    width: fit-content;
+    display: grid;
+    grid-template-rows: auto auto;
+    height: fit-content;
+}
+
+@media only screen and (max-width: 400px) {
+    .banner {
+        grid-template-columns: 20% 20% 30% 30%;
+    }
+  }

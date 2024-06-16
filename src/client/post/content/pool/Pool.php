@@ -17,11 +17,7 @@ if (isset($_GET['pool_id']) && isset($_GET['chapter_id'])) {
 
 $result = $db->findBy(['pool_id'=>$_GET['pool_id'], 'chapter_id'=>$_GET['chapter_id']], ['pool_id' => 'i', 'chapter_id' => 'i'], null, null, Tables::Pools);
 
-error_log('llllllllllllllllllllllllllllllllll');
-
 $choices = $db->findBy(['p.pool_id'=>$_GET['pool_id']], ['p.pool_id' => 'i'], null, null, null, 'options as o JOIN pools as p ON o.pool_id=p.pool_id', ['o.content as content, o.option_id as option_id']);
-
-error_log('rrrrrrrrrrrrrrrrrr');
 
     if (isset($_SESSION['LOGGED'])) {
         $choice = $db->findBy(['p.pool_id'=>$_GET['pool_id'], 'oc.username'=>$_SESSION['username']], ['p.pool_id' => 'i', 'oc.username' => 's'], null, null, null,

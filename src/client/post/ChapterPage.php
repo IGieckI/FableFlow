@@ -20,7 +20,8 @@
                                     '/FableFlow/src/client/js/Story.js',
                                     '/FableFlow/src/client/js/PoolOverview.js',
                                     '/FableFlow/src/client/js/PoolCreation.js',
-                                    '/FableFlow/src/client/js/PoolUserView.js');
+                                    '/FableFlow/src/client/js/PoolUserView.js',
+                                    'https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js');
 
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/client/Header.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/FableFlow/src/server/utilities/DbHelper.php';
@@ -34,7 +35,7 @@
         <div class="col">
             <h5 id="chapter-title" class="font-weight-bold"></h5>
         </div>
-        <div class="col-2">
+        <div style="display: flex" class="col-2">
             <span><i id="like-icon" class="bi bi-fire"></i></span>
             <span id="like-span"></span>
         </div>
@@ -43,17 +44,17 @@
             <img id="user_icon_img" src="" alt="User Icon" width="30" height="30">
         </div>
     </div>
-    <div class="row">
-        <div class="col">
+    <div class="row banner">
+        <div class="col category">
             <button id="load-story-button" class="btn btn-block"">Story</button>
         </div>
-        <div class="col">
+        <div class="col category">
             <button id="load-pools-button" class="btn btn-block">Pools</button>
         </div>
-        <div class="col">
+        <div class="col category">
             <button id="load-proposals-button" class="btn btn-block">Proposals</button>
         </div>
-        <div class="col">
+        <div class="col category">
             <button id="load-comments-button" class="btn btn-block">Comments</button>
         </div>
     </div>

@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="text-center">
-                        <h2>Create a new Chapters</h2>
+                        <h2>Create a new Chapter</h2>
                     </div>
                 </div>
                 <div class="card-body">
@@ -31,7 +31,7 @@
                             <input type="text" id="chapter-title" name="chapter-title" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="chapter-image">Upload Image</label>
+                            <label for="chapter-image">Chapter Image</label>
                             <input type="file" id="chapter-image" name="chapter-image" class="form-control-file" accept="image/*">
                         </div>
                         <div class="form-group">

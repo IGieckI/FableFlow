@@ -20,7 +20,6 @@
             $story = $db->findBy(['story_id' => $chapter['story_id']], ['story_id' => 'i'], null, null, Tables::Stories)[0];
             $author = $db->findBy(['username' => $story['username']], ['username' => 's'], null, null, Tables::Users)[0];
             $db->generateNotification($author['username'], $username . ' commented on your proposal: ' . $proposal['title']);
-            error_log("PHASE 4");
             echo json_encode(['success' => true]);
             $db->disconnect();
             $db = null;

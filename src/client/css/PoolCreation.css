@@ -15,6 +15,7 @@
 #text {
     width: 100%;
     resize: none;
+    height: 300px;
 }
 
 .confirmed-option > i {
